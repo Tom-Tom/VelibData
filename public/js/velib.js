@@ -30,6 +30,12 @@ function addMarkers(map,velib){
 	text=text+"<br/><strong>Available bikes : </strong>"+velib.available_bikes;
 	text=text+"<br/><strong>Last update : </strong>"+formattedTime(velib.last_update);
 	text=text+"("+diffTime(velib.last_update)+"sec ago)";
+	var color = "#333333";
+	if(velib.available_bikes < 10){
+		color = "#BB0000";
+	} else if(velib.available_bikes > 30) {
+		color = "#BBBB00";
+	}
 	L.mapbox.markerLayer({
 	    type: 'Feature',
 	    geometry: {
@@ -40,7 +46,7 @@ function addMarkers(map,velib){
 	        title: name,
 	        description: text,
 	        'marker-size': 'small',
-	        'marker-color': '#333333',
+	        'marker-color': color,
 	        'marker-symbol': 'bicycle'
 	    }
 	}).addTo(map);
