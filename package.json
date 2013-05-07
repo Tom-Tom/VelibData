@@ -1,7 +1,7 @@
 {
   "name": "VelibData",
   "description": "Datavisualisation Velib Paris",
-  "version": "0.1",
+  "version": "0.0.1",
   "homepage": "https://github.com/Tom-Tom/VelibData",
   "author": {
     "name": "Tom FORLINI <tomforlini@gmail.com>",
