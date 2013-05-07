@@ -1,0 +1,24 @@
+{
+  "name": "VelibData",
+  "description": "Datavisualisation Velib Paris",
+  "version": "0.1",
+  "homepage": "https://github.com/Tom-Tom/VelibData",
+  "author": {
+    "name": "Tom FORLINI <tomforlini@gmail.com>",
+    "email": "tomforlini@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Tom-Tom/VelibData.git"
+  },
+  "engines": {
+    "node": ">=0.8.10"
+  },
+  "dependencies": {
+    "socket.io": "latest",
+    "request": "latest",
+    "express": "latest",
+    "mustache": "latest",
+    "consolidate": "latest"
+  }
+}
