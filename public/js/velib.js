@@ -1,41 +1,53 @@
-/* TEST */
-
+/* config RAPHAEL linechart */
 var r = Raphael('holder'),
 	txtattr = { font: "12px sans-serif"};
 
-var tab = [10,20,30,20,10,0,10];
+tab = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; // 25
 function chart(tab){
 	var x = [];
 	for(i=0;i<tab.length;i++){x[i]=i;}
 	r.remove();
 	r = Raphael('holder');
-	r.linechart(10,10,350,170,x,tab,{smooth: true,shade:true,axis:"0 0 0 1"});
+	r.linechart(30,10,350,170,x,tab,{smooth: true,shade:true,axis:"0 0 0 1"});
 }
 
+var c = Raphael('circle'),
+	txtattr = { font: "12px sans-serif"};
 
-var compteur = 0;
-function EcritureLigne(){
-   compteur += 1;
-   tab.push("15");
-   chart(tab);
-   // Rappel de la fonction en boucle
-   exempleTimeout = setTimeout("EcritureLigne()", 2000);
-   if(compteur >= 10){
-      window.clearTimeout(exempleTimeout);
-   }
+tabcircle = [25,25,50]; // 25
+function circleChart(tab){
+	c.remove();
+	c = Raphael('circle');
+	pie = c.piechart(260, 90, 50, tab, { legend: ["%%.%% Stands with Bikes", "%%.%% Stands with no bike", "%%.%% Stands Broken"], legendpos: "west"});
+	pie.hover(function () {
+	    this.sector.stop();
+	    this.sector.scale(1.1, 1.1, this.cx, this.cy);
+
+	    if (this.label) {
+	        this.label[0].stop();
+	        this.label[0].attr({ r: 7.5 });
+	        this.label[1].attr({ "font-weight": 800 });
+	    }
+	}, function () {
+	    this.sector.animate({ transform: 's1 1 ' + this.cx + ' ' + this.cy }, 500, "bounce");
+
+	    if (this.label) {
+	        this.label[0].animate({ r: 5 }, 500, "bounce");
+	        this.label[1].attr({ "font-weight": 400 });
+	    }
+	});
 }
-// Premier appel à la fonction EcritureLigne après 2 secondes
-var exempleTimeout = setTimeout("EcritureLigne()", 2000);
 
 /* GLOBAL */
-TYPE = "dqf";
+type = "dqf";
 
-/* START */
+/* CONFIG MAP */
 
 var map = L.mapbox.map('map', 'etiwiti.map-91mhirzp')
-    .setView([48.856, 2.342], 12);
+    .setView([48.856, 2.342], 13);
 map.attributionControl.removeFrom(map);
 
+/* SOCKET */
 var socket = io.connect('http://localhost');
 
 socket.on('data', function (data) {
@@ -44,25 +56,30 @@ socket.on('data', function (data) {
     var totalBikes = 0;
     var totalStands = 0;
     for (var i=0 ; i<velib.length ; i++) {
-    	addMarkers(map,velib[i]);
+    	addMarkers(map,velib[i],type);
     	totalBikes = totalBikes + velib[i].available_bikes;
     	totalStands = totalStands + velib[i].available_bike_stands;
     };
-    document.getElementById("countBikes").innerHTML = totalBikes;
-    document.getElementById("countStands").innerHTML = totalStands;
 });
 
+socket.on('nb', function (data) {
+    document.getElementById("countBikes").innerHTML = data.totalBikeAvailable;
+    document.getElementById("countStands").innerHTML = data.totalStandAvailable;
+    tab.shift();
+   	tab.push(data.totalBikeAvailable);
+   	chart(tab);
+   	var tabcircle = [ data.percentBike, data.percentStand, data.percentBroken];
+   	circleChart(tabcircle);
+});
+
+/* EVENT LISTENER */
 document.getElementById("control").addEventListener("click", menuStatut() , false);
 document.getElementById("showmarker").addEventListener("click", show("marker") , false); 
 document.getElementById("showcircle").addEventListener("click", show("circle") , false); 
+function show(arg){type=arg;}
 
-
-console.log(L.map);
-function show(arg){
-	//TYPE=arg;
-}
-
-function addMarkers(map,velib){
+/* FUNCTION */
+function addMarkers(map,velib,TYPE){
 	var lat = velib.position.lat;
 	var lng = velib.position.lng;
 	var name = velib.name.slice(7);
@@ -84,8 +101,8 @@ function addMarkers(map,velib){
 	} else if(pourcent <= 120){
 		color = "#D50055";
 	}
-	console.log(TYPE);
-	if(TYPE=="circle"){
+	console.log(type);
+	if(type!="circle"){
 		var circle_options = {
 		    color: '#00FF00',      // Stroke color
 		    opacity: 0,         // Stroke opacity
@@ -131,6 +148,8 @@ function menuStatut(elem){
  //console.log(elem);
 }
 
+
+/* LOAD WINDOW */
 function load(){
 	console.log("ALLO");
 }
