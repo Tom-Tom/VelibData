@@ -55,11 +55,36 @@ socket.on('data', function (data) {
     var velib = JSON.parse(data);
     var totalBikes = 0;
     var totalStands = 0;
+    var delaunay = [];
     for (var i=0 ; i<velib.length ; i++) {
     	addMarkers(map,velib[i],type);
     	totalBikes = totalBikes + velib[i].available_bikes;
     	totalStands = totalStands + velib[i].available_bike_stands;
+    	// var obj = { x:(velib[i].position.lng-2)*500,y:(velib[i].position.lat-48)*500};
+    	// delaunay.push(obj);
     };
+						// var canvas = document.getElementById("canvas"),
+						// ctx = canvas.getContext("2d"),
+						// i = 250,
+						// vertices = new Array(i),
+						// x, y
+						// while(i) {
+						// 	do {
+						// 		x = Math.random() - 0.5
+						// 		y = Math.random() - 0.5
+						// 	} while(x * x + y * y > 0.25)
+						// 	x = (x * 0.96875 + 0.5) * canvas.width
+						// 	y = (y * 0.96875 + 0.5) * canvas.height
+						// 	vertices[--i] = {x: x, y: y}
+						// }
+						// console.time("triangulate")
+						// var triangles = triangulate(delaunay)
+						// console.timeEnd("triangulate")
+    		// 			console.log(delaunay);
+						// console.log(vertices);
+						// i = triangles.length
+						// while(i)
+						// 	triangles[--i].draw(ctx)
 });
 
 socket.on('nb', function (data) {
@@ -79,7 +104,7 @@ document.getElementById("showcircle").addEventListener("click", show("circle") ,
 function show(arg){type=arg;}
 
 /* FUNCTION */
-function addMarkers(map,velib,TYPE){
+function addMarkers(map,velib,type){
 	var lat = velib.position.lat;
 	var lng = velib.position.lng;
 	var name = velib.name.slice(7);
@@ -101,7 +126,6 @@ function addMarkers(map,velib,TYPE){
 	} else if(pourcent <= 120){
 		color = "#D50055";
 	}
-	console.log(type);
 	if(type!="circle"){
 		var circle_options = {
 		    color: '#00FF00',      // Stroke color
