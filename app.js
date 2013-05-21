@@ -6,6 +6,12 @@ var request = require('request')
   , path = require('path')
 ;
 
+request('https://api.mongolab.com/api/1/databases?apiKey=TOyfmKVcgZnJ_818MLeRH9H4sX5zwSTL', function (error, response) {
+  if (!error && response.statusCode == 200) {
+    console.log(response);
+  }
+});
+
 var app = express()
   , http = require('http')
   , server = http.createServer(app)
@@ -37,7 +43,7 @@ io.sockets.on('connection', function (socket) {
     if (!error && response.statusCode == 200) {
       socket.emit('data', body);
     }
-  })
+  });
   send();
 });
 

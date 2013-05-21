@@ -19,6 +19,7 @@
     "request": "latest",
     "express": "latest",
     "mustache": "latest",
-    "consolidate": "latest"
+    "consolidate": "latest",
+    "mongoose": "~3.6.10"
   }
 }

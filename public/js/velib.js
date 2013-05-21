@@ -5,7 +5,18 @@ var r = Raphael('holder'),
 tab = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; // 25
 function chart(tab){
 	var x = [];
-	for(i=0;i<tab.length;i++){x[i]=i;}
+	var i = 0;
+	var back = 0;
+	while((tab[i]==0)||(i<tab.length)){
+		back=tab[i];
+		i++;
+	}
+	for(i=0;i<tab.length;i++){
+		x[i]=i;
+		if(tab[i]==0){
+			tab[i]=back
+		}
+	}
 	r.remove();
 	r = Raphael('holder');
 	r.linechart(30,10,350,170,x,tab,{smooth: true,shade:true,axis:"0 0 0 1"});
@@ -18,7 +29,7 @@ tabcircle = [25,25,50]; // 25
 function circleChart(tab){
 	c.remove();
 	c = Raphael('circle');
-	pie = c.piechart(260, 90, 50, tab, { legend: ["%%.%% Stands with Bikes", "%%.%% Stands with no bike", "%%.%% Stands Broken"], legendpos: "west"});
+	pie = c.piechart(270, 90, 75, tab, { legend: ["%%.%% Stands with Bikes", "%%.%% Stands with no bike", "%%.%% Stands Broken"], legendpos: "west"});
 	pie.hover(function () {
 	    this.sector.stop();
 	    this.sector.scale(1.1, 1.1, this.cx, this.cy);
@@ -126,15 +137,15 @@ function addMarkers(map,velib,type){
 	} else if(pourcent <= 120){
 		color = "#D50055";
 	}
-	if(type!="circle"){
+	if(type=="circle"){
 		var circle_options = {
-		    color: '#00FF00',      // Stroke color
-		    opacity: 0,         // Stroke opacity
-		    weight: 50,         // Stroke weight
-		    fillColor: color,  // Fill color
-		    fillOpacity: 0.7    // Fill opacity
+		    color: color,      // Stroke color
+		    opacity: 0.6,         // Stroke opacity
+		    weight: 5,         // Stroke weight
+		    fillColor: '#000000',  // Fill color
+		    fillOpacity: 0.4    // Fill opacity
 		};
-		L.circle(velib.position, 150, circle_options).addTo(map);
+		L.circle(velib.position, 50, circle_options).addTo(map);
 	} else {
 		L.mapbox.markerLayer({
 		    type: 'Feature',
@@ -143,7 +154,7 @@ function addMarkers(map,velib,type){
 		        coordinates: [lng, lat]
 		    },
 		    properties: {
-		        title: name,
+		        title: '<h3>'+name+'</h3>',
 		        description: text,
 		        'marker-size': 'small',
 		        'marker-color': color,
@@ -173,10 +184,28 @@ function menuStatut(elem){
 }
 
 
+document.getElementById('control').addEventListener('click',function(){
+	var panel = document.getElementsByTagName('footer')[0];
+	var control = document.getElementById('control');
+	console.log('ALLO');
+	if(panel.className == "hidePanel"){
+		panel.className = "showPanel";
+		control.className = "showControl";
+	} else {
+		panel.className = "hidePanel";
+		control.className = "hideControl";
+	}
+},false);
+
 /* LOAD WINDOW */
 function load(){
-	console.log("ALLO");
+	// console.log(document.getElementsByTagName('path'));
+	// document.getElementsByTagName('g').addEventListener('hover',function(){
+	// 	console.log(this);
+	// });
+	map.legendControl.addLegend(document.getElementById('legend-content').innerHTML);
 }
 
 window.onLoad = load();
+
 

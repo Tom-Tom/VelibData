@@ -10,18 +10,71 @@
     	z-index: 100;
     }
     </style>
+  	<style type='text/css'>
+	    .my-legend .legend-title {
+	      text-align: left;
+	      margin-bottom: 8px;
+	      font-weight: bold;
+	      font-size: 90%;
+	      }
+	    .my-legend .legend-scale ul {
+	      margin: 0;
+	      padding: 0;
+	      float: left;
+	      list-style: none;
+	      }
+	    .my-legend .legend-scale ul li {
+	      display: block;
+	      float: left;
+	      width: 50px;
+	      margin-bottom: 6px;
+	      text-align: center;
+	      font-size: 80%;
+	      list-style: none;
+	      }
+	    .my-legend ul.legend-labels li span {
+	      display: block;
+	      float: left;
+	      height: 15px;
+	      width: 50px;
+	      }
+	    .my-legend .legend-source {
+	      font-size: 70%;
+	      color: #999;
+	      clear: both;
+	      }
+	    .my-legend a {
+	      color: #777;
+	      }
+  	</style>
 	<body>
 		<header>
 			<ul>
 				<li><a href="#" id="showmarker" title="Show with Markers">Markers</a></li>
 				<li><a href="#" id="showcircle" title="Show with Circle">Circle</a></li>
 			</ul>
-			<canvas id="canvas" width="512" height="512">
+			<!-- <canvas id="canvas" width="512" height="512"> -->
 		</header>
 	    
 		<div id='map'></div>
+		<div id='legend-content' style='display: none;'>
+		  <div class='my-legend'>
+			  <div class='legend-title'>Population de velib</div>
+			  <div class='legend-scale'>
+			    <ul class='legend-labels'>
+			      <li><span style='background:#2B00DD;'></span>0 - 20%</li>
+			      <li><span style='background:#5500BB;'></span>40%</li>
+			      <li><span style='background:#800099;'></span>60%</li>
+			      <li><span style='background:#AA0077;'></span>80%</li>
+			      <li><span style='background:#D50055;'></span>100%</li>
+			    </ul>
+			  </div>
+			  <div class='legend-source'>Source: <a href="http://www.jcdecaux.fr/‎">JCDecaux</a></div>
+	  		</div>
+	  	</div>
+
 		<footer>
-			<div id="control"></div>
+			<div id="control" class="showControl"></div>
 			<ul>
 				<li>
 					<div id="holder"></div>
@@ -44,7 +97,6 @@
 		</footer>
 		<script src='http://api.tiles.mapbox.com/mapbox.js/v1.0.2/mapbox.js'></script>
 		<script src="/socket.io/socket.io.js" type="text/javascript"></script>
-    	<script src="js/delaunay.js" type="text/javascript"></script>
 		<script src="js/raphael.js" type="text/javascript"></script>
 		<script src="js/g.raphael.js" type="text/javascript"></script>
 		<script src="js/g.line.js" type="text/javascript"></script>
