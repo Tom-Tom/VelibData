@@ -39,7 +39,7 @@ function circleChart(tab){
 	        this.label[0].attr({ r: 7.5 });
 	        this.label[1].attr({ "font-weight": 800 });
 	    }
-	}, function () {
+	}, function () {	
 	    this.sector.animate({ transform: 's1 1 ' + this.cx + ' ' + this.cy }, 500, "bounce");
 
 	    if (this.label) {
@@ -57,7 +57,7 @@ type = "dqf";
 var map = L.mapbox.map('map', 'etiwiti.map-91mhirzp')
     .setView([48.856, 2.342], 13);
 map.attributionControl.removeFrom(map);
-
+console.log(map);
 /* SOCKET */
 var socket = io.connect('http://localhost');
 
@@ -91,7 +91,7 @@ socket.on('data', function (data) {
 						// console.time("triangulate")
 						// var triangles = triangulate(delaunay)
 						// console.timeEnd("triangulate")
-    		// 			console.log(delaunay);
+    					// console.log(delaunay);
 						// console.log(vertices);
 						// i = triangles.length
 						// while(i)
@@ -207,5 +207,3 @@ function load(){
 }
 
 window.onLoad = load();
-
-
