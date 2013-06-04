@@ -2,7 +2,6 @@ $(function () {
     var
     donutInitDelay = 500,
     donutContainer = $('#donutContainer'),
-    donutAllStands = $('#donutAllStands'),
     donutColors = [
         '#1b6d93',
         '#64bee7',
@@ -69,16 +68,7 @@ $(function () {
                 name: 'Total'
             }]
         });
-        /*donutAllStands.removeClass('no_opacity');
-        changeDonut(69);*/
     }
-    /*
-    function changeDonutPercent(nbStands){
-        donutAllStands
-            .addClass('no_opacity')
-            .text(nbStands+'%')
-            .removeClass('no_opacity');
-    }*/
 
     donutContainer.on('inview', function(){
         var $this = $(this);
