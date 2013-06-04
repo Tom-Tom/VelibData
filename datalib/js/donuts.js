@@ -5,14 +5,17 @@
 $(window).load(function(){
     var donutChartData = [
         {
+            title: '4%',
             value: 4,
             color:'#1b6d93'
         },
         {
+            title: '36%',
             value : 36,
             color : '#64bee7'
         },
         {
+            title: '30%',
             value : 30,
             color : '#8fceea'
         }

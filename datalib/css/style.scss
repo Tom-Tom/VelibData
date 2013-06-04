@@ -58,6 +58,9 @@ $blue4: #d0eaf6; // fond date
 $blue5: #b5def1; // border date
 
 
+/* VALUES */
+$donut_diametre: 200;
+
 /* SCSS */
 
 body{
@@ -127,14 +130,14 @@ section{
     margin:0 auto;
     position:relative;
     width:100%;
-    height:300px;
-    margin:50px 0;
+    height:$donut_diametre+px;
+    margin:20px 0;
 }
 #donutChartCanvas{
     display:block;
     position:absolute;
-    left:50%; margin-left:-150px;
-    top:50%; margin-top:-150px;
+    left:50%; margin-left:-($donut_diametre / 2) + px;
+    top:50%; margin-top:-($donut_diametre / 2) + px;
 }
 #donutNbStands{
     position:absolute;
