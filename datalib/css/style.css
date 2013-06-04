@@ -144,5 +144,5 @@ section:nth-child(3) {
   height: 100px;
   text-align: center;
   line-height: 100px;
-  transition: all 0.5s ease 1s;
-  -webkit-transition: all 0.5s ease 1s; }
+  transition: opacity, 0.5s, ease, 3s;
+  -webkit-transition: opacity, 0.5s, ease, 3s; }

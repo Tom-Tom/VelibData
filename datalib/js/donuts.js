@@ -41,14 +41,14 @@ $(window).load(function(){
         animateScale : false,
         //Function - Will fire on animation completion.
         onAnimationComplete : null
-    }
+    };
     var graphInitDelay = 500;
     var divNbStands = $('#donutNbStands');
 
     function showDonutChart(){
         var ctx = document.getElementById('donutChartCanvas').getContext('2d');
         new Chart(ctx).Doughnut(donutChartData,globalGraphSettings);
-        $('#donutNbStands').removeClass('hidden');
+        $('#donutNbStands').removeClass('no_opacity');
         changeDonutChart(69);
     }
 
