@@ -19,3 +19,41 @@ footer ul { list-style: none;padding: 0;margin-left:5px;position: relative;}
 footer ul li{ border: 1px solid #777; display: inline-block;height: 175px;width: 33%;float:left;}
 h3{text-align: center;}
 .map-legends{margin-bottom: 200px !important;}
+#canvasID{
+z-index: 100;
+}
+.my-legend .legend-title {
+text-align: left;
+margin-bottom: 8px;
+font-weight: bold;
+font-size: 90%;
+}
+.my-legend .legend-scale ul {
+margin: 0;
+padding: 0;
+float: left;
+list-style: none;
+}
+.my-legend .legend-scale ul li {
+display: block;
+float: left;
+width: 50px;
+margin-bottom: 6px;
+text-align: center;
+font-size: 80%;
+list-style: none;
+}
+.my-legend ul.legend-labels li span {
+display: block;
+float: left;
+height: 15px;
+width: 50px;
+}
+.my-legend .legend-source {
+font-size: 70%;
+color: #999;
+clear: both;
+}
+.my-legend a {
+color: #777;
+}
