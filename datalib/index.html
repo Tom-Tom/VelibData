@@ -4,6 +4,13 @@
 	<meta charset="UTF-8">
 	<title>DataLib</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<style type="text/css" media="screen">
+        #holder {
+            height: 250px;
+            margin: 0 0 0 0;
+            width: 1500px;
+        }
+    </style>
 </head>
 <body>
 	<section id="informations">
@@ -16,9 +23,72 @@
 	</section>
 	<section id="timeline">
 		<span id="date">Le<span>31/05/2013</span></span>
+		<table id="data" style="position: absolute; left: -9999em; top: -9999em;">
+            <tfoot>
+                <tr>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                    <th>6</th>
+                    <th>7</th>
+                    <th>8</th>
+                    <th>9</th>
+                    <th>10</th>
+                    <th>11</th>
+                    <th>12</th>
+                    <th>13</th>
+                    <th>14</th>
+                    <th>15</th>
+                    <th>16</th>
+                    <th>17</th>
+                    <th>18</th>
+                    <th>19</th>
+                    <th>19</th>
+                    <th>20</th>
+                    <th>22</th>
+                    <th>23</th>
+                    <th>24</th>
+                </tr>
+            </tfoot>
+            <tbody>
+                <tr>
+                    <td>8</td>
+                    <td>25</td>
+                    <td>27</td>
+                    <td>25</td>
+                    <td>54</td>
+                    <td>59</td>
+                    <td>79</td>
+                    <td>47</td>
+                    <td>27</td>
+                    <td>44</td>
+                    <td>44</td>
+                    <td>51</td>
+                    <td>56</td>
+                    <td>83</td>
+                    <td>12</td>
+                    <td>91</td>
+                    <td>52</td>
+                    <td>12</td>
+                    <td>40</td>
+                    <td>8</td>
+                    <td>60</td>
+                    <td>29</td>
+                    <td>7</td>
+                    <td>33</td>
+                </tr>
+            </tbody>
+        </table>
 		<div id="holder"></div>
 	</section>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+	<script type="text/javascript" src="js/raphael.js"></script>
+	<script type="text/javascript" src="js/g.raphael.js"></script>
+	<script type="text/javascript" src="js/g.line.js"></script>
+	<script type="text/javascript" src="js/velib-chart.js"></script>
+	<script type="text/javascript" src="js/velib-popup.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
