@@ -58,8 +58,6 @@ $blue4: #d0eaf6; // fond date
 $blue5: #b5def1; // border date
 
 
-/* VALUES */
-$donut_diametre: 200;
 
 /* SCSS */
 
@@ -133,22 +131,16 @@ section{
 	}
 }
 .no_opacity{
-    opacity:0;
+    opacity:0 !important;
 }
-#donutChartContainer{
+#donutContainer{
     margin:0 auto;
     position:relative;
     width:100%;
-    height:$donut_diametre+px;
+    height:200px;
     margin:20px 0;
 }
-#donutChartCanvas{
-    display:block;
-    position:absolute;
-    left:50%; margin-left:-($donut_diametre / 2) + px;
-    top:50%; margin-top:-($donut_diametre / 2) + px;
-}
-#donutNbStands{
+#donutMainPercent{
     position:absolute;
     left:50%; margin-left:-50px;
     top:50%; margin-top:-50px;
