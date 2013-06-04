@@ -3,18 +3,18 @@
 *****************/
 
 $(window).load(function(){
-    var doughnutChartData = [
+    var donutChartData = [
         {
             value: 4,
-            color:"#1b6d93"
+            color:'#1b6d93'
         },
         {
             value : 36,
-            color : "#64bee7"
+            color : '#64bee7'
         },
         {
             value : 30,
-            color : "#8fceea"
+            color : '#8fceea'
         }
     ];
     // pas nécessaire
@@ -24,7 +24,7 @@ $(window).load(function(){
         //Boolean - Whether we should show a stroke on each segment
         segmentShowStroke : true,
         //String - The colour of each segment stroke
-        segmentStrokeColor : "#d0eaf6",
+        segmentStrokeColor : '#d0eaf6',
         //Number - The width of each segment stroke
         segmentStrokeWidth : 5,
         //The percentage of the chart that we cut out of the middle.
@@ -34,33 +34,33 @@ $(window).load(function(){
         //Number - Amount of animation steps
         animationSteps : 100,
         //String - Animation easing effect
-        animationEasing : "easeOutBounce",
-        //Boolean - Whether we animate the rotation of the Doughnut
+        animationEasing : 'easeOutBounce',
+        //Boolean - Whether we animate the rotation of the donut
         animateRotate : true,
-        //Boolean - Whether we animate scaling the Doughnut from the centre
+        //Boolean - Whether we animate scaling the donut from the centre
         animateScale : false,
         //Function - Will fire on animation completion.
         onAnimationComplete : null
     }
     var graphInitDelay = 500;
-    var divNbStands = $('#doughnutNbStands');
+    var divNbStands = $('#donutNbStands');
 
-    function showDoughnutChart(){
-        var ctx = document.getElementById('doughnutChartCanvas').getContext('2d');
-        new Chart(ctx).Doughnut(doughnutChartData,globalGraphSettings);
-        $('#doughnutNbStands').removeClass('hidden');
-        changeDoughnutChart(69);
+    function showDonutChart(){
+        var ctx = document.getElementById('donutChartCanvas').getContext('2d');
+        new Chart(ctx).Doughnut(donutChartData,globalGraphSettings);
+        $('#donutNbStands').removeClass('hidden');
+        changeDonutChart(69);
     }
 
-    $('#doughnutChartCanvas').on('inview', function(){
+    $('#donutChartCanvas').on('inview', function(){
         var $this = $(this);
-        $this.removeClass('hidden').off('inview');
-        setTimeout(showDoughnutChart,graphInitDelay);
+        $this.removeClass('no_opacity').off('inview');
+        setTimeout(showDonutChart,graphInitDelay);
     });
 
-    function changeDoughnutChart(nbStands){
-        divNbStands.addClass('hidden');
+    function changeDonutChart(nbStands){
+        divNbStands.addClass('no_opacity');
         divNbStands.text(nbStands+'%');
-        divNbStands.removeClass('hidden');
+        divNbStands.removeClass('no_opacity');
     }
 });
