@@ -134,15 +134,12 @@ section:nth-child(3) {
   height: 200px;
   margin: 20px 0; }
 
-#donutMainPercent {
-  position: absolute;
-  left: 50%;
-  margin-left: -50px;
-  top: 50%;
-  margin-top: -50px;
-  width: 100px;
-  height: 100px;
-  text-align: center;
-  line-height: 100px;
-  transition: opacity, 0.5s, ease, 3s;
-  -webkit-transition: opacity, 0.5s, ease, 3s; }
+/*#donutAllStands{
+    position:absolute;
+    left:50%; margin-left:-50px;
+    top:50%; margin-top:-50px;
+    width:100px; height:100px;
+    text-align:center; line-height:100px;
+    transition:opacity, 0.5s, ease, 1s;
+    -webkit-transition:opacity, 0.5s, ease, 1s;
+}*/
