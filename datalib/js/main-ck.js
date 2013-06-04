@@ -1,0 +1,1 @@
+$(function(){var e=L.mapbox.map("map","etiwiti.map-91mhirzp").setView([48.856,2.342],13);e.attributionControl.removeFrom(e)});

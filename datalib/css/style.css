@@ -1,1 +1,157 @@
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after{content:'';content:none}q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}@font-face{font-family:'DINPro';src:url("fonts/DINPro-Regular.otf");font-weight:normal;font-style:normal}@font-face{font-family:'DINPro';src:url("fonts/DINPro-Italic.otf");font-weight:normal;font-style:italic}@font-face{font-family:'DINPro';src:url("fonts/DINPro-Bold.otf");font-weight:bold;font-style:normal}@font-face{font-family:'DINPro';src:url("fonts/DINPro-Black.otf");font-weight:900}@font-face{font-family:'DINPro';src:url("fonts/DINPro-Light.otf");font-weight:100}body{background-color:#edf5fb;font-family:DINPro;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}section:nth-child(1){position:fixed;top:0;left:0;width:40%;background-color:rgba(237,245,251,0.5);z-index:50}section:nth-child(1) h1{display:inline-block;background-color:#65bee7;color:#edf5fb;margin:50px;padding:3px 15px;font-size:2em}section:nth-child(1) #titreStation{color:#1b6d93;font-size:2.5em;margin-left:50px}section:nth-child(1) #soustitreStation{color:#64bee7;font-size:1.5em;margin-left:50px}section:nth-child(1) #soustitreStation span{margin-left:25px}section:nth-child(2){position:fixed;background-color:#edf5fb;height:100%;width:100%;z-index:0}section:nth-child(2) #map{height:100%;width:100%}section:nth-child(3){background-color:rgba(237,245,251,0.5);position:fixed;bottom:0;height:40%;width:100%;z-index:50}section:nth-child(3) #date{margin-left:100px;color:#1b6d93}section:nth-child(3) #date span{margin-left:10px;padding:0 5px;color:#1b6d93;background-color:#d0eaf6;border:1px solid #b5def1}.no_opacity{opacity:0}#donutChartContainer{margin:0 auto;position:relative;width:100%;height:200px;margin:20px 0}#donutChartCanvas{display:block;position:absolute;left:50%;margin-left:-100px;top:50%;margin-top:-100px}#donutNbStands{position:absolute;left:50%;margin-left:-50px;top:50%;margin-top:-50px;width:100px;height:100px;text-align:center;line-height:100px;transition:opacity, 0.5s, ease, 3s;-webkit-transition:opacity, 0.5s, ease, 3s}
+/* http://meyerweb.com/eric/tools/css/reset/
+v2.0 | 20110126
+License: none (public domain)*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after {
+  content: '';
+  content: none; }
+
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/*************************
+          START 
+*************************/
+/* FONT FACE */
+@font-face {
+  font-family: 'DINPro';
+  src: url("fonts/DINPro-Regular.otf");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'DINPro';
+  src: url("fonts/DINPro-Italic.otf");
+  font-weight: normal;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'DINPro';
+  src: url("fonts/DINPro-Bold.otf");
+  font-weight: bold;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'DINPro';
+  src: url("fonts/DINPro-Black.otf");
+  font-weight: 900; }
+
+@font-face {
+  font-family: 'DINPro';
+  src: url("fonts/DINPro-Light.otf");
+  font-weight: 100; }
+
+/* COLORS */
+/* VALUES */
+/* SCSS */
+body {
+  background-color: #edf5fb;
+  font-family: DINPro;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility; }
+
+section:nth-child(1) {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40%;
+  background-color: rgba(237, 245, 251, 0.5);
+  z-index: 50; }
+  section:nth-child(1) h1 {
+    display: inline-block;
+    background-color: #65bee7;
+    color: #edf5fb;
+    margin: 50px;
+    padding: 3px 15px;
+    font-size: 2em; }
+  section:nth-child(1) #titreStation {
+    color: #1b6d93;
+    font-size: 2.5em;
+    margin-left: 50px; }
+  section:nth-child(1) #soustitreStation {
+    color: #64bee7;
+    font-size: 1.5em;
+    margin-left: 50px; }
+    section:nth-child(1) #soustitreStation span {
+      margin-left: 25px; }
+section:nth-child(2) {
+  position: fixed;
+  background-color: #edf5fb;
+  height: 100%;
+  width: 100%;
+  z-index: 0; }
+  section:nth-child(2) #map {
+    height: 100%;
+    width: 100%; }
+section:nth-child(3) {
+  background-color: rgba(237, 245, 251, 0.5);
+  position: fixed;
+  bottom: 0;
+  height: 40%;
+  width: 100%;
+  z-index: 50; }
+  section:nth-child(3) #date {
+    margin-left: 100px;
+    color: #1b6d93; }
+    section:nth-child(3) #date span {
+      margin-left: 10px;
+      padding: 0 5px;
+      color: #1b6d93;
+      background-color: #d0eaf6;
+      border: 1px solid #b5def1; }
+
+.no_opacity {
+  opacity: 0; }
+
+#donutChartContainer {
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+  height: 200px;
+  margin: 20px 0; }
+
+#donutChartCanvas {
+  display: block;
+  position: absolute;
+  left: 50%;
+  margin-left: -100px;
+  top: 50%;
+  margin-top: -100px; }
+
+#donutNbStands {
+  position: absolute;
+  left: 50%;
+  margin-left: -50px;
+  top: 50%;
+  margin-top: -50px;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  line-height: 100px;
+  transition: opacity, 0.5s, ease, 3s;
+  -webkit-transition: opacity, 0.5s, ease, 3s; }
