@@ -76,6 +76,8 @@ section{
 		left:0;
 		//border: 1px solid black;
 		width:40%;
+		background-color: rgba(237,245,251,0.5);
+		z-index: 50;
 		h1{
 			display:inline-block;
 			background-color:$blue1;
@@ -99,17 +101,24 @@ section{
 		}
 	}
 	&:nth-child(2){
-		position:relative;
-		background-color: blue;
-		height:100%;
-		width:100%;
+		position:fixed;
+		background-color: $bg;
+		height: 100%;
+		width: 100%;
+		z-index: 0;
+		#map{
+			height: 100%;
+			width: 100%;
+		}
 	}
 	&:nth-child(3){
+		background-color: rgba(237,245,251,0.5);
 		position:fixed;
 		bottom:0;
 		//border: 1px solid black;
 		height:40%;
 		width:100%;
+		z-index: 50;
 		#date{
 			margin-left:100px;
 			color:$blue2;
