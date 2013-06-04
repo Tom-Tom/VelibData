@@ -121,9 +121,6 @@ $(function () {
                     label[1].attr({text: lbl + " September 2008"}).show().stop().animateWith(frame, anim, {transform: ["t", lx, ly]}, 200 * is_label_visible);
                     dot.attr("r", 20);
                     is_label_visible = true;
-                    this.attrs.opicity = 1;
-                    this.attrs.color = "#333";
-                    console.log(this.attrs);
                 }, function () {
                     dot.attr("r", 9);
                     leave_timer = setTimeout(function () {
