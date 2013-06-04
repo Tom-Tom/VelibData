@@ -137,7 +137,7 @@ function addMarkers(map,velib,type){
 	} else if(pourcent <= 120){
 		color = "#D50055";
 	}
-	if(type=="circle"){
+	if(type!="circle"){
 		var circle_options = {
 		    color: color,      // Stroke color
 		    opacity: 0.6,         // Stroke opacity
