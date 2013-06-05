@@ -50,7 +50,7 @@ $(function() {
 		} else if(pourcent <= 120){
 			color = "#D50055";
 		}
-		if(type!="circle"){
+		if(type=="circle"){
 			var circle_options = {
 			    color: color,      // Stroke color
 			    opacity: 0.6,         // Stroke opacity
@@ -67,7 +67,7 @@ $(function() {
 			        coordinates: [lng, lat]
 			    },
 			    properties: {
-			        title: '<h3>'+name+'</h3>',
+			        title: name,
 			        description: text,
 			        'marker-size': 'small',
 			        'marker-color': color,
