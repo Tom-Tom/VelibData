@@ -69,13 +69,15 @@ body{
 }
 section{
 	&:nth-child(1){
-		position: fixed;
+		position:fixed;
 		top:0;
 		left:0;
 		//border: 1px solid black;
-		width:40%;
-		background-color: rgba(237,245,251,0.5);
-		z-index: 50;
+		width:35%;
+		height: 77%;
+		background-color: $bg;
+		z-index: 51;
+	    box-shadow: 40px -40px 60px 0px #edf5fb;
 		h1{
 			display:inline-block;
 			background-color:$blue1;
@@ -101,8 +103,10 @@ section{
 	&:nth-child(2){
 		position:fixed;
 		background-color: $bg;
-		height: 100%;
-		width: 100%;
+		top: 0;
+		right: 0;
+		height: 77%;
+		width: 65%;
 		z-index: 0;
 		#map{
 			height: 100%;
@@ -110,13 +114,14 @@ section{
 		}
 	}
 	&:nth-child(3){
-		background-color: rgba(237,245,251,0.5);
+		background-color: $bg;
 		position:fixed;
 		bottom:0;
 		//border: 1px solid black;
-		height:40%;
+		height:23%;
 		width:100%;
 		z-index: 50;
+	    box-shadow: 40px -40px 60px 0px #edf5fb;
 		#date{
 			margin-left:100px;
 			color:$blue2;
@@ -142,3 +147,6 @@ section{
 }
 
 
+.leaflet-control{
+	margin-left: 50px !important;
+}

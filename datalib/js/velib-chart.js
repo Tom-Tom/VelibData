@@ -52,8 +52,8 @@ $(function () {
         });
         
         // Draw
-        var width = 1500,
-            height = 250,
+        var width = document.body.clientWidth - 50,
+            height = 175,
             leftgutter = 30,
             bottomgutter = 20,
             topgutter = 20,
