@@ -90,4 +90,105 @@ $(function() {
 		nowDate = nowDate - timestamp;
 		return formattedTime(nowDate);
 	}
+
+
+	/* TIMELINE */
+	Highcharts.setOptions({
+            global: {
+                useUTC: false
+            }
+        });
+        var chart;
+        $('#timeline').highcharts({
+            chart: {
+                type: 'spline',
+                backgroundColor: 'transparent',
+                height:'250',
+                animation: Highcharts.svg, // don't animate in old IE
+                events: {
+                    load: function() {
+    
+                        // set up the updating of the chart each second
+                        var series = this.series[0];
+                        setInterval(function() {
+                            var x = (new Date()).getTime(), // current time
+                                y = Math.random();
+                            series.addPoint([x, y], true, true);
+                        }, 3000);
+                    }
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            title: {
+                text: ''
+            },
+            xAxis: {
+                type: 'datetime',
+                lineWidth:0,
+                tickPixelInterval: 150
+            },
+            yAxis: {
+                title: {
+                    text: ''
+                },
+                gridLineWidth: 0,
+                labels:{
+                    enabled: false
+                }
+            },
+            tooltip: {
+                formatter: function() {
+                        return '<b>'+ this.series.name +'</b><br/>'+
+                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) +'<br/>'+
+                        Highcharts.numberFormat(this.y, 2);
+                },
+                crosshairs: [{
+                        width: 4,
+                        color: '#1b6d93'
+                    }]
+            },
+            plotOptions: {
+                series: {
+                    color: '#64bee7',
+                    marker: {
+                        fillColor: '#edf5fb',
+                        lineColor: '#64bee7',
+                        lineWidth: 4,
+                        states:{
+                            hover:{
+                                lineColor: '#1b6d93'
+                            }
+                        }
+                    }
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            exporting: {
+                enabled: false
+            },
+            series: [{
+                name: 'Random data',
+                lineWidth: 6,
+                marker: {
+                    radius: 9
+                },
+                data: (function() {
+                    // generate an array of random data
+                    var data = [],
+                        time = (new Date()).getTime(),
+                        i;
+                    for (i = -19; i <= 0; i++) {
+                        data.push({
+                            x: time + i * 3000,
+                            y: Math.random()
+                        });
+                    }
+                    return data;
+                })()
+            }]
+        });
 });
