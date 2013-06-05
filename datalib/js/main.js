@@ -99,11 +99,11 @@ $(function() {
             }
         });
         var chart;
-        $('#timeline').highcharts({
+        $('#graph').highcharts({
             chart: {
                 type: 'spline',
                 backgroundColor: 'transparent',
-                height:'250',
+                height:'200',
                 animation: Highcharts.svg, // don't animate in old IE
                 events: {
                     load: function() {
