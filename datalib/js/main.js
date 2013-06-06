@@ -1,8 +1,7 @@
 $(function() {
 
 	/* MAP */
-	var map = L.mapbox.map('map', 'etiwiti.panam')
-	    .setView([48.856, 2.342], 13);
+	var map = L.mapbox.map('map', 'etiwiti.panam');
 	map.attributionControl.removeFrom(map);
 
     /* AJAX */
@@ -45,10 +44,28 @@ $(function() {
                     // set up the updating of the chart each second
                     var series = this.series[0];
                     setInterval(function() {
-                        var x = (new Date()).getTime(), // current time
-                            y = Math.random();
-                        series.addPoint([x, y], true, true);
-                    }, 3000);
+                        $.ajax({
+                            url: 'https://api.jcdecaux.com/vls/v1/stations?apiKey=a529d3371c450b3ab44a9281345bcb27e8f47868&contract=Paris',
+                            type: 'GET',
+                            crossDomain: true,
+                            dataType: 'jsonp',
+                            success: function(data) {
+                                var x = (new Date()).getTime(); // current time
+                                var velib = data;
+                                var totalBikes = 0;
+                                var totalStands = 0;
+                                for (var i=0 ; i<velib.length ; i++) {
+                                    totalBikes = totalBikes + velib[i].available_bikes;
+                                    totalStands = totalStands + velib[i].available_bike_stands;
+                                };
+                                var y = totalBikes;
+                                console.log(y);
+                                var x = (new Date()).getTime(); // current time
+                                series.addPoint([x, y], true, true);
+                            },
+                            error: function() { console.log('Fail load data API'); }
+                        });
+                    }, 1000);
                 }
             }
         },
@@ -117,8 +134,8 @@ $(function() {
                     i;
                 for (i = -19; i <= 0; i++) {
                     data.push({
-                        x: time + i * 3000,
-                        y: Math.random()
+                        x: time + i * 1000,
+                        y: 15000
                     });
                 }
                 return data;
