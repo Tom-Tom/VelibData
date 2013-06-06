@@ -23,7 +23,18 @@ $(function() {
 	    },
 	    error: function() { console.log('Fail load data API'); }
 	});
-
+    setInterval(function() {
+        $.ajax({
+            url: 'https://api.jcdecaux.com/vls/v1/stations?apiKey=a529d3371c450b3ab44a9281345bcb27e8f47868&contract=Paris',
+            type: 'GET',
+            crossDomain: true,
+            dataType: 'jsonp',
+            success: function(data) {
+                localStorage.data = JSON.stringify(data);
+            },
+            error: function() { console.log('Fail load data API'); }
+        });
+    }, 3000);
 	/* TIMELINE */
 
 	Highcharts.setOptions({
@@ -36,7 +47,7 @@ $(function() {
         chart: {
             type: 'spline',
             backgroundColor: 'transparent',
-            height:'150',
+            height:'190',
             animation: Highcharts.svg, // don't animate in old IE
             events: {
                 load: function() {
@@ -44,28 +55,19 @@ $(function() {
                     // set up the updating of the chart each second
                     var series = this.series[0];
                     setInterval(function() {
-                        $.ajax({
-                            url: 'https://api.jcdecaux.com/vls/v1/stations?apiKey=a529d3371c450b3ab44a9281345bcb27e8f47868&contract=Paris',
-                            type: 'GET',
-                            crossDomain: true,
-                            dataType: 'jsonp',
-                            success: function(data) {
-                                var x = (new Date()).getTime(); // current time
-                                var velib = data;
-                                var totalBikes = 0;
-                                var totalStands = 0;
-                                for (var i=0 ; i<velib.length ; i++) {
-                                    totalBikes = totalBikes + velib[i].available_bikes;
-                                    totalStands = totalStands + velib[i].available_bike_stands;
-                                };
-                                var y = totalBikes;
-                                console.log(y);
-                                var x = (new Date()).getTime(); // current time
-                                series.addPoint([x, y], true, true);
-                            },
-                            error: function() { console.log('Fail load data API'); }
-                        });
-                    }, 1000);
+                        var velib = JSON.parse(localStorage.data);
+                        console.log(velib);
+                        var totalBikes = 0;
+                        var totalStands = 0;
+                        for (var i=0 ; i<velib.length ; i++) {
+                            totalBikes = totalBikes + velib[i].available_bikes;
+                            totalStands = totalStands + velib[i].available_bike_stands;
+                        };
+                        var y = totalBikes;
+                        console.log(y);
+                        var x = (new Date()).getTime(); // current time
+                        series.addPoint([x, y], true, true);
+                    }, 3000);
                 }
             }
         },
@@ -92,8 +94,8 @@ $(function() {
         tooltip: {
             formatter: function() {
                     return '<b>'+ this.series.name +'</b><br/>'+
-                    Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) +'<br/>'+
-                    Highcharts.numberFormat(this.y, 2);
+                    Highcharts.numberFormat(this.y, 2)+'<br/>le '+
+                    Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x);
             },
             crosshairs: [{
                     width: 4,
@@ -122,7 +124,7 @@ $(function() {
             enabled: false
         },
         series: [{
-            name: 'Random data',
+            name: 'Nombre de velib\':',
             lineWidth: 6,
             marker: {
                 radius: 9
@@ -132,10 +134,15 @@ $(function() {
                 var data = [],
                     time = (new Date()).getTime(),
                     i;
+                var velib = JSON.parse(localStorage.data);
+                var y = 0;
+                for (var i=0 ; i<velib.length ; i++) {
+                    y = y + velib[i].available_bikes;
+                };
                 for (i = -19; i <= 0; i++) {
                     data.push({
-                        x: time + i * 1000,
-                        y: 15000
+                        x: time + i * 3000,
+                        y: y
                     });
                 }
                 return data;
