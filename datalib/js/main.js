@@ -67,7 +67,7 @@ $(function() {
                         console.log(y);
                         var x = (new Date()).getTime(); // current time
                         series.addPoint([x, y], true, true);
-                    }, 3000);
+                    }, 5000);
                 }
             }
         },
@@ -80,7 +80,12 @@ $(function() {
         xAxis: {
             type: 'datetime',
             lineWidth:0,
-            tickPixelInterval: 150
+            tickPixelInterval: 100,
+            labels: {
+                style: {
+                    fontFamily: 'DINPro'
+                }
+            }
         },
         yAxis: {
             title: {
@@ -96,6 +101,10 @@ $(function() {
                     return '<b>'+ this.series.name +'</b><br/>'+
                     Highcharts.numberFormat(this.y, 2)+'<br/>le '+
                     Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x);
+            },
+            style: {
+                padding: 10,
+                fontFamily: 'DINPro'
             },
             crosshairs: [{
                     width: 4,
@@ -141,7 +150,7 @@ $(function() {
                 };
                 for (i = -19; i <= 0; i++) {
                     data.push({
-                        x: time + i * 3000,
+                        x: time + i * 5000,
                         y: y
                     });
                 }
@@ -150,6 +159,9 @@ $(function() {
         }]
     });
 
+    $('#timeline nav ul:nth-child(1)').on('click',function(){
+        console.log('ALLO');
+    });
     /* FUNCTION */
 
     function formattedTime(timestamp){
