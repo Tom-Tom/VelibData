@@ -1,0 +1,147 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+v2.0 | 20110126
+License: none (public domain)*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after {
+  content: '';
+  content: none; }
+
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/*************************
+          START 
+*************************/
+/* FONT FACE */
+@font-face {
+  font-family: 'DINPro';
+  src: url("fonts/DINPro-Regular.otf");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'DINPro';
+  src: url("fonts/DINPro-Italic.otf");
+  font-weight: normal;
+  font-style: italic; }
+
+@font-face {
+  font-family: 'DINPro';
+  src: url("fonts/DINPro-Bold.otf");
+  font-weight: bold;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'DINPro';
+  src: url("fonts/DINPro-Black.otf");
+  font-weight: 900; }
+
+@font-face {
+  font-family: 'DINPro';
+  src: url("fonts/DINPro-Light.otf");
+  font-weight: 100; }
+
+/* COLORS */
+/* SCSS */
+body {
+  background-color: #edf5fb;
+  font-family: DINPro;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility; }
+
+section:nth-child(1) {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100px;
+  width: 100%;
+  box-shadow: 0px 10px 5px 0px #edf5fb;
+  z-index: 25; }
+  section:nth-child(1) h1 {
+    display: inline-block;
+    background-color: #65bee7;
+    color: #edf5fb;
+    margin: 30px 50px;
+    padding: 3px 15px;
+    font-size: 2em; }
+section:nth-child(2) {
+  position: fixed;
+  top: 100px;
+  left: 0;
+  width: 40%;
+  height: 75%;
+  z-index: 75;
+  box-shadow: 10px 0px 5px 0px #edf5fb; }
+  section:nth-child(2) #titreStation {
+    color: #1b6d93;
+    font-size: 2em;
+    margin-left: 50px; }
+  section:nth-child(2) #soustitreStation {
+    color: #64bee7;
+    font-size: 1.3em;
+    margin-left: 50px; }
+    section:nth-child(2) #soustitreStation span {
+      margin-left: 25px; }
+section:nth-child(3) {
+  position: fixed;
+  background-color: #edf5fb;
+  top: 100px;
+  right: 0;
+  height: 75%;
+  width: 60%;
+  z-index: 0; }
+  section:nth-child(3) #map {
+    height: 100%;
+    width: 100%; }
+section:nth-child(4) {
+  background-color: #edf5fb;
+  position: fixed;
+  bottom: 0;
+  height: 200px;
+  width: 100%;
+  z-index: 100;
+  box-shadow: 0px -5px 10px 0px #edf5fb; }
+  section:nth-child(4) nav ul {
+    cursor: default; }
+    section:nth-child(4) nav ul li {
+      display: inline-block;
+      border: 1px black solid;
+      cursor: pointer; }
+
+.no_opacity {
+  opacity: 0 !important; }
+
+#donutContainer {
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+  height: 200px;
+  margin: 20px 0; }
+
+.leaflet-control {
+  display: none !important; }
