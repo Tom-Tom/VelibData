@@ -72,40 +72,48 @@ section{
 		position:fixed;
 		top:0;
 		left:0;
-		//border: 1px solid black;
-		width:35%;
-		height: 77%;
-		background-color: $bg;
-		z-index: 51;
-	    box-shadow: 40px -40px 60px 0px #edf5fb;
+		height:100px;
+		width: 100%;
+	    box-shadow: 0px 10px 5px 0px $bg;
+		z-index: 25;
 		h1{
 			display:inline-block;
 			background-color:$blue1;
 			color:$bg;
-			margin:50px;
+			margin:30px 50px;
 			padding:3px 15px;
 			font-size:2em;
 		}
+	}
+	&:nth-child(2){
+		position:fixed;
+		top:100px;
+		left:0;
+		//border: 1px solid black;
+		width:35%;
+		height: 75%;
+		z-index: 75;
+	    box-shadow: 10px 0px 5px 0px $bg;
 		#titreStation{
 			color:$blue2;
-			font-size:2.5em;
+			font-size:2em;
 			margin-left:50px;
 		}
 		#soustitreStation{
 			color: $blue3;
-			font-size:1.5em;
+			font-size:1.3em;
 			margin-left:50px;
 			span{
 				margin-left:25px;
 			}
 		}
 	}
-	&:nth-child(2){
+	&:nth-child(3){
 		position:fixed;
 		background-color: $bg;
-		top: 0;
+		top: 100px;
 		right: 0;
-		height: 77%;
+		height: 75%;
 		width: 65%;
 		z-index: 0;
 		#map{
@@ -113,15 +121,15 @@ section{
 			width: 100%;
 		}
 	}
-	&:nth-child(3){
+	&:nth-child(4){
 		background-color: $bg;
 		position:fixed;
 		bottom:0;
 		//border: 1px solid black;
 		height:23%;
 		width:100%;
-		z-index: 50;
-	    box-shadow: 40px -40px 60px 0px #edf5fb;
+		z-index: 100;
+	    box-shadow: 0px -5px 10px 0px $bg;
 		#date{
 			margin-left:100px;
 			color:$blue2;
@@ -148,5 +156,5 @@ section{
 
 
 .leaflet-control{
-	margin-left: 50px !important;
+	display: none !important;
 }
