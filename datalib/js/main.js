@@ -11,10 +11,10 @@ $(function() {
         crossDomain:true,
         dataType:'jsonp',
         success: function(data) {
-            var type = '';
-            var velib = data;
-            var totalBikes = 0;
-            var totalStands = 0;
+            var type = '',
+            velib = data,
+            totalBikes = 0,
+            totalStands = 0;
             for (var i=0 ; i<velib.length ; i++) {
                 addMarkers(map,velib[i],type);
                 totalBikes = totalBikes + velib[i].available_bikes;
@@ -35,12 +35,23 @@ $(function() {
             error: function() { console.log('Fail load data API'); }
         });
     }, 3000);
+
+    /*
+    map.markerLayer.on('click',function(e) {
+        e.layer.unbindPopup();
+
+        var feature = e.layer.feature;
+        console.log(feature);
+    });
+    */
+
+
     /* TIMELINE */
 
     Highcharts.setOptions({
-            global: {
-                useUTC: false
-            }
+        global: {
+            useUTC: false
+        }
     });
     //var chart;
     $('#graph').highcharts({
@@ -201,7 +212,7 @@ $(function() {
         } else if(pourcent <= 100){
             color = "#D50055";
         }
-        if(type!=="circle"){
+        if(type==="circle"){
             var circle_options = {
                 color: color,      // Stroke color
                 opacity: 0.6,         // Stroke opacity

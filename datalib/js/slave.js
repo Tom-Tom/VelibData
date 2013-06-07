@@ -1,4 +1,4 @@
-$(function () {
+$(function() {
     var
     donutInitDelay = 500,
     donutContainer = $('#donutContainer'),
@@ -10,7 +10,7 @@ $(function () {
     ],
     donutCategories = [
         'stands endommagés',
-        'stands disponibles',
+        'stands vides',
         'vélos disponibles'
     ],
     donutData = [
@@ -49,14 +49,16 @@ $(function () {
             },
             title: {
                 text: totalStands,
-                align: 'center',
-                verticalAlign: 'middle',
-                margin: 50
+                verticalAlign: 'middle'
             },
             plotOptions: {
                 pie: {
                     shadow: false,
-                    center: ['50%', '50%']
+                    center: ['50%', '50%'],
+                    animation: {
+                        duration: 2000,
+                        easing: 'swing'
+                    }
                 }
             },
             tooltip: {
@@ -65,7 +67,7 @@ $(function () {
             series: [{
                 data: data,
                 size: '80%',
-                innerSize: '60%',
+                innerSize: '70%',
                 name: 'Total'
             }]
         });
