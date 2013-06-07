@@ -17,19 +17,19 @@ $(function () {
         {
             y: 4,
             color: donutColors[0],
-            name: 'Stands endommagés',
+            name: donutCategories[0],
             categories: [0]
         },
         {
             y: 36,
             color: donutColors[1],
-            name: 'Stands disponibles',
+            name: donutCategories[1],
             categories: [1]
         },
         {
             y: 30,
             color: donutColors[2],
-            name: 'Vélos disponibles',
+            name: donutCategories[2],
             categories: [2]
         }
     ];
@@ -50,7 +50,8 @@ $(function () {
             title: {
                 text: totalStands,
                 align: 'center',
-                verticalAlign: 'middle'
+                verticalAlign: 'middle',
+                margin: 50
             },
             plotOptions: {
                 pie: {

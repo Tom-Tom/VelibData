@@ -1,28 +1,28 @@
 $(function() {
 
-	/* MAP */
-	var map = L.mapbox.map('map', 'etiwiti.panam');
-	map.attributionControl.removeFrom(map);
+    /* MAP */
+    var map = L.mapbox.map('map', 'etiwiti.panam');
+    map.attributionControl.removeFrom(map);
 
     /* AJAX */
-	$.ajax({
-	    url: 'https://api.jcdecaux.com/vls/v1/stations?apiKey=a529d3371c450b3ab44a9281345bcb27e8f47868&contract=Paris',
-	    type: 'GET',
-	    crossDomain: true,
-	    dataType: 'jsonp',
-	    success: function(data) {
-	    	var type = '';
-		    var velib = data;
-		    var totalBikes = 0;
-		    var totalStands = 0;
-		    for (var i=0 ; i<velib.length ; i++) {
-		    	addMarkers(map,velib[i],type);
-		    	totalBikes = totalBikes + velib[i].available_bikes;
-		    	totalStands = totalStands + velib[i].available_bike_stands;
-		    };
-	    },
-	    error: function() { console.log('Fail load data API'); }
-	});
+    $.ajax({
+        url: 'https://api.jcdecaux.com/vls/v1/stations?apiKey=a529d3371c450b3ab44a9281345bcb27e8f47868&contract=Paris',
+        type: 'GET',
+        crossDomain:true,
+        dataType:'jsonp',
+        success: function(data) {
+            var type = '';
+            var velib = data;
+            var totalBikes = 0;
+            var totalStands = 0;
+            for (var i=0 ; i<velib.length ; i++) {
+                addMarkers(map,velib[i],type);
+                totalBikes = totalBikes + velib[i].available_bikes;
+                totalStands = totalStands + velib[i].available_bike_stands;
+            }
+        },
+        error: function() { console.log('Fail load data API'); }
+    });
     setInterval(function() {
         $.ajax({
             url: 'https://api.jcdecaux.com/vls/v1/stations?apiKey=a529d3371c450b3ab44a9281345bcb27e8f47868&contract=Paris',
@@ -35,14 +35,14 @@ $(function() {
             error: function() { console.log('Fail load data API'); }
         });
     }, 3000);
-	/* TIMELINE */
+    /* TIMELINE */
 
-	Highcharts.setOptions({
+    Highcharts.setOptions({
             global: {
                 useUTC: false
             }
     });
-    var chart;
+    //var chart;
     $('#graph').highcharts({
         chart: {
             type: 'spline',
@@ -56,15 +56,15 @@ $(function() {
                     var series = this.series[0];
                     setInterval(function() {
                         var velib = JSON.parse(localStorage.data);
-                        console.log(velib);
+                        //console.log(velib);
                         var totalBikes = 0;
                         var totalStands = 0;
                         for (var i=0 ; i<velib.length ; i++) {
                             totalBikes = totalBikes + velib[i].available_bikes;
                             totalStands = totalStands + velib[i].available_bike_stands;
-                        };
+                        }
                         var y = totalBikes;
-                        console.log(y);
+                        //console.log(y);
                         var x = (new Date()).getTime(); // current time
                         series.addPoint([x, y], true, true);
                     }, 5000);
@@ -145,9 +145,9 @@ $(function() {
                     i;
                 var velib = JSON.parse(localStorage.data);
                 var y = 0;
-                for (var i=0 ; i<velib.length ; i++) {
+                for (i = 0 ; i<velib.length ; i++) {
                     y = y + velib[i].available_bikes;
-                };
+                }
                 for (i = -19; i <= 0; i++) {
                     data.push({
                         x: time + i * 5000,
@@ -201,7 +201,7 @@ $(function() {
         } else if(pourcent <= 100){
             color = "#D50055";
         }
-        if(type!="circle"){
+        if(type!=="circle"){
             var circle_options = {
                 color: color,      // Stroke color
                 opacity: 0.6,         // Stroke opacity
