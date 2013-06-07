@@ -228,3 +228,16 @@ $(function() {
         }
     }
 });
+
+$(function() {
+    var velib = JSON.parse(localStorage.data);
+    var y = 0;
+    var tab = [];
+    for (var i=0 ; i<velib.length ; i++) {
+        tab[i] = velib[i].name.slice(8).toLowerCase(1);
+    };
+    $('#search').typeahead({
+      name: 'station',
+      local: tab
+    });
+});
