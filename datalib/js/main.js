@@ -5,45 +5,54 @@ $(function() {
     map.attributionControl.removeFrom(map);
 
     /* AJAX */
-    $.ajax({
-        url: 'https://api.jcdecaux.com/vls/v1/stations?apiKey=a529d3371c450b3ab44a9281345bcb27e8f47868&contract=Paris',
-        type: 'GET',
-        crossDomain:true,
-        dataType:'jsonp',
-        success: function(data) {
-            var type = '',
-            velib = data,
-            totalBikes = 0,
-            totalStands = 0;
-            for (var i=0 ; i<velib.length ; i++) {
-                addMarkers(map,velib[i],type);
-                totalBikes = totalBikes + velib[i].available_bikes;
-                totalStands = totalStands + velib[i].available_bike_stands;
-            }
-        },
-        error: function(e) { console.log('statut error : ' + e.status + ' ' + e.statusText); }
-    });
-    setInterval(function() {
-        $.ajax({
-            url: 'https://api.jcdecaux.com/vls/v1/stations?apiKey=a529d3371c450b3ab44a9281345bcb27e8f47868&contract=Paris',
-            type: 'GET',
-            crossDomain: true,
-            dataType: 'jsonp',
-            success: function(data){
-                localStorage.data = JSON.stringify(data);
-            },
-            error: function(e) { console.log('statut error : ' + e.status + ' ' + e.statusText); }
-        });
-    }, 3000);
 
-    /*
-    map.markerLayer.on('click',function(e) {
-        e.layer.unbindPopup();
+    // $.ajax({
+    //     url: 'https://api.jcdecaux.com/vls/v1/stations?apiKey=a529d3371c450b3ab44a9281345bcb27e8f47868&contract=Paris',
+    //     type: 'GET',
+    //     crossDomain:true,
+    //     dataType:'jsonp',
+    //     success: function(data) {
+    //         var type = '';
+    //         var velib = data;
+    //         var totalBikes = 0;
+    //         var totalStands = 0;
+    //         for (var i=0 ; i<velib.length ; i++) {
+    //             addMarkers(map,velib[i],type);
+    //             totalBikes = totalBikes + velib[i].available_bikes;
+    //             totalStands = totalStands + velib[i].available_bike_stands;
+    //         }
+    //     },
+    //     error: function() { console.log('Fail load data API'); }
+    // });
+    // setInterval(function() {
+    //     $.ajax({
+    //         url: 'https://api.jcdecaux.com/vls/v1/stations?apiKey=a529d3371c450b3ab44a9281345bcb27e8f47868&contract=Paris',
+    //         type: 'GET',
+    //         crossDomain: true,
+    //         dataType: 'jsonp',
+    //         success: function(data) {
+    //             localStorage.data = JSON.stringify(data);
+    //         },
+    //         error: function() { console.log('Fail load data API'); }
+    //     });
+    // }, 3000);
 
-        var feature = e.layer.feature;
-        console.log(feature);
+
+    // Get the estimated arrival times of live trains from Berkhamsted to Euston
+    var q = "select * from html where url='https://api.jcdecaux.com/vls/v1/stations?apiKey=a529d3371c450b3ab44a9281345bcb27e8f47868&contract=Paris'";
+    jyql(q, function (err, data) { 
+        //console.log(data.query.results.body.p);
+        localStorage.data = data.query.results.body.p;
+        var type = '';
+        var velib = JSON.parse(localStorage.data);
+        var totalBikes = 0;
+        var totalStands = 0;
+        for (var i=0 ; i<velib.length ; i++) {
+            addMarkers(map,velib[i],type);
+            totalBikes = totalBikes + velib[i].available_bikes;
+            totalStands = totalStands + velib[i].available_bike_stands;
+        }
     });
-    */
 
 
     /* TIMELINE */
@@ -238,4 +247,17 @@ $(function() {
             }).addTo(map);
         }
     }
+});
+
+$(function() {
+    var velib = JSON.parse(localStorage.data);
+    var y = 0;
+    var tab = [];
+    for (var i=0 ; i<velib.length ; i++) {
+        tab[i] = velib[i].name.slice(8).toLowerCase(1);
+    };
+    $('#search').typeahead({
+      name: 'station',
+      local: tab
+    });
 });
