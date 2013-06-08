@@ -38,9 +38,8 @@ $(function() {
     // }, 3000);
 
 
-    // Get the estimated arrival times of live trains from Berkhamsted to Euston
     var q = "select * from html where url='https://api.jcdecaux.com/vls/v1/stations?apiKey=a529d3371c450b3ab44a9281345bcb27e8f47868&contract=Paris'";
-    jyql(q, function (err, data) { 
+    jyql(q,function(err,data){
         //console.log(data.query.results.body.p);
         localStorage.data = data.query.results.body.p;
         var type = '';
@@ -71,7 +70,6 @@ $(function() {
             animation: Highcharts.svg, // don't animate in old IE
             events: {
                 load: function() {
-
                     // set up the updating of the chart each second
                     var series = this.series[0];
                     setInterval(function() {
@@ -182,6 +180,8 @@ $(function() {
     $('#timeline nav ul:nth-child(1)').on('click',function(){
         console.log('ALLO');
     });
+
+
     /* FUNCTION */
 
     function formattedTime(timestamp){
@@ -200,16 +200,17 @@ $(function() {
     }
 
     function addMarkers(map,velib,type){
-        var lat = velib.position.lat;
-        var lng = velib.position.lng;
-        var name = velib.name.slice(7);
-        var text = "<strong>Address : </strong>"+velib.address;
+        var lat = velib.position.lat,
+            lng = velib.position.lng,
+            name = velib.name.slice(7),
+            broken_stands = velib.bike_stands - (velib.available_bike_stands + velib.available_bikes),
+            text = "<strong>Address : </strong>"+velib.address;
         text=text+"<br/><strong>Available bike stands : </strong>"+velib.available_bike_stands;
         text=text+"<br/><strong>Available bikes : </strong>"+velib.available_bikes;
         text=text+"<br/><strong>Last update : </strong>"+formattedTime(velib.last_update);
         text=text+"("+diffTime(velib.last_update)+"sec ago)";
-        var pourcent = 100 * velib.available_bikes / velib.bike_stands;
-        var color = "#333333";
+        var pourcent = 100 * velib.available_bikes / velib.bike_stands,
+            color = "#333333";
         if(pourcent <= 20){
             color = "#2B00DD";
         } else if(pourcent <= 40){
@@ -231,6 +232,7 @@ $(function() {
             };
             L.circle(velib.position, 50, circle_options).addTo(map);
         } else {
+
             L.mapbox.markerLayer({
                 type: 'Feature',
                 geometry: {
@@ -242,20 +244,95 @@ $(function() {
                     description: text,
                     'marker-size': 'small',
                     'marker-color': color,
-                    'marker-symbol': 'bicycle'
+                    'marker-symbol': 'bicycle',
+                    available_bike_stands: velib.available_bike_stands,
+                    available_bikes: velib.available_bikes,
+                    broken_stands: broken_stands
                 }
-            }).addTo(map);
+            }).addTo(map).on('click',function(e) {
+                e.layer.unbindPopup();
+                var feature = e.layer.feature;
+                var donutData = [{
+                    y: feature.properties.broken_stands,
+                    color: donutColors[0],
+                    name: donutCategories[0],
+                    categories: [0]
+                },
+                {
+                    y: feature.properties.available_bike_stands,
+                    color: donutColors[1],
+                    name: donutCategories[1],
+                    categories: [1]
+                },
+                {
+                    y: feature.properties.available_bikes,
+                    color: donutColors[2],
+                    name: donutCategories[2],
+                    categories: [2]
+                }];
+                donutContainer.removeClass('no_opacity');
+                showDonut(donutData);
+            });
         }
+    }
+
+
+    /* DONUT */
+
+    var donutContainer = $('#donutContainer'),
+        donutColors = ['#1b6d93','#64bee7','#8fceea','#d0eaf6'],
+        donutCategories = ['stands endommagés','stands vides','vélos disponibles'];
+
+    function showDonut(donutData){
+        var totalStands = donutData[0].y + donutData[1].y + donutData[2].y + ' stands';
+        donutContainer.highcharts({
+            exporting: {
+                enabled: false
+            },
+            credits: {
+                enabled: false
+            },
+            chart: {
+                type: 'pie',
+                backgroundColor: 'transparent'
+            },
+            title: {
+                text: totalStands,
+                verticalAlign: 'middle'
+            },
+            plotOptions: {
+                pie: {
+                    shadow: false,
+                    center: ['50%', '50%'],
+                    animation: {
+                        duration: 2000,
+                        easing: 'swing'
+                    }
+                }
+            },
+            tooltip: {
+                valueSuffix: ''
+            },
+            series: [{
+                data: donutData,
+                size: '80%',
+                innerSize: '70%',
+                name: 'Total'
+            }]
+        });
     }
 });
 
+
+
+/* LOCAL STORAGE */
+
 $(function() {
-    var velib = JSON.parse(localStorage.data);
-    var y = 0;
-    var tab = [];
+    var velib = JSON.parse(localStorage.data),
+        tab = [];
     for (var i=0 ; i<velib.length ; i++) {
         tab[i] = velib[i].name.slice(8).toLowerCase(1);
-    };
+    }
     $('#search').typeahead({
       name: 'station',
       local: tab
