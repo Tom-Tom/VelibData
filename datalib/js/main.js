@@ -344,6 +344,9 @@ $(function() {
                 height:'190',
                 animation: Highcharts.svg, // don't animate in old IE
                 events: {
+                    click: function(e){
+                        console.log('ALLO');
+                    },
                     load: function() {
 
                     }
