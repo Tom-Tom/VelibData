@@ -51,21 +51,21 @@ $(function() {
 
                 /* TEST ZONE */
                     //http://kevinlarosa.fr:4000/?dateStart=1369573200000&dateEnd=1369591200000
-                    var d = new Date();
-                    console.log(Date.parse(d));
-                    var start = Date.parse(d);
-                    var diff = 60*60*60*60*10;
-                    diff=start-diff;
-                    start=start+diff;
-                    console.log(diff);
-                    console.log('http://kevinlarosa.fr:4000/?dateStart='+diff+'&dateEnd='+start);
-                    url = 'http://kevinlarosa.fr:4000/?dateStart='+diff+'&dateEnd='+start;
+                    var now = moment();
+                    var start = moment().subtract('hours', 3);
+                    url = 'http://kevinlarosa.fr:4000/?dateStart='+start+'&dateEnd='+now;
                     $.ajax({
                         url: url,
                         type: 'GET',
                         dataType: 'json',
                         success: function(data) {
-                            console.log(data);
+                            for(var i=0;i<data.length;i++){
+                                var totalBikes = 0;
+                                for(var y=0;y<data[i].stations.length;y++){
+                                    totalBikes += data[i].stations[y].available_bikes;
+                                }
+                                console.log(totalBikes);
+                            }
                         },
                         error: function() { console.log('Fail load data API'); }
                     });
@@ -217,6 +217,7 @@ $(function() {
         }]
     });
 
+    /* REAL TIME */
     $('#timeline nav ul li:nth-child(1)').on('click',function(){
         $('#graph').highcharts({
             chart: {
@@ -334,6 +335,7 @@ $(function() {
             }]
         });
     });
+    /* LAST 24h */
     $('#timeline nav ul li:nth-child(2)').on('click',function(){
         $('#graph').highcharts({
             chart: {
@@ -421,240 +423,6 @@ $(function() {
                         i;
                     var velib = JSON.parse(localStorage.data);
  
-                    var y = 0;
-                    for (i = 0 ; i<velib.length ; i++) {
-                        y = y + velib[i].available_bikes;
-                    }
-                    for (i = -19; i <= 0; i++) {
-                        data.push({
-                            x: time + i * 10000,
-                            y: y
-                        });
-                    }
-                    return data;
-                })()
-            }]
-        });
-    });
-    $('#timeline nav ul li:nth-child(3)').on('click',function(){
-        $('#graph').highcharts({
-            chart: {
-                type: 'spline',
-                backgroundColor: 'transparent',
-                height:'190',
-                animation: Highcharts.svg, // don't animate in old IE
-                events: {
-                    load: function() {
-
-                        // set up the updating of the chart each second
-                        var series = this.series[0];
-                        setInterval(function() {
-                            var velib = JSON.parse(localStorage.data);
-                            //console.log(velib);
-                            var totalBikes = 0;
-                            var totalStands = 0;
-                            for (var i=0 ; i<velib.length ; i++) {
-                                totalBikes = totalBikes + velib[i].available_bikes;
-                                totalStands = totalStands + velib[i].available_bike_stands;
-                            }
-                            var y = totalBikes;
-                            //console.log(y);
-                            var x = (new Date()).getTime(); // current time
-                            series.addPoint([x, y], true, true);
-                        }, 10000);
-                    }
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            title: {
-                text: ''
-            },
-            xAxis: {
-                type: 'datetime',
-                lineWidth:0,
-                tickPixelInterval: 100,
-                labels: {
-                    style: {
-                        fontFamily: 'DINPro'
-                    }
-                }
-            },
-            yAxis: {
-                title: {
-                    text: ''
-                },
-                gridLineWidth: 0,
-                labels:{
-                    enabled: false
-                }
-            },
-            tooltip: {
-                formatter: function() {
-                        return '<b>'+ this.series.name +'</b><br/>'+
-                        Highcharts.numberFormat(this.y, 2)+'<br/>le '+
-                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x);
-                },
-                style: {
-                    padding: 10,
-                    fontFamily: 'DINPro'
-                },
-                crosshairs: [{
-                        width: 4,
-                        color: '#1b6d93'
-                    }]
-            },
-            plotOptions: {
-                series: {
-                    color: '#64bee7',
-                    marker: {
-                        fillColor: '#edf5fb',
-                        lineColor: '#64bee7',
-                        lineWidth: 4,
-                        states:{
-                            hover:{
-                                lineColor: '#1b6d93'
-                            }
-                        }
-                    }
-                }
-            },
-            legend: {
-                enabled: false
-            },
-            exporting: {
-                enabled: false
-            },
-            series: [{
-                name: 'Nombre de velib\':',
-                lineWidth: 6,
-                marker: {
-                    radius: 9
-                },
-                data: (function() {
-                    // generate an array of random data
-                    var data = [],
-                        time = (new Date()).getTime(),
-                        i;
-                    var velib = JSON.parse(localStorage.data);
-                    var y = 0;
-                    for (i = 0 ; i<velib.length ; i++) {
-                        y = y + velib[i].available_bikes;
-                    }
-                    for (i = -19; i <= 0; i++) {
-                        data.push({
-                            x: time + i * 10000,
-                            y: y
-                        });
-                    }
-                    return data;
-                })()
-            }]
-        });
-    });
-    $('#timeline nav ul li:nth-child(4)').on('click',function(){
-        $('#graph').highcharts({
-            chart: {
-                type: 'spline',
-                backgroundColor: 'transparent',
-                height:'190',
-                animation: Highcharts.svg, // don't animate in old IE
-                events: {
-                    load: function() {
-
-                        // set up the updating of the chart each second
-                        var series = this.series[0];
-                        setInterval(function() {
-                            var velib = JSON.parse(localStorage.data);
-                            //console.log(velib);
-                            var totalBikes = 0;
-                            var totalStands = 0;
-                            for (var i=0 ; i<velib.length ; i++) {
-                                totalBikes = totalBikes + velib[i].available_bikes;
-                                totalStands = totalStands + velib[i].available_bike_stands;
-                            }
-                            var y = totalBikes;
-                            //console.log(y);
-                            var x = (new Date()).getTime(); // current time
-                            series.addPoint([x, y], true, true);
-                        }, 10000);
-                    }
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            title: {
-                text: ''
-            },
-            xAxis: {
-                type: 'datetime',
-                lineWidth:0,
-                tickPixelInterval: 100,
-                labels: {
-                    style: {
-                        fontFamily: 'DINPro'
-                    }
-                }
-            },
-            yAxis: {
-                title: {
-                    text: ''
-                },
-                gridLineWidth: 0,
-                labels:{
-                    enabled: false
-                }
-            },
-            tooltip: {
-                formatter: function() {
-                        return '<b>'+ this.series.name +'</b><br/>'+
-                        Highcharts.numberFormat(this.y, 2)+'<br/>le '+
-                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x);
-                },
-                style: {
-                    padding: 10,
-                    fontFamily: 'DINPro'
-                },
-                crosshairs: [{
-                        width: 4,
-                        color: '#1b6d93'
-                    }]
-            },
-            plotOptions: {
-                series: {
-                    color: '#64bee7',
-                    marker: {
-                        fillColor: '#edf5fb',
-                        lineColor: '#64bee7',
-                        lineWidth: 4,
-                        states:{
-                            hover:{
-                                lineColor: '#1b6d93'
-                            }
-                        }
-                    }
-                }
-            },
-            legend: {
-                enabled: false
-            },
-            exporting: {
-                enabled: false
-            },
-            series: [{
-                name: 'Nombre de velib\':',
-                lineWidth: 6,
-                marker: {
-                    radius: 9
-                },
-                data: (function() {
-                    // generate an array of random data
-                    var data = [],
-                        time = (new Date()).getTime(),
-                        i;
-                    var velib = JSON.parse(localStorage.data);
                     var y = 0;
                     for (i = 0 ; i<velib.length ; i++) {
                         y = y + velib[i].available_bikes;
