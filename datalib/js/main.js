@@ -49,27 +49,27 @@ $(function() {
     //     // localStorage.data = data.query.results.body.p;
     // });
 
-                /* TEST ZONE */
-                    //http://kevinlarosa.fr:4000/?dateStart=1369573200000&dateEnd=1369591200000
-                    var now = moment();
-                    var start = moment().subtract('hours', 3);
-                    url = 'http://kevinlarosa.fr:4000/?dateStart='+start+'&dateEnd='+now;
-                    $.ajax({
-                        url: url,
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function(data) {
-                            for(var i=0;i<data.length;i++){
-                                var totalBikes = 0;
-                                for(var y=0;y<data[i].stations.length;y++){
-                                    totalBikes += data[i].stations[y].available_bikes;
-                                }
-                                console.log(totalBikes);
-                            }
-                        },
-                        error: function() { console.log('Fail load data API'); }
-                    });
-                /* TEST ZONE FIN*/
+    /* TEST ZONE */
+        //http://kevinlarosa.fr:4000/?dateStart=1369573200000&dateEnd=1369591200000
+        var now = moment();
+        var start = moment().subtract('hours', 3);
+        url = 'http://kevinlarosa.fr:4000/?dateStart='+start+'&dateEnd='+now;
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                for(var i=0;i<data.length;i++){
+                    var totalBikes = 0;
+                    for(var y=0;y<data[i].stations.length;y++){
+                        totalBikes += data[i].stations[y].available_bikes;
+                    }
+                    console.log(totalBikes);
+                }
+            },
+            error: function() { console.log('Fail load data API'); }
+        });
+    /* TEST ZONE FIN*/
 
 
     var q = "select * from html where url='https://api.jcdecaux.com/vls/v1/stations?apiKey=a529d3371c450b3ab44a9281345bcb27e8f47868&contract=Paris'";
@@ -85,8 +85,8 @@ $(function() {
             totalStands = totalStands + velib[i].available_bike_stands;
         }
     });
-    setInterval(function() {
-        jyql(q, function (err, data) { 
+    setInterval(function(){
+        jyql(q, function(err, data){
             localStorage.data = data.query.results.body.p;
         });
     }, 9000);
@@ -96,9 +96,9 @@ $(function() {
     //////////////////////////////////
 
     Highcharts.setOptions({
-            global: {
-                useUTC: false
-            }
+        global: {
+            useUTC: false
+        }
     });
     //var chart;
     $('#graph').highcharts({
@@ -109,7 +109,6 @@ $(function() {
             animation: Highcharts.svg, // don't animate in old IE
             events: {
                 load: function() {
-
                     // set up the updating of the chart each second
                     var series = this.series[0];
                     setInterval(function() {
@@ -335,6 +334,7 @@ $(function() {
             }]
         });
     });
+
     /* LAST 24h */
     $('#timeline nav ul li:nth-child(2)').on('click',function(){
         $('#graph').highcharts({
@@ -441,6 +441,7 @@ $(function() {
             }]
         });
     });
+
     //////////////////////////////////
     /* Recherche Autocompletion */
     //////////////////////////////////
@@ -449,7 +450,7 @@ $(function() {
     var tab = [];
     for (var i=0 ; i<velib.length ; i++) {
         tab[i] = velib[i].name.slice(8).toLowerCase(1);
-    };
+    }
     $('#search').typeahead({
       name: 'station',
       local: tab
@@ -475,16 +476,17 @@ $(function() {
     }
 
     function addMarkers(map,velib,type){
-        var lat = velib.position.lat;
-        var lng = velib.position.lng;
-        var name = velib.name.slice(7);
-        var text = "<strong>Address : </strong>"+velib.address;
+        var lat = velib.position.lat,
+            lng = velib.position.lng,
+            name = velib.name.slice(7),
+            broken_stands = velib.bike_stands - (velib.available_bike_stands + velib.available_bikes),
+            text = "<strong>Address : </strong>"+velib.address;
         text=text+"<br/><strong>Available bike stands : </strong>"+velib.available_bike_stands;
         text=text+"<br/><strong>Available bikes : </strong>"+velib.available_bikes;
         text=text+"<br/><strong>Last update : </strong>"+formattedTime(velib.last_update);
         text=text+"("+diffTime(velib.last_update)+"sec ago)";
-        var pourcent = 100 * velib.available_bikes / velib.bike_stands;
-        var color = "#333333";
+        var pourcent = 100 * velib.available_bikes / velib.bike_stands,
+            color = "#333333";
         if(pourcent <= 20){
             color = "#2B00DD";
         } else if(pourcent <= 40){
@@ -496,7 +498,7 @@ $(function() {
         } else if(pourcent <= 100){
             color = "#D50055";
         }
-        if(type!=="circle"){
+        if(type==="circle"){
             var circle_options = {
                 color: color,      // Stroke color
                 opacity: 0.6,         // Stroke opacity
@@ -506,6 +508,7 @@ $(function() {
             };
             L.circle(velib.position, 50, circle_options).addTo(map);
         } else {
+
             L.mapbox.markerLayer({
                 type: 'Feature',
                 geometry: {
@@ -517,10 +520,80 @@ $(function() {
                     description: text,
                     'marker-size': 'small',
                     'marker-color': color,
-                    'marker-symbol': 'bicycle'
+                    'marker-symbol': 'bicycle',
+                    available_bike_stands: velib.available_bike_stands,
+                    available_bikes: velib.available_bikes,
+                    broken_stands: broken_stands
                 }
-            }).addTo(map);
+            }).addTo(map).on('click',function(e) {
+                e.layer.unbindPopup();
+                var feature = e.layer.feature;
+                var donutData = [{
+                    y: feature.properties.broken_stands,
+                    color: donutColors[0],
+                    name: donutCategories[0],
+                    categories: [0]
+                },
+                {
+                    y: feature.properties.available_bike_stands,
+                    color: donutColors[1],
+                    name: donutCategories[1],
+                    categories: [1]
+                },
+                {
+                    y: feature.properties.available_bikes,
+                    color: donutColors[2],
+                    name: donutCategories[2],
+                    categories: [2]
+                }];
+                donutContainer.removeClass('no_opacity');
+                showDonut(donutData);
+            });
         }
     }
 
+    /* DONUT */
+
+    var donutContainer = $('#donutContainer'),
+        donutColors = ['#1b6d93','#64bee7','#8fceea','#d0eaf6'],
+        donutCategories = ['stands endommagés','stands vides','vélos disponibles'];
+
+    function showDonut(donutData){
+        var totalStands = donutData[0].y + donutData[1].y + donutData[2].y + ' stands';
+        donutContainer.highcharts({
+            exporting: {
+                enabled: false
+            },
+            credits: {
+                enabled: false
+            },
+            chart: {
+                type: 'pie',
+                backgroundColor: 'transparent'
+            },
+            title: {
+                text: totalStands,
+                verticalAlign: 'middle'
+            },
+            plotOptions: {
+                pie: {
+                    shadow: false,
+                    center: ['50%', '50%'],
+                    animation: {
+                        duration: 2000,
+                        easing: 'swing'
+                    }
+                }
+            },
+            tooltip: {
+                valueSuffix: ''
+            },
+            series: [{
+                data: donutData,
+                size: '80%',
+                innerSize: '70%',
+                name: 'Total'
+            }]
+        });
+    }
 });
