@@ -492,35 +492,39 @@ $(function() {
             }).addTo(map).on('click',function(e) {
                 e.layer.unbindPopup();
                 var feature = e.layer.feature;
-                var donutData = [{
-                    y: feature.properties.broken_stands,
-                    color: donutColors[0],
-                    name: donutCategories[0],
-                    categories: [0]
-                },
-                {
-                    y: feature.properties.available_bike_stands,
-                    color: donutColors[1],
-                    name: donutCategories[1],
-                    categories: [1]
-                },
-                {
-                    y: feature.properties.available_bikes,
-                    color: donutColors[2],
-                    name: donutCategories[2],
-                    categories: [2]
-                }];
-                donutContainer.removeClass('no_opacity');
+                donutData[0].y = feature.properties.broken_stands;
+                donutData[1].y = feature.properties.available_bike_stands;
+                donutData[2].y = feature.properties.available_bikes;
                 showDonut(donutData);
             });
         }
     }
 
+    //////////////////////////////////
     /* DONUT */
+    //////////////////////////////////
 
     var donutContainer = $('#donutContainer'),
         donutColors = ['#1b6d93','#64bee7','#8fceea','#d0eaf6'],
-        donutCategories = ['stands endommagés','stands vides','vélos disponibles'];
+        donutCategories = ['stands endommagés','stands vides','vélos disponibles'],
+        donutData = [{
+            y: 0,
+            color: donutColors[0],
+            name: donutCategories[0],
+            categories: [0]
+        },
+        {
+            y: 0,
+            color: donutColors[1],
+            name: donutCategories[1],
+            categories: [1]
+        },
+        {
+            y: 0,
+            color: donutColors[2],
+            name: donutCategories[2],
+            categories: [2]
+        }];
 
     function showDonut(donutData){
         var totalStands = donutData[0].y + donutData[1].y + donutData[2].y + ' stands';
