@@ -21,7 +21,7 @@ $(function() {
                 totalStands = totalStands + velib[i].available_bike_stands;
             }
         },
-        error: function() { console.log('Fail load data API'); }
+        error: function(e) { console.log('statut error : ' + e.status + ' ' + e.statusText); }
     });
     setInterval(function() {
         $.ajax({
@@ -29,10 +29,10 @@ $(function() {
             type: 'GET',
             crossDomain: true,
             dataType: 'jsonp',
-            success: function(data) {
+            success: function(data){
                 localStorage.data = JSON.stringify(data);
             },
-            error: function() { console.log('Fail load data API'); }
+            error: function(e) { console.log('statut error : ' + e.status + ' ' + e.statusText); }
         });
     }, 3000);
 
