@@ -365,6 +365,9 @@ $(function() {
                                 lineColor: '#1b6d93'
                             }
                         }
+                    },
+                    click: function(e){
+                        console.log('serie');
                     }
                 }
             },
