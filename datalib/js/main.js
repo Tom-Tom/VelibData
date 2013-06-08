@@ -492,7 +492,6 @@ $(function() {
                 donutData[0].y = feature.properties.broken_stands;
                 donutData[1].y = feature.properties.available_bike_stands;
                 donutData[2].y = feature.properties.available_bikes;
-                donutContainer.removeClass('no_opacity');
                 showDonut(donutData);
             });
         }
