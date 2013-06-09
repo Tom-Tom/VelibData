@@ -409,12 +409,12 @@ $(function() {
 
     var velib = JSON.parse(localStorage.data);
     var tab = [];
-    for (var i=0 ; i<velib.length ; i++) {
+    for(var i=0 ; i<velib.length ; i++) {
         tab[i] = velib[i].name.slice(8).toLowerCase(1);
     }
     $('#search').typeahead({
-      name: 'station',
-      local: tab
+        name: 'station',
+        local: tab
     });
 
     //////////////////////////////////
