@@ -115,9 +115,9 @@ $(function() {
         },
         tooltip: {
             formatter: function() {
-                    return '<b>'+ this.series.name +'</b><br/>'+
-                    Highcharts.numberFormat(this.y, 2)+'<br/>le '+
-                    Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x);
+                return '<b>'+ this.series.name +'</b><br/>'+
+                Highcharts.numberFormat(this.y, 2)+'<br/>le '+
+                Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x);
             },
             style: {
                 padding: 10,
@@ -430,8 +430,10 @@ $(function() {
                 donutInfo.name = stationData.name;
                 donutInfo.address = stationData.address;
                 showDonut(donutData, donutInfo);
+                i = velib.length;
             }
         }
+        console.log(tot);
     });
 
     //////////////////////////////////
