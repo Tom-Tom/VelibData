@@ -36,12 +36,11 @@ $(function() {
     var q = "select * from html where url='https://api.jcdecaux.com/vls/v1/stations?apiKey=a529d3371c450b3ab44a9281345bcb27e8f47868&contract=Paris'";
     jyql(q, function (err, data) {
         localStorage.data = data.query.results.body.p;
-        var type = '';
-        var velib = JSON.parse(localStorage.data);
-        var totalBikes = 0;
-        var totalStands = 0;
+        var velib = JSON.parse(localStorage.data),
+            totalBikes = 0,
+            totalStands = 0;
         for (var i=0 ; i<velib.length ; i++) {
-            addMarkers(map,velib[i],type);
+            addMarkers(map,velib[i]);
             totalBikes = totalBikes + velib[i].available_bikes;
             totalStands = totalStands + velib[i].available_bike_stands;
         }
@@ -306,7 +305,7 @@ $(function() {
                 animation: Highcharts.svg, // don't animate in old IE
                 events: {
                     click: function(e){
-                        console.log('ALLO');
+                        console.log(e);
                     },
                     load: function() {
 
@@ -413,7 +412,7 @@ $(function() {
         tab[i] = {
             value: velib[i].name.slice(8).toLowerCase(1),
             id: velib[i].number
-        }
+        };
     }
     $('#search').typeahead({
         name: 'station',
@@ -454,7 +453,7 @@ $(function() {
         return formattedTime(nowDate);
     }
 
-    function addMarkers(map,velib,type){
+    function addMarkers(map,velib){
         var lat = velib.position.lat,
             lng = velib.position.lng,
             name = velib.name.slice(7),
@@ -477,44 +476,32 @@ $(function() {
         } else if(pourcent <= 100){
             color = "#D50055";
         }
-        if(type==="circle"){
-            var circle_options = {
-                color: color,      // Stroke color
-                opacity: 0.6,         // Stroke opacity
-                weight: 5,         // Stroke weight
-                fillColor: '#000000',  // Fill color
-                fillOpacity: 0.4    // Fill opacity
-            };
-            L.circle(velib.position, 50, circle_options).addTo(map);
-        } else {
-
-            L.mapbox.markerLayer({
-                type: 'Feature',
-                geometry: {
-                    type: 'Point',
-                    coordinates: [lng, lat]
-                },
-                properties: {
-                    title: name,
-                    description: text,
-                    'marker-size': 'small',
-                    'marker-color': color,
-                    'marker-symbol': 'bicycle',
-                    available_bike_stands: velib.available_bike_stands,
-                    available_bikes: velib.available_bikes,
-                    broken_stands: broken_stands
-                }
-            }).addTo(map).on('click',function(e) {
-                e.layer.unbindPopup();
-                var feature = e.layer.feature;
-                donutData[0].y = feature.properties.broken_stands;
-                donutData[1].y = feature.properties.available_bike_stands;
-                donutData[2].y = feature.properties.available_bikes;
-                donutInfo.name = velib.name;
-                donutInfo.address = velib.address;
-                showDonut(donutData, donutInfo);
-            });
-        }
+        L.mapbox.markerLayer({
+            type: 'Feature',
+            geometry: {
+                type: 'Point',
+                coordinates: [lng, lat]
+            },
+            properties: {
+                title: name,
+                description: text,
+                'marker-size': 'small',
+                'marker-color': color,
+                'marker-symbol': 'bicycle',
+                available_bike_stands: velib.available_bike_stands,
+                available_bikes: velib.available_bikes,
+                broken_stands: broken_stands
+            }
+        }).addTo(map).on('click',function(e) {
+            e.layer.unbindPopup();
+            var feature = e.layer.feature;
+            donutData[0].y = feature.properties.broken_stands;
+            donutData[1].y = feature.properties.available_bike_stands;
+            donutData[2].y = feature.properties.available_bikes;
+            donutInfo.name = velib.name;
+            donutInfo.address = velib.address;
+            showDonut(donutData, donutInfo);
+        });
     }
 
     //////////////////////////////////
