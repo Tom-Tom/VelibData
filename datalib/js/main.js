@@ -480,9 +480,9 @@ $(function() {
             L.marker([lat, lng], {
                 icon: L.icon({
                     iconUrl: pin,
-                    iconSize:     [50, 50], // size of the icon
-                    iconAnchor:   [25, 25], // point of the icon which will correspond to marker's location
-                    popupAnchor:  [0, -25],  // point from which the popup should open relative to the iconAnchor
+                    iconSize:     [20, 20], // size of the icon
+                    iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
+                    popupAnchor:  [0, -10],  // point from which the popup should open relative to the iconAnchor
                     available_bike_stands: velib.available_bike_stands,
                     available_bikes: velib.available_bikes,
                     broken_stands: broken_stands
