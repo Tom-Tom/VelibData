@@ -10,24 +10,19 @@ $(function() {
     //////////////////////////////////
     /* AJAX */
     //////////////////////////////////
-
+    thedata = {};
     /* TEST ZONE */
         //http://kevinlarosa.fr:4000/?dateStart=1369573200000&dateEnd=1369591200000
         var now = moment();
-        var start = moment().subtract('hours', 3);
+        var start = moment().subtract('hours', 24);
         url = 'http://kevinlarosa.fr:4000/?dateStart='+start+'&dateEnd='+now;
         $.ajax({
             url: url,
             type: 'GET',
             dataType: 'json',
             success: function(data) {
-                for(var i=0;i<data.length;i++){
-                    var totalBikes = 0;
-                    for(var y=0;y<data[i].stations.length;y++){
-                        totalBikes += data[i].stations[y].available_bikes;
-                    }
-                    console.log(totalBikes);
-                }
+                thedata = JSON.stringify(data);
+                console.log('ok');
             },
             error: function() { console.log('Fail load data API'); }
         });
@@ -303,15 +298,7 @@ $(function() {
                 type: 'spline',
                 backgroundColor: 'transparent',
                 height:'190',
-                animation: Highcharts.svg, // don't animate in old IE
-                events: {
-                    click: function(e){
-                        console.log('ALLO');
-                    },
-                    load: function() {
-
-                    }
-                }
+                animation: Highcharts.svg
             },
             credits: {
                 enabled: false
@@ -320,7 +307,7 @@ $(function() {
                 text: ''
             },
             xAxis: {
-                type: 'datetime',
+                // type: 'datetime',
                 lineWidth:0,
                 tickPixelInterval: 100,
                 labels: {
@@ -340,9 +327,9 @@ $(function() {
             },
             tooltip: {
                 formatter: function() {
-                        return '<b>'+ this.series.name +'</b><br/>'+
-                        Highcharts.numberFormat(this.y, 2)+'<br/>le '+
-                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x);
+                        // return '<b>'+ this.series.name +'</b><br/>'+
+                        // Highcharts.numberFormat(this.y, 2)+'<br/>le '+
+                        // Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x);
                 },
                 style: {
                     padding: 10,
@@ -366,8 +353,10 @@ $(function() {
                             }
                         }
                     },
-                    click: function(e){
-                        console.log('serie');
+                    events:{
+                        click: function(e){
+                            console.log(e.point);
+                        }
                     }
                 }
             },
@@ -388,18 +377,28 @@ $(function() {
                     var data = [],
                         time = (new Date()).getTime(),
                         i;
-                    var velib = JSON.parse(localStorage.data);
- 
-                    var y = 0;
-                    for (i = 0 ; i<velib.length ; i++) {
-                        y = y + velib[i].available_bikes;
-                    }
-                    for (i = -19; i <= 0; i++) {
+                    var velib = JSON.parse(thedata);
+                    console.log(thedata);
+                    // for(var i=0;i<data.length;i++){
+                    //     var totalBikes = 0;
+                    //     for(var y=0;y<data[i].stations.length;y++){
+                    //         totalBikes += data[i].stations[y].available_bikes;
+                    //     }
+                    //     console.log(totalBikes);
+                    // }
+
+                    for (i = 0; i < velib.length; i++) {
+                        var totalBikes =0;
+                        for(var y=0;y<velib[i].stations.length;y++){
+                            totalBikes += velib[i].stations[y].available_bikes;
+                        }
+                        console.log(Date.parse(velib[i].timestamp) + ' AVEC ' + totalBikes);
                         data.push({
-                            x: time + i * 10000,
-                            y: y
+                            x: Date.parse(velib[i].timestamp),
+                            y: totalBikes
                         });
                     }
+                    console.log(data);
                     return data;
                 })()
             }]
