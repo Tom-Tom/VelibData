@@ -501,6 +501,12 @@ $(function() {
     /* DONUT */
     //////////////////////////////////
 
+    /* CACHE LE DONUT AU CLICK SUR MAP */
+    map.on('click', function(){
+        donutContainer.addClass('no_opacity');
+    });
+
+    /* CONFIGURE LE DONUT */
     var donutContainer = $('#donutContainer'),
         donutColors = ['#1b6d93','#64bee7','#8fceea','#d0eaf6'],
         donutCategories = ['stands endommagés','stands vides','vélos disponibles'],
@@ -523,6 +529,7 @@ $(function() {
             categories: [2]
         }];
 
+    /* AFFICHE LE DONUT AVEC LES DONNÉES PASSÉES EN PARAMÈTRE */
     function showDonut(donutData){
         var totalStands = donutData[0].y + donutData[1].y + donutData[2].y + ' stands';
         donutContainer.highcharts({
@@ -560,5 +567,6 @@ $(function() {
                 name: 'Total'
             }]
         });
+        donutContainer.removeClass('no_opacity');
     }
 });
