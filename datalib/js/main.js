@@ -466,45 +466,76 @@ $(function() {
         text=text+"<br/><strong>Available bikes : </strong>"+velib.available_bikes;
         text=text+"<br/><strong>Last update : </strong>"+formattedTime(velib.last_update);
         text=text+"("+diffTime(velib.last_update)+"sec ago)";
-        var pourcent = 100 * velib.available_bikes / velib.bike_stands,
-            color = "#333333";
-        if(pourcent <= 20){
-            color = "#2B00DD";
-        } else if(pourcent <= 40){
-            color = "#5500BB";
-        } else if(pourcent <= 60){
-            color = "#800099";
-        } else if(pourcent <= 80){
-            color = "#AA0077";
-        } else if(pourcent <= 100){
-            color = "#D50055";
-        }
-        L.mapbox.markerLayer({
-            type: 'Feature',
-            geometry: {
-                type: 'Point',
-                coordinates: [lng, lat]
-            },
-            properties: {
-                title: name,
-                description: text,
-                'marker-size': 'small',
-                'marker-color': color,
-                'marker-symbol': 'bicycle',
-                available_bike_stands: velib.available_bike_stands,
-                available_bikes: velib.available_bikes,
-                broken_stands: broken_stands
+        //// CUT
+            var pourcent = 100 * velib.available_bikes / velib.bike_stands;
+            if(pourcent <= 25){
+                pin = "img/pin_rouge.svg";
+            } else if(pourcent <= 50){
+                pin = "img/pin_orange.svg";
+            } else if(pourcent <= 75){
+                pin = "img/pin_jaune.svg";
+            } else {
+                pin = "img/pin_vert.svg";
             }
-        }).addTo(map).on('click',function(e) {
-            e.layer.unbindPopup();
-            var feature = e.layer.feature;
-            donutData[0].y = feature.properties.broken_stands;
-            donutData[1].y = feature.properties.available_bike_stands;
-            donutData[2].y = feature.properties.available_bikes;
-            donutInfo.name = velib.name;
-            donutInfo.address = velib.address;
-            showDonut(donutData, donutInfo);
-        });
+            L.marker([lat, lng], {
+                icon: L.icon({
+                    iconUrl: pin,
+                    iconSize:     [20, 20], // size of the icon
+                    iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
+                    popupAnchor:  [0, -10],  // point from which the popup should open relative to the iconAnchor
+                    available_bike_stands: velib.available_bike_stands,
+                    available_bikes: velib.available_bikes,
+                    broken_stands: broken_stands
+                })
+            }).addTo(map).on('click',function(e) {
+                //e.layer.unbindPopup();
+                var feature = e.target.options.icon.options;
+                donutData[0].y = feature.broken_stands;
+                donutData[1].y = feature.available_bike_stands;
+                donutData[2].y = feature.available_bikes;
+                donutInfo.name = velib.name;
+                donutInfo.address = velib.address;
+                showDonut(donutData, donutInfo);
+            });
+        // var pourcent = 100 * velib.available_bikes / velib.bike_stands,
+        //     color = "#333333";
+        // if(pourcent <= 20){
+        //     color = "#2B00DD";
+        // } else if(pourcent <= 40){
+        //     color = "#5500BB";
+        // } else if(pourcent <= 60){
+        //     color = "#800099";
+        // } else if(pourcent <= 80){
+        //     color = "#AA0077";
+        // } else if(pourcent <= 100){
+        //     color = "#D50055";
+        // }
+        // L.mapbox.markerLayer({
+        //     type: 'Feature',
+        //     geometry: {
+        //         type: 'Point',
+        //         coordinates: [lng, lat]
+        //     },
+        //     properties: {
+        //         title: name,
+        //         description: text,
+        //         'marker-size': 'small',
+        //         'marker-color': color,
+        //         'marker-symbol': 'bicycle',
+        //         available_bike_stands: velib.available_bike_stands,
+        //         available_bikes: velib.available_bikes,
+        //         broken_stands: broken_stands
+        //     }
+        // }).addTo(map).on('click',function(e) {
+        //     e.layer.unbindPopup();
+        //     var feature = e.layer.feature;
+        //     donutData[0].y = feature.properties.broken_stands;
+        //     donutData[1].y = feature.properties.available_bike_stands;
+        //     donutData[2].y = feature.properties.available_bikes;
+        //     donutInfo.name = velib.name;
+        //     donutInfo.address = velib.address;
+        //     showDonut(donutData, donutInfo);
+        // });
     }
 
     //////////////////////////////////
