@@ -4,8 +4,8 @@
 	<meta charset="UTF-8">
 	<title>DataLib</title>
     <link href='http://api.tiles.mapbox.com/mapbox.js/v1.0.2/mapbox.css' rel='stylesheet' />
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<style type="text/css" media="screen">
+	<link rel='stylesheet' type='text/css' href='css/style.css'>
+	<style type='text/css' media="screen">
         #holder {
             height: 250px;
             margin: 0 0 0 0;
@@ -16,18 +16,18 @@
 <body>
     <section id="title">
         <h1>Datalib'</h1>
-        <div class="search example-arabic">
+        <div class='search example-arabic'>
             <label>Recherche d'une station :</label>
-          <input id="search"/>
+          <input id='search' type='text' placeholder='rechercher une station par nom' />
         </div>
     </section>
-	<section id="informations">
-		<span id="titreStation">Station n°07022 Pont de l'Alma</span></br>
-		<span id="soustitreStation">3, avenue Bosquet 75007 Paris<span>(EN SERVICE)</span></span>
 
-        <figure id='donutContainer'>
-            
-        </figure>
+	<section id='informations'>
+		<span id='titreStation'><!--Station n°07022 Pont de l'Alma--></span>
+        <br>
+		<span id="soustitreStation"><!--3, avenue Bosquet 75007 Paris<span>(EN SERVICE)--></span>
+        <br>
+        <figure id='donutContainer'></figure>
 	</section>
 
 	<section>
