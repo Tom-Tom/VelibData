@@ -74,7 +74,7 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility; }
 
-section:nth-child(1) {
+#title {
   position: fixed;
   top: 0;
   left: 0;
@@ -82,32 +82,33 @@ section:nth-child(1) {
   width: 100%;
   box-shadow: 0px 10px 5px 0px #edf5fb;
   z-index: 25; }
-  section:nth-child(1) h1 {
+  #title h1 {
     display: inline-block;
     background-color: #65bee7;
     color: #edf5fb;
     margin: 30px 50px;
     padding: 3px 15px;
     font-size: 2em; }
-  section:nth-child(1) .search {
+  #title .search {
     position: absolute;
     right: 50px;
     top: 30px; }
-    section:nth-child(1) .search label {
+    #title .search label {
       position: relative;
       top: 4px; }
-    section:nth-child(1) .search input {
+    #title .search input {
       width: 200px;
       border: 2px solid #65bee7;
       background-color: #edf5fb; }
-    section:nth-child(1) .search .tt-dropdown-menu {
+    #title .search .tt-dropdown-menu {
       background-color: #edf5fb;
       border: 2px solid #65bee7; }
-    section:nth-child(1) .search div .tt-suggestion:first-letter {
+    #title .search div .tt-suggestion:first-letter {
       text-transform: uppercase; }
-    section:nth-child(1) .search div .tt-suggestion:hover {
+    #title .search div .tt-suggestion:hover {
       background-color: #00f; }
-section:nth-child(2) {
+
+#informations {
   position: fixed;
   top: 100px;
   left: 0;
@@ -115,17 +116,22 @@ section:nth-child(2) {
   height: 75%;
   z-index: 75;
   box-shadow: 10px 0px 5px 0px #edf5fb; }
-  section:nth-child(2) #titreStation {
+  #informations > * {
+    margin-left: 50px; }
+  #informations #titreStation {
     color: #1b6d93;
     font-size: 2em;
-    margin-left: 50px; }
-  section:nth-child(2) #soustitreStation {
+    margin-left: 50px;
+    display: block; }
+  #informations #soustitreStation {
+    display: block;
     color: #64bee7;
     font-size: 1.3em;
     margin-left: 50px; }
-    section:nth-child(2) #soustitreStation span {
+    #informations #soustitreStation span {
       margin-left: 25px; }
-section:nth-child(3) {
+
+#map_container {
   position: fixed;
   background-color: #edf5fb;
   top: 100px;
@@ -133,23 +139,30 @@ section:nth-child(3) {
   height: 75%;
   width: 60%;
   z-index: 0; }
-  section:nth-child(3) #map {
+  #map_container #map {
     height: 100%;
     width: 100%; }
-section:nth-child(4) {
+
+#timeline {
   background-color: #edf5fb;
   position: fixed;
-  bottom: 0;
+  bottom: 10px;
   height: 200px;
   width: 100%;
   z-index: 100;
   box-shadow: 0px -5px 10px 0px #edf5fb; }
-  section:nth-child(4) nav ul {
-    cursor: default; }
-    section:nth-child(4) nav ul li {
-      display: inline-block;
-      border: 1px black solid;
-      cursor: pointer; }
+  #timeline nav {
+    margin-left: 50px; }
+    #timeline nav ul {
+      cursor: default; }
+      #timeline nav ul li {
+        color: #65bee7;
+        padding: 5px;
+        display: inline-block;
+        border: 2px #65bee7 solid;
+        cursor: pointer;
+        margin-right: 20px;
+        border-radius: 5px; }
 
 .no_opacity {
   opacity: 0 !important; }

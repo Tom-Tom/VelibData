@@ -513,12 +513,13 @@ $(function() {
 
     /* CACHE LE DONUT AU CLICK SUR MAP */
     map.on('click', function(){
-        donutInformations.addClass('no_opacity');
+        donutContainer.addClass('no_opacity');
+        donutInfoName.addClass('no_opacity');
+        donutInfoAddress.addClass('no_opacity');
     });
 
     /* CONFIGURE LE DONUT */
-    var donutInformations = $('#informations'),
-        donutContainer = $('#donutContainer'),
+    var donutContainer = $('#donutContainer'),
         donutInfoName = $('#titreStation'),
         donutInfoAddress = $('#soustitreStation'),
         donutColors = ['#1b6d93','#64bee7','#8fceea','#d0eaf6'],
@@ -586,6 +587,8 @@ $(function() {
                 name: 'Total'
             }]
         });
-        donutInformations.removeClass('no_opacity');
+        donutContainer.removeClass('no_opacity');
+        donutInfoName.removeClass('no_opacity');
+        donutInfoAddress.removeClass('no_opacity');
     }
 });

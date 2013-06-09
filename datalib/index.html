@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang='fr'>
 <head>
-	<meta charset="UTF-8">
+	<meta charset='UTF-8'>
 	<title>DataLib</title>
     <link href='http://api.tiles.mapbox.com/mapbox.js/v1.0.2/mapbox.css' rel='stylesheet' />
 	<link rel='stylesheet' type='text/css' href='css/style.css'>
-	<style type='text/css' media="screen">
+	<style type='text/css' media='screen'>
         #holder {
             height: 250px;
             margin: 0 0 0 0;
@@ -14,7 +14,7 @@
     </style>
 </head>
 <body>
-    <section id="title">
+    <section id='title'>
         <h1>Datalib'</h1>
         <div class='search example-arabic'>
             <label>Recherche d'une station :</label>
@@ -23,18 +23,18 @@
     </section>
 
 	<section id='informations'>
-		<span id='titreStation'><!--Station n°07022 Pont de l'Alma--></span>
+		<span id='titreStation' class='no_opacity'></span>
         <br>
-		<span id="soustitreStation"><!--3, avenue Bosquet 75007 Paris<span>(EN SERVICE)--></span>
+		<span id='soustitreStation' class='no_opacity'></span>
         <br>
-        <figure id='donutContainer'></figure>
+        <figure id='donutContainer' class='no_opacity'></figure>
 	</section>
 
-	<section>
+	<section id='map_container'>
 		<div id='map'></div>
 	</section>
 
-	<section id="timeline">
+	<section id='timeline'>
 		<nav>
             <ul>
                 <li>RealTime</li>
@@ -43,17 +43,17 @@
                 <li>30 jours</li>
             </ul>      
         </nav>
-        <div id="graph"></div>
+        <div id='graph'></div>
 	</section>
     <!-- LIBRARIES -->
-    <script type="text/javascript" src='js/lib/jquery.min.js'></script>
-    <script type="text/javascript" src='js/lib/typeahead.min.js'></script>
-    <script type="text/javascript" src='js/lib/underscore.min.js'></script>
-    <script type="text/javascript" src='js/lib/jyql.min.js'></script>
-    <script type="text/javascript" src='js/lib/moment.js'></script>
+    <script type='text/javascript' src='js/lib/jquery.min.js'></script>
+    <script type='text/javascript' src='js/lib/typeahead.min.js'></script>
+    <script type='text/javascript' src='js/lib/underscore.min.js'></script>
+    <script type='text/javascript' src='js/lib/jyql.min.js'></script>
+    <script type='text/javascript' src='js/lib/moment.js'></script>
     <script src='http://api.tiles.mapbox.com/mapbox.js/v1.0.2/mapbox.js'></script>
-    <script type="text/javascript" src="js/lib/highcharts.min.js"></script>
+    <script type='text/javascript' src='js/lib/highcharts.min.js'></script>
     <!-- OUR SCRIPTS -->
-	<script type="text/javascript" src="js/main.js"></script>
+	<script type='text/javascript' src='js/main.js'></script>
 </body>
 </html>
