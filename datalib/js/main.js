@@ -410,11 +410,29 @@ $(function() {
     var velib = JSON.parse(localStorage.data);
     var tab = [];
     for(var i=0 ; i<velib.length ; i++) {
-        tab[i] = velib[i].name.slice(8).toLowerCase(1);
+        tab[i] = {
+            value: velib[i].name.slice(8).toLowerCase(1),
+            id: velib[i].number
+        }
     }
     $('#search').typeahead({
         name: 'station',
         local: tab
+    });
+
+    $('#search').on('typeahead:selected', function(e, elem){
+        for(i=0; i<velib.length; i++){
+            if(velib[i].number === elem.id){
+                var stationData = velib[i],
+                    broken_stands = stationData.bike_stands - (stationData.available_bike_stands + stationData.available_bikes);
+                donutData[0].y = broken_stands;
+                donutData[1].y = stationData.available_bike_stands;
+                donutData[2].y = stationData.available_bikes;
+                donutInfo.name = stationData.name;
+                donutInfo.address = stationData.address;
+                showDonut(donutData, donutInfo);
+            }
+        }
     });
 
     //////////////////////////////////
@@ -492,7 +510,9 @@ $(function() {
                 donutData[0].y = feature.properties.broken_stands;
                 donutData[1].y = feature.properties.available_bike_stands;
                 donutData[2].y = feature.properties.available_bikes;
-                showDonut(donutData);
+                donutInfo.name = velib.name;
+                donutInfo.address = velib.address;
+                showDonut(donutData, donutInfo);
             });
         }
     }
@@ -503,13 +523,20 @@ $(function() {
 
     /* CACHE LE DONUT AU CLICK SUR MAP */
     map.on('click', function(){
-        donutContainer.addClass('no_opacity');
+        donutInformations.addClass('no_opacity');
     });
 
     /* CONFIGURE LE DONUT */
-    var donutContainer = $('#donutContainer'),
+    var donutInformations = $('#informations'),
+        donutContainer = $('#donutContainer'),
+        donutInfoName = $('#titreStation'),
+        donutInfoAddress = $('#soustitreStation'),
         donutColors = ['#1b6d93','#64bee7','#8fceea','#d0eaf6'],
         donutCategories = ['stands endommagés','stands vides','vélos disponibles'],
+        donutInfo = {
+            name: '',
+            address: ''
+        },
         donutData = [{
             y: 0,
             color: donutColors[0],
@@ -530,8 +557,10 @@ $(function() {
         }];
 
     /* AFFICHE LE DONUT AVEC LES DONNÉES PASSÉES EN PARAMÈTRE */
-    function showDonut(donutData){
+    function showDonut(donutData, donutInfo){
         var totalStands = donutData[0].y + donutData[1].y + donutData[2].y + ' stands';
+        donutInfoName.text(donutInfo.name);
+        donutInfoAddress.text(donutInfo.address);
         donutContainer.highcharts({
             exporting: {
                 enabled: false
@@ -567,6 +596,6 @@ $(function() {
                 name: 'Total'
             }]
         });
-        donutContainer.removeClass('no_opacity');
+        donutInformations.removeClass('no_opacity');
     }
 });
