@@ -435,7 +435,6 @@ $(function() {
                 i = velib.length;
             }
         }
-        console.log(tot);
     });
 
     //////////////////////////////////
