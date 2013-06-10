@@ -67,47 +67,6 @@ table {
   font-weight: 100; }
 
 /* COLORS */
-/* ANIMATIONS */
-@-webkit-keyframes pulse {
-  0% {
-    -webkit-transform: scale(1); }
-
-  50% {
-    -webkit-transform: scale(1.1); }
-
-  100% {
-    -webkit-transform: scale(1); } }
-
-@-moz-keyframes pulse {
-  0% {
-    -moz-transform: scale(1); }
-
-  50% {
-    -moz-transform: scale(1.1); }
-
-  100% {
-    -moz-transform: scale(1); } }
-
-@-o-keyframes pulse {
-  0% {
-    -o-transform: scale(1); }
-
-  50% {
-    -o-transform: scale(1.1); }
-
-  100% {
-    -o-transform: scale(1); } }
-
-@keyframes pulse {
-  0% {
-    transform: scale(1); }
-
-  50% {
-    transform: scale(1.1); }
-
-  100% {
-    transform: scale(1); } }
-
 /* SCSS */
 body {
   background-color: #edf5fb;
@@ -130,27 +89,15 @@ body {
     margin: 30px 50px;
     padding: 3px 15px;
     font-size: 2em;
-    -webkit-animation-duration: 3s;
-    -webkit-animation-delay: 0s;
-    -webkit-animation-iteration-count: infinite;
-    -moz-animation-duration: 3s;
-    -moz-animation-delay: 0s;
-    -moz-animation-iteration-count: infinite;
-    -o-animation-duration: 3s;
-    -o-animation-delay: 0s;
-    -o-animation-iteration-count: infinite;
-    animation-duration: 3s;
-    animation-delay: 0s;
-    animation-iteration-count: infinite;
-    -webkit-animation-name: pulse;
-    -moz-animation-name: pulse;
-    -o-animation-name: pulse;
-    animation-name: pulse; }
+    -webkit-transition-duration: 1s;
+    -moz-transition-duration: 1s;
+    -o-transition-duration: 1s;
+    transition-duration: 1s; }
     #title h1:hover {
-      -webkit-animation-name: none;
-      -moz-animation-name: none;
-      -o-animation-name: none;
-      animation-name: none; }
+      -webkit-transform: scale(1.1);
+      -moz-transform: scale(1.1);
+      -o-transform: scale(1.1);
+      transform: scale(1.1); }
   #title .search {
     position: absolute;
     right: 50px;
