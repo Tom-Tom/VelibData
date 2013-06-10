@@ -477,7 +477,7 @@ $(function() {
             } else {
                 pin = "img/pin_vert.svg";
             }
-            L.marker([lat, lng], {
+            L.marker([lat, lng],{
                 icon: L.icon({
                     iconUrl: pin,
                     iconSize:     [20, 20], // size of the icon
@@ -487,8 +487,7 @@ $(function() {
                     available_bikes: velib.available_bikes,
                     broken_stands: broken_stands
                 })
-            }).addTo(map).on('click',function(e) {
-                //e.layer.unbindPopup();
+            }).addTo(map).on('click',function(e){
                 var feature = e.target.options.icon.options;
                 donutData[0].y = feature.broken_stands;
                 donutData[1].y = feature.available_bike_stands;
