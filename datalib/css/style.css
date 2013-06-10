@@ -109,7 +109,7 @@ body {
       background-color: #00f; }
 
 #informations {
-  position: fixed;
+  position: relative;
   top: 100px;
   left: 0;
   width: 40%;
@@ -119,17 +119,31 @@ body {
   #informations > * {
     margin-left: 50px; }
   #informations #titreStation {
+    position: absolute;
+    left: 0;
+    top: 0;
     color: #1b6d93;
     font-size: 2em;
     margin-left: 50px;
     display: block; }
   #informations #soustitreStation {
+    position: absolute;
+    left: 0;
+    top: 80px;
     display: block;
     color: #64bee7;
     font-size: 1.3em;
     margin-left: 50px; }
     #informations #soustitreStation span {
       margin-left: 25px; }
+  #informations #donutContainer {
+    margin: 0 auto;
+    position: relative;
+    left: 0;
+    top: 200px;
+    width: 100%;
+    height: 200px;
+    margin: 20px 0; }
 
 #map_container {
   position: fixed;
@@ -138,7 +152,7 @@ body {
   right: 0;
   height: 75%;
   width: 60%;
-  z-index: 0; }
+  z-index: 80; }
   #map_container #map {
     height: 100%;
     width: 100%; }
@@ -166,13 +180,6 @@ body {
 
 .no_opacity {
   opacity: 0 !important; }
-
-#donutContainer {
-  margin: 0 auto;
-  position: relative;
-  width: 100%;
-  height: 200px;
-  margin: 20px 0; }
 
 .leaflet-control {
   display: none !important; }
