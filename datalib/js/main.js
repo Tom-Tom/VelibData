@@ -578,10 +578,9 @@ $(function() {
         }];
 
         var tlDonut = new TimelineLite();
-        tlDonut
-            .from(donutInfoName, 1, {left: -9999})
-            .from(donutInfoAddress, 0.5, {left: 9999}, '-=0.25')
-            .from(donutContainer, 1, {scale: 0}, '-=0.25');
+        tlDonut.from(donutInfoName, 1, {left: -9999})
+        .from(donutInfoAddress, 0.5, {left: 9999}, '-=0.25')
+        .from(donutContainer, 1, {scale: 0}, '-=0.25');
 
     /* AFFICHE LE DONUT AVEC LES DONNÉES PASSÉES EN PARAMÈTRE */
     function showDonut(donutData, donutInfo){
@@ -589,19 +588,34 @@ $(function() {
         donutInfoName.text(donutInfo.name.slice(8));
         donutInfoAddress.text(donutInfo.address);
         donutContainer.highcharts({
-            exporting: {
-                enabled: false
+            chart: {
+                type: 'pie',
+                backgroundColor: 'transparent',
+                style: {
+                    fontFamily: 'DINPro',
+                    fonSize: '1em'
+                }
             },
             credits: {
                 enabled: false
             },
-            chart: {
-                type: 'pie',
-                backgroundColor: 'transparent'
+            exporting: {
+                enabled: false
             },
-            title: {
-                text: totalStands,
-                verticalAlign: 'middle'
+            labels: {
+                items: [{
+                    style: {
+                        fontFamily: 'DINPro'
+                    }
+                }],
+                style: {
+                    fontFamily: 'DINPro'
+                }
+            },
+            legend: {
+                style: {
+                    fontFamily: 'DINPro'
+                }
             },
             plotOptions: {
                 pie: {
@@ -610,18 +624,38 @@ $(function() {
                     animation: {
                         duration: 2000,
                         easing: 'swing'
+                    },
+                    dataLabels: {
+                        style: {
+                            fontFamily: 'DINPro',
+                            fontSize: '1.5em'
+                        }
                     }
                 }
             },
-            tooltip: {
-                valueSuffix: ''
-            },
             series: [{
                 data: donutData,
-                size: '80%',
+                size: '75%',
                 innerSize: '70%',
                 name: 'Total'
-            }]
+            }],
+            title: {
+                text: totalStands,
+                verticalAlign: 'middle',
+                style: {
+                    fontFamily:'DINPro',
+                    fontSize:'2em'
+                }
+            },
+            tooltip: {
+                hideDelay: 100,
+                headerFormat: '',
+                pointFormat: '<span style="color:{point.color};font-weight:bold;font-size:1.4em;">{point.y}</span>',
+                footerFormat: '',
+                style: {
+                    fontFamily: 'DINPro'
+                }
+            }
         });
         donutContainer.removeClass('no_opacity');
         donutInfoName.removeClass('no_opacity');

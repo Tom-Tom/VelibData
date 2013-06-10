@@ -136,7 +136,8 @@ body {
     color: #1b6d93;
     font-size: 2em;
     margin-left: 50px;
-    display: block; }
+    display: block;
+    width: 100%; }
   #informations #soustitreStation {
     position: absolute;
     left: 0;
@@ -144,7 +145,8 @@ body {
     display: block;
     color: #64bee7;
     font-size: 1.3em;
-    margin-left: 50px; }
+    margin-left: 50px;
+    width: 100%; }
     #informations #soustitreStation span {
       margin-left: 25px; }
   #informations #donutContainer {
@@ -153,8 +155,7 @@ body {
     left: 0;
     top: 150px;
     width: 100%;
-    height: 50%;
-    margin: 20px 0; }
+    height: 50%; }
 
 #map_container {
   position: fixed;
