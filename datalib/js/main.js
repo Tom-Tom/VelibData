@@ -650,7 +650,7 @@ $(function() {
             tooltip: {
                 hideDelay: 100,
                 headerFormat: '',
-                pointFormat: '<span style="color:{point.color};font-weight:bold;font-size:1.4em;">{point.y}</span>',
+                pointFormat: '<span style="color:{point.color};font-weight:bold;font-size:1.2em;">{point.y}</span>',
                 footerFormat: '',
                 style: {
                     fontFamily: 'DINPro'
