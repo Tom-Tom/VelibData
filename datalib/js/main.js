@@ -586,7 +586,7 @@ $(function() {
     /* AFFICHE LE DONUT AVEC LES DONNÉES PASSÉES EN PARAMÈTRE */
     function showDonut(donutData, donutInfo){
         var totalStands = donutData[0].y + donutData[1].y + donutData[2].y + ' stands';
-        donutInfoName.text(donutInfo.name);
+        donutInfoName.text(donutInfo.name.slice(8));
         donutInfoAddress.text(donutInfo.address);
         donutContainer.highcharts({
             exporting: {
