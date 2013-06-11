@@ -65,6 +65,16 @@ body{
 	font-family: DINPro;
 	-webkit-font-smoothing:antialiased;
 	text-rendering:optimizeLegibility;
+	&.screenSplit{
+		#informations{
+			width:40%;
+			left:0%;
+		}
+		#map_container{
+			width:60%;
+			left:40%;
+		}
+	}
 }
 #title{
 	position:fixed;
@@ -124,13 +134,17 @@ body{
 	//top:100px;
 	top:10%;
 	//left:0;
-	left:-9999px;
+	left:-100%;
 	width:40%;
 	//height:75%;
 	height:70%;
 	z-index:75;
     box-shadow: 10px 0px 5px 0px $bg;
     overflow:hidden;
+    -webkit-transition:all 0.5s ease 0s;
+	-moz-transition:all 0.5s ease 0s;
+	-o-transition:all 0.5s ease 0s;
+	transition:all 0.5s ease 0s;
     > *{
     	margin-left:50px;
     }
@@ -142,7 +156,7 @@ body{
 		font-size:2em;
 		margin-left:50px;
 		display:block;
-		width:100%;
+		width:auto;
 	}
 	#soustitreStation{
 		position:absolute;
@@ -152,7 +166,7 @@ body{
 		color: $blue3;
 		font-size:1.3em;
 		margin-left:50px;
-		width:100%;
+		width:auto;
 
 		span{
 			margin-left:25px;
@@ -180,6 +194,10 @@ body{
 	// width:60%;
 	width:100%;
 	z-index:0;
+	-webkit-transition:all 0.5s ease 0s;
+	-moz-transition:all 0.5s ease 0s;
+	-o-transition:all 0.5s ease 0s;
+	transition:all 0.5s ease 0s;
 	#map{
 		height: 100%;
 		width: 100%;

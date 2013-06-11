@@ -52,7 +52,7 @@ $(function() {
     //////////////////////////////////
 
     $('#timeline nav ul li').on('click', function(){
-        $('#timeline nav ul li.active').removeClass('active')
+        $('#timeline nav ul li.active').removeClass('active');
         $(this).addClass('active');
     });
 
@@ -549,9 +549,12 @@ $(function() {
 
     /* CACHE LE DONUT AU CLICK SUR MAP */
     map.on('click', function(){
-        donutContainer.addClass('no_opacity');
-        donutInfoName.addClass('no_opacity');
-        donutInfoAddress.addClass('no_opacity');
+        $('body').removeClass('screenSplit');
+
+        // tlDonut.to(mapContainer, 0.5, {left: '0%', width: '100%'})
+        // .to(donutInformations, 0.5, {left: '-100%'}, '-=0.5');
+
+        setTimeout(function(){ map.setView([48.856, 2.34], 13); }, 500);
     });
 
     /* CONFIGURE LE DONUT */
@@ -584,11 +587,10 @@ $(function() {
             categories: [2]
         }];
 
-        // var tlDonut = new TimelineLite();
-        // tlDonut.to(mapContainer, 0.5, {left: '40%', width: '60%'})
-        // .from(donutInfoName, 1, {left: -9999})
-        // .from(donutInfoAddress, 0.5, {left: 9999}, '-=0.25')
-        // .from(donutContainer, 1, {scale: 0}, '-=0.25');
+        var tlDonut = new TimelineLite();
+        tlDonut.from(donutInfoName, 1, {left: '-9999px'})
+        .from(donutInfoAddress, 0.5, {left: '9999px'}, '-=0.25')
+        .from(donutContainer, 1, {scale: 0}, '-=0.25');
 
     /* AFFICHE LE DONUT AVEC LES DONNÉES PASSÉES EN PARAMÈTRE */
     function showDonut(donutData, donutInfo){
@@ -665,15 +667,16 @@ $(function() {
                 }
             }
         });
-        donutContainer.removeClass('no_opacity');
-        donutInfoName.removeClass('no_opacity');
-        donutInfoAddress.removeClass('no_opacity');
+        $('body').addClass('screenSplit');
 
-        var tlDonut = new TimelineLite();
-        tlDonut.to(mapContainer, 0.5, {left: '40%', width: '60%'})
-        .to(donutInformations, 0.5, {left: 0, width: '40%'}, 0)
-        .from(donutInfoName, 1, {left: -9999})
-        .from(donutInfoAddress, 0.5, {left: 9999}, '-=0.25')
-        .from(donutContainer, 1, {scale: 0}, '-=0.25');
+        tlDonut.restart();
+
+        // tlDonut.to(mapContainer, 0.5, {left: '40%', width: '60%'})
+        // .to(donutInformations, 0.5, {left: '0%'}, '-=0.5')
+        // .from(donutInfoName, 1, {left: '-9999px'}, '-=0.5')
+        // .from(donutInfoAddress, 0.5, {left: '9999px'}, '-=0.25')
+        // .from(donutContainer, 1, {scale: 0}, '-=0.25');
+
+        setTimeout(function(){ map.setView([48.856, 2.4], 13); }, 500);
     }
 });
