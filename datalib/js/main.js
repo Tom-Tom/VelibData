@@ -671,12 +671,6 @@ $(function() {
 
         tlDonut.restart();
 
-        // tlDonut.to(mapContainer, 0.5, {left: '40%', width: '60%'})
-        // .to(donutInformations, 0.5, {left: '0%'}, '-=0.5')
-        // .from(donutInfoName, 1, {left: '-9999px'}, '-=0.5')
-        // .from(donutInfoAddress, 0.5, {left: '9999px'}, '-=0.25')
-        // .from(donutContainer, 1, {scale: 0}, '-=0.25');
-
         setTimeout(function(){ map.setView([48.856, 2.4], 13); }, 500);
     }
 });

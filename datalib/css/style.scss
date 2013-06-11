@@ -227,6 +227,10 @@ body{
     			border:1px $blue1 solid;
     			cursor:pointer;
     			margin-right:20px;
+    			-webkit-transition:all 0.25s ease 0s;
+				-moz-transition:all 0.25s ease 0s;
+				-o-transition:all 0.25s ease 0s;
+				transition:all 0.25s ease 0s;
     			&:hover, &.active{
     				color:$blue1;
     				background-color:$bg;

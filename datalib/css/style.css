@@ -204,7 +204,11 @@ body {
         display: inline-block;
         border: 1px #65bee7 solid;
         cursor: pointer;
-        margin-right: 20px; }
+        margin-right: 20px;
+        -webkit-transition: all 0.25s ease 0s;
+        -moz-transition: all 0.25s ease 0s;
+        -o-transition: all 0.25s ease 0s;
+        transition: all 0.25s ease 0s; }
         #timeline nav ul li:hover, #timeline nav ul li.active {
           color: #65bee7;
           background-color: #edf5fb; }
