@@ -110,12 +110,16 @@ body{
 		.tt-dropdown-menu{
 			background-color: $bg;
 			border:2px solid $blue1;
+			width:208px;
+		}
+		div .tt-suggestion{
+			padding:4px;
 		}
 		div .tt-suggestion:first-letter{
 			text-transform:uppercase;
 		}
 		div .tt-suggestion:hover{
-			background-color: #00f;
+			background-color:$blue1;
 		}
 	}
 }
@@ -200,23 +204,13 @@ body{
     			color:$blue1;
     			padding:5px;
     			display:inline-block;
-    			border:2px $blue1 solid;
+    			border:1px $blue1 solid;
     			cursor:pointer;
     			margin-right:20px;
     			border-radius:5px;
-				-webkit-transition-duration:0.5s;
-				-moz-transition-duration:0.5s;
-				-o-transition-duration:0.5s;
-				transition-duration:0.5s;
     			&:hover{
-    				-webkit-transform-origin: left bottom;
-					-webkit-transform: rotate(-10deg);
-					-moz-transform-origin: left bottom;
-					-moz-transform: rotate(-10deg);
-					-o-transform-origin: left bottom;
-					-o-transform: rotate(-10deg);
-					transform-origin: left bottom;
-					transform: rotate(-10deg);
+    				font-weight:bold;
+    				border:2px $blue1 solid;
     			}
     		}
     	}
