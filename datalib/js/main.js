@@ -4,7 +4,8 @@ $(function() {
     /* MAP */
     //////////////////////////////////
 
-    var map = L.mapbox.map('map', 'etiwiti.panam');
+    var map = L.mapbox.map('map', 'etiwiti.panam'),
+        mapContainer = $('#map_container');
     map.attributionControl.removeFrom(map);
 
     //////////////////////////////////
@@ -554,7 +555,8 @@ $(function() {
     });
 
     /* CONFIGURE LE DONUT */
-    var donutContainer = $('#donutContainer'),
+    var donutInformations = $('#informations'),
+        donutContainer = $('#donutContainer'),
         donutInfoName = $('#titreStation'),
         donutInfoAddress = $('#soustitreStation'),
         donutColors = ['#1b6d93','#64bee7','#8fceea','#d0eaf6'],
@@ -582,10 +584,11 @@ $(function() {
             categories: [2]
         }];
 
-        var tlDonut = new TimelineLite();
-        tlDonut.from(donutInfoName, 1, {left: -9999})
-        .from(donutInfoAddress, 0.5, {left: 9999}, '-=0.25')
-        .from(donutContainer, 1, {scale: 0}, '-=0.25');
+        // var tlDonut = new TimelineLite();
+        // tlDonut.to(mapContainer, 0.5, {left: '40%', width: '60%'})
+        // .from(donutInfoName, 1, {left: -9999})
+        // .from(donutInfoAddress, 0.5, {left: 9999}, '-=0.25')
+        // .from(donutContainer, 1, {scale: 0}, '-=0.25');
 
     /* AFFICHE LE DONUT AVEC LES DONNÉES PASSÉES EN PARAMÈTRE */
     function showDonut(donutData, donutInfo){
@@ -665,6 +668,12 @@ $(function() {
         donutContainer.removeClass('no_opacity');
         donutInfoName.removeClass('no_opacity');
         donutInfoAddress.removeClass('no_opacity');
-        tlDonut.restart();
+
+        var tlDonut = new TimelineLite();
+        tlDonut.to(mapContainer, 0.5, {left: '40%', width: '60%'})
+        .to(donutInformations, 0.5, {left: 0, width: '40%'}, 0)
+        .from(donutInfoName, 1, {left: -9999})
+        .from(donutInfoAddress, 0.5, {left: 9999}, '-=0.25')
+        .from(donutContainer, 1, {scale: 0}, '-=0.25');
     }
 });
