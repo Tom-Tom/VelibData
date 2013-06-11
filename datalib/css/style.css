@@ -102,9 +102,6 @@ body {
     position: absolute;
     right: 50px;
     top: 30px; }
-    #title .search label {
-      position: relative;
-      top: 4px; }
     #title .search input {
       width: 200px;
       padding: 4px;
