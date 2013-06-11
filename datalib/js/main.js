@@ -550,11 +550,7 @@ $(function() {
     /* CACHE LE DONUT AU CLICK SUR MAP */
     map.on('click', function(){
         $('body').removeClass('screenSplit');
-
-        // tlDonut.to(mapContainer, 0.5, {left: '0%', width: '100%'})
-        // .to(donutInformations, 0.5, {left: '-100%'}, '-=0.5');
-
-        setTimeout(function(){ map.setView([48.856, 2.34], 13); }, 500);
+        setTimeout(function(){map.invalidateSize();}, 500);
     });
 
     /* CONFIGURE LE DONUT */
@@ -668,9 +664,7 @@ $(function() {
             }
         });
         $('body').addClass('screenSplit');
-
         tlDonut.restart();
-
-        setTimeout(function(){ map.setView([48.856, 2.4], 13); }, 500);
+        setTimeout(function(){map.invalidateSize();}, 500);
     }
 });
