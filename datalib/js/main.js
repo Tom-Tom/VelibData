@@ -50,6 +50,11 @@ $(function() {
     /* TIMELINE */
     //////////////////////////////////
 
+    $('#timeline nav ul li').on('click', function(){
+        $('#timeline nav ul li.active').removeClass('active')
+        $(this).addClass('active');
+    });
+
     Highcharts.setOptions({
         global: {
             useUTC: false

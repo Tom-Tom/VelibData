@@ -201,16 +201,26 @@ body{
     	ul{
     		cursor: default;
     		li{
-    			color:$blue1;
+    			color:$bg;
+    			background-color:$blue1;
     			padding:5px;
     			display:inline-block;
     			border:1px $blue1 solid;
     			cursor:pointer;
     			margin-right:20px;
-    			border-radius:5px;
-    			&:hover{
-    				font-weight:bold;
-    				border:2px $blue1 solid;
+    			&:hover, &.active{
+    				color:$blue1;
+    				background-color:$bg;
+    				//font-weight:bold;
+    			}
+    			&:first-of-type{
+    				border:1px $blue2 solid;
+    				background-color:$blue2;
+    				color:$bg;
+    				&:hover, &.active{
+    					color:$blue2;
+    					background-color:$bg;
+    				}
     			}
     		}
     	}

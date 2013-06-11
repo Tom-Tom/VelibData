@@ -185,16 +185,23 @@ body {
     #timeline nav ul {
       cursor: default; }
       #timeline nav ul li {
-        color: #65bee7;
+        color: #edf5fb;
+        background-color: #65bee7;
         padding: 5px;
         display: inline-block;
         border: 1px #65bee7 solid;
         cursor: pointer;
-        margin-right: 20px;
-        border-radius: 5px; }
-        #timeline nav ul li:hover {
-          font-weight: bold;
-          border: 2px #65bee7 solid; }
+        margin-right: 20px; }
+        #timeline nav ul li:hover, #timeline nav ul li.active {
+          color: #65bee7;
+          background-color: #edf5fb; }
+        #timeline nav ul li:first-of-type {
+          border: 1px #1b6d93 solid;
+          background-color: #1b6d93;
+          color: #edf5fb; }
+          #timeline nav ul li:first-of-type:hover, #timeline nav ul li:first-of-type.active {
+            color: #1b6d93;
+            background-color: #edf5fb; }
 
 .no_opacity {
   opacity: 0 !important; }
