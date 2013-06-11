@@ -123,7 +123,8 @@ body{
 	position:fixed;
 	//top:100px;
 	top:10%;
-	left:0;
+	//left:0;
+	left:-9999px;
 	width:40%;
 	//height:75%;
 	height:70%;
@@ -172,10 +173,12 @@ body{
 	background-color:$bg;
 	//top:100px;
 	top:10%;
-	right:0;
+	//left:40%;
+	left:0;
 	//height:75%;
 	height:70%;
-	width:60%;
+	// width:60%;
+	width:100%;
 	z-index:0;
 	#map{
 		height: 100%;
@@ -185,9 +188,11 @@ body{
 #timeline{
 	background-color: $bg;
 	position:fixed;
-	bottom:10px;
+	bottom:0;
+	left:0;
 	//height:200px;
 	height:20%;
+	min-height:220px;
 	width:100%;
 	z-index: 100;
     box-shadow: 0px -5px 10px 0px $bg;

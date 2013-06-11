@@ -121,7 +121,7 @@ body {
 #informations {
   position: fixed;
   top: 10%;
-  left: 0;
+  left: -9999px;
   width: 40%;
   height: 70%;
   z-index: 75;
@@ -161,9 +161,9 @@ body {
   position: fixed;
   background-color: #edf5fb;
   top: 10%;
-  right: 0;
+  left: 0;
   height: 70%;
-  width: 60%;
+  width: 100%;
   z-index: 0; }
   #map_container #map {
     height: 100%;
@@ -172,8 +172,10 @@ body {
 #timeline {
   background-color: #edf5fb;
   position: fixed;
-  bottom: 10px;
+  bottom: 0;
+  left: 0;
   height: 20%;
+  min-height: 220px;
   width: 100%;
   z-index: 100;
   box-shadow: 0px -5px 10px 0px #edf5fb; }
