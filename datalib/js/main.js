@@ -636,13 +636,16 @@ $(function() {
                             fontFamily: 'DINPro',
                             fontSize: '1.5em'
                         }
-                    }
+                    },
+                    borderColor: '#d0eaf6',
+                    borderWidth: 4,
+                    startAngle: Math.floor(Math.random()*(360-1)+0)
                 }
             },
             series: [{
                 data: donutData,
                 size: '75%',
-                innerSize: '70%',
+                innerSize: '65%',
                 name: 'Total'
             }],
             title: {
