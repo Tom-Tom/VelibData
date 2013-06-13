@@ -15,8 +15,9 @@ $(function() {
     /* TEST ZONE */
         //http://kevinlarosa.fr:4000/?dateStart=1369573200000&dateEnd=1369591200000
         var now = moment();
-        var start = moment().subtract('hours', 24);
+        var start = moment().subtract('hours', 3);
         url = 'http://kevinlarosa.fr:4000/?dateStart='+start+'&dateEnd='+now;
+        console.log(url);
         $.ajax({
             url: url,
             type: 'GET',
@@ -40,6 +41,8 @@ $(function() {
             totalBikes = totalBikes + velib[i].available_bikes;
             totalStands = totalStands + velib[i].available_bike_stands;
         }
+            console.log(map);
+
     });
     setInterval(function(){
         jyql(q, function(err, data){
