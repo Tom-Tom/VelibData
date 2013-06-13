@@ -14,7 +14,7 @@ $(function() {
     thedata = {};
     /* TEST ZONE */
         var now = moment();
-        var start = moment().subtract('hours', 3);
+        var start = moment().subtract('hours', 5);
         url = 'http://kevinlarosa.fr:4000/?dateStart='+start+'&dateEnd='+now;
         console.log(url);
         $.ajax({
@@ -314,7 +314,7 @@ $(function() {
                 text: ''
             },
             xAxis: {
-                // type: 'datetime',
+                type: 'datetime',
                 lineWidth:0,
                 tickPixelInterval: 100,
                 labels: {
@@ -334,9 +334,9 @@ $(function() {
             },
             tooltip: {
                 formatter: function() {
-                        // return '<b>'+ this.series.name +'</b><br/>'+
-                        // Highcharts.numberFormat(this.y, 2)+'<br/>le '+
-                        // Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x);
+                        return '<b>'+ this.series.name +'</b><br/>'+
+                        Highcharts.numberFormat(this.y, 2)+'<br/>le '+
+                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x);
                 },
                 style: {
                     padding: 10,
