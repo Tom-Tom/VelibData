@@ -22,6 +22,9 @@ $(function() {
             dataType: 'json',
             success: function(data) {
                 thedata = JSON.stringify(data);
+                $('#loading_page .content').addClass('stop');
+                $('#gate_bottom').addClass('open');
+                $('#gate_top').addClass('open');
                 //console.log('ok');
             },
             error: function() {
@@ -443,7 +446,7 @@ $(function() {
                 donutData[0].y = broken_stands;
                 donutData[1].y = stationData.available_bike_stands;
                 donutData[2].y = stationData.available_bikes;
-                donutInfo.name = stationData.name;
+                donutInfo.name = stationData.name.slice(8);
                 donutInfo.address = stationData.address;
                 showDonut(donutData, donutInfo);
                 i = velib.length;
@@ -506,7 +509,7 @@ $(function() {
                 donutData[0].y = feature.broken_stands;
                 donutData[1].y = feature.available_bike_stands;
                 donutData[2].y = feature.available_bikes;
-                donutInfo.name = name;
+                donutInfo.name = velib.name.slice(8);
                 donutInfo.address = velib.address;
                 showDonut(donutData, donutInfo);
             });
