@@ -372,7 +372,7 @@ $(function() {
                                     type: 'GET',
                                     dataType: 'json',
                                     success: function(data) {
-                                        console.log(data);
+                                        $(".leaflet-marker-pane img").remove();
                                         map.markerLayer.clearLayers();
                                         for (var i=0 ; i<data[0].stations.length ; i++) {
                                             addMarkers(map,data[0].stations[i]);
@@ -415,7 +415,7 @@ $(function() {
 
         /* LAST 48h */
         $('#timeline nav ul li:nth-child(3)').on('click',function(){
-            console.log('test');
+
         });
         //////////////////////////////////
         /* Recherche Autocompletion */
@@ -508,6 +508,7 @@ $(function() {
                         broken_stands: broken_stands
                     })
                 }).addTo(map).on('click',function(e){
+                    console.log(e);
                     var feature = e.target.options.icon.options;
                     donutData[0].y = feature.broken_stands;
                     donutData[1].y = feature.available_bike_stands;
