@@ -36,7 +36,7 @@ $(function() {
         /* MAP */
         //////////////////////////////////
         
-        var map = L.mapbox.map('map', 'etiwiti.panam');
+        var map = L.mapbox.map('map', 'heymath.velib');
         map.attributionControl.removeFrom(map);
 
         var q = "select * from html where url='https://api.jcdecaux.com/vls/v1/stations?apiKey=a529d3371c450b3ab44a9281345bcb27e8f47868&contract=Paris'";
@@ -379,48 +379,6 @@ $(function() {
         function addMarkers(map,velib){
             var lat = velib.position.lat,
                 lng = velib.position.lng,
-/*<<<<<<< HEAD
-                broken_stands = velib.bike_stands - (velib.available_bike_stands + velib.available_bikes),
-                text = "<strong>Address : </strong>"+velib.address;
-            text+="<br/><strong>Available bike stands : </strong>"+velib.available_bike_stands;
-            text+="<br/><strong>Available bikes : </strong>"+velib.available_bikes;
-            text+="<br/><strong>Last update : </strong>"+formattedTime(velib.last_update);
-            text+="("+diffTime(velib.last_update)+"sec ago)";
-                var pourcent = 100 * velib.available_bikes / velib.bike_stands;
-                if(pourcent <= 25){
-                    pin = "img/pin_rouge.svg";
-                } else if(pourcent <= 50){
-                    pin = "img/pin_orange.svg";
-                } else if(pourcent <= 75){
-                    pin = "img/pin_jaune.svg";
-                } else {
-                    pin = "img/pin_vert.svg";
-                }
-                if((lat===null)||(lng===null)){
-                    return false;
-                }
-                L.marker([lat, lng],{
-                    icon: L.icon({
-                        iconUrl: pin,
-                        iconSize:     [20, 20], // size of the icon
-                        iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
-                        popupAnchor:  [0, -10],  // point from which the popup should open relative to the iconAnchor
-                        available_bike_stands: velib.available_bike_stands,
-                        available_bikes: velib.available_bikes,
-                        broken_stands: broken_stands
-                    })
-                }).addTo(map).on('click',function(e){
-                    console.log(e);
-                    var feature = e.target.options.icon.options;
-                    donutData[0].y = feature.broken_stands;
-                    donutData[1].y = feature.available_bike_stands;
-                    donutData[2].y = feature.available_bikes;
-                    donutInfo.name = velib.name.slice(8);
-                    donutInfo.address = velib.address;
-                    showDonut(donutData, donutInfo);
-                });
-=======*/
-                name = velib.name.slice(8),
                 broken_stands = velib.bike_stands - (velib.available_bike_stands + velib.available_bikes);
             var pourcent = 100 * velib.available_bikes / velib.bike_stands;
             if(pourcent <= 20){
@@ -434,10 +392,10 @@ $(function() {
             } else {
                 pin = "img/bleu_5.svg";
             }
-            if((lat==null)||(lng==null)){
+            if((lat===null)||(lng===null)){
                 return false;
             }
-            if((velib.available_bikes==0)&&(velib.available_bike_stands==null)){
+            if((velib.available_bikes===0)&&(velib.available_bike_stands===null)){
                 return false;
             }
             L.marker([lat, lng],{
@@ -459,7 +417,6 @@ $(function() {
                 donutInfo.address = velib.address;
                 showDonut(donutData, donutInfo);
             });
-//>>>>>>> 1d7732b3576a43f250e8591dda3876979622b18b
         }
 
         //////////////////////////////////
