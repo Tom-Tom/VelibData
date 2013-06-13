@@ -15,7 +15,7 @@ $(function() {
             type: 'GET',
             dataType: 'json',
             success: function(data) {
-                localStorage.data1 = JSON.stringify(data);
+                localStorage.data1 = JSON.stringify(data);    
                 init();
                 $('#loading_page .content').addClass('stop');
                 $('#gate_bottom').addClass('open');
@@ -29,7 +29,6 @@ $(function() {
     }
 
     beforeInit();
-
 
     function init(){
         //////////////////////////////////
