@@ -40,30 +40,30 @@ table {
 /* FONT FACE */
 @font-face {
   font-family: 'DINPro';
-  src: url("fonts/DINNextRoundedLTPro-Medium.otf");
+  src: url("fonts/DINPro/Regular.otf");
   font-weight: normal;
   font-style: normal; }
 
 @font-face {
   font-family: 'DINPro';
-  src: url("fonts/DINNextRoundedLTPro-Italic.otf");
+  src: url("fonts/DINPro/Regular.otf");
   font-weight: normal;
   font-style: italic; }
 
 @font-face {
   font-family: 'DINPro';
-  src: url("fonts/DINNextRoundedLTPro-Bold.otf");
+  src: url("fonts/DINPro/Bold.otf");
   font-weight: bold;
   font-style: normal; }
 
 @font-face {
   font-family: 'DINPro';
-  src: url("fonts/DINNextRoundedLTPro-Black.otf");
+  src: url("fonts/DINPro/Black.otf");
   font-weight: 900; }
 
 @font-face {
   font-family: 'DINPro';
-  src: url("fonts/DINNextRoundedLTPro-Light.otf");
+  src: url("fonts/DINPro/Light.otf");
   font-weight: 300; }
 
 /* COLORS */
@@ -164,7 +164,7 @@ body {
   border-right: 5px solid rgba(0, 0, 0, 0);
   border-left: 5px solid rgba(0, 0, 0, 0);
   border-radius: 50%;
-  box-shadow: 0 0 35px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 35px rgba(0, 0, 0, 0.5);
   position: absolute;
   left: 50%;
   top: 50%;
@@ -184,7 +184,7 @@ body {
   border-left: 5px solid rgba(0, 0, 0, 0);
   border-right: 5px solid rgba(0, 0, 0, 0);
   border-radius: 50%;
-  box-shadow: 0 0 35px rgba(237, 245, 251, 0.5);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   position: absolute;
   left: 50%;
   top: 50%;
@@ -192,14 +192,17 @@ body {
   margin-top: -100px;
   width: 200px;
   height: 200px;
-  -moz-animation: spinoffPulse 1s infinite linear;
-  -webkit-animation: spinoffPulse 1s infinite linear; }
+  -webkit-animation: spinoffPulse 1s infinite linear;
+  -moz-animation: spinoffPulse 1s infinite ease-in-out;
+  -o-animation: spinoffPulse 1s infinite linear;
+  -ms-animation: spinoffPulse 1s infinite ease-in-out;
+  animation: spinoffPulse 1s infinite linear; }
 
 #title {
   position: fixed;
   top: 0;
   left: 0;
-  height: 10%;
+  height: 100px;
   width: 100%;
   box-shadow: 0px 10px 5px 0px #edf5fb;
   z-index: 25; }
@@ -241,9 +244,9 @@ body {
 
 #informations {
   position: fixed;
-  top: 10%;
+  top: 100px;
   left: -100%;
-  width: 40%;
+  width: 50%;
   height: 70%;
   z-index: 75;
   box-shadow: 10px 0px 5px 0px #edf5fb;
@@ -260,20 +263,14 @@ body {
     top: 20px;
     color: #1b6d93;
     font-size: 2em;
-    margin-left: 50px;
-    display: block;
-    width: auto; }
+    margin-left: 50px; }
   #informations #soustitreStation {
     position: absolute;
     left: 0;
     top: 80px;
-    display: block;
     color: #64bee7;
     font-size: 1.3em;
-    margin-left: 50px;
-    width: auto; }
-    #informations #soustitreStation span {
-      margin-left: 25px; }
+    margin-left: 50px; }
   #informations #donutContainer {
     z-index: 76;
     margin: 0 auto;
@@ -286,7 +283,7 @@ body {
 #map_container {
   position: fixed;
   background-color: #edf5fb;
-  top: 10%;
+  top: 100px;
   left: 0;
   height: 70%;
   width: 100%;
@@ -304,13 +301,13 @@ body {
   position: fixed;
   bottom: 0;
   left: 0;
-  height: 20%;
-  min-height: 220px;
+  height: 220px;
   width: 100%;
   z-index: 100;
   box-shadow: 0px -5px 10px 0px #edf5fb; }
   #timeline nav {
-    margin-left: 50px; }
+    margin-left: 50px;
+    margin-top: 10px; }
     #timeline nav ul {
       cursor: default; }
       #timeline nav ul li {

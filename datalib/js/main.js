@@ -1,7 +1,5 @@
 $(function() {
 
-    var thedata = {};
-
     function beforeInit(){
         //////////////////////////////////
         /* AJAX */
@@ -9,7 +7,7 @@ $(function() {
 
         /* TEST ZONE */
         var now = moment();
-        var start = moment().subtract('hours', 24);
+        var start = moment().subtract('days', 1);
         url = 'http://kevinlarosa.fr:4000/timeline?dateStart='+start+'&dateEnd='+now;
         // console.log(url);
         $.ajax({
@@ -17,12 +15,11 @@ $(function() {
             type: 'GET',
             dataType: 'json',
             success: function(data) {
-                thedata = JSON.stringify(data);
+                localStorage.data1 = JSON.stringify(data);
                 init();
                 $('#loading_page .content').addClass('stop');
                 $('#gate_bottom').addClass('open');
                 $('#gate_top').addClass('open');
-                //console.log('ok');
             },
             error: function() {
                 beforeInit();
@@ -44,18 +41,11 @@ $(function() {
         var q = "select * from html where url='https://api.jcdecaux.com/vls/v1/stations?apiKey=a529d3371c450b3ab44a9281345bcb27e8f47868&contract=Paris'";
         jyql(q, function (err, data) {
             localStorage.data = data.query.results.body.p;
-            var velib = JSON.parse(localStorage.data),
-                totalBikes = 0,
-                totalStands = 0;
+            var velib = JSON.parse(localStorage.data);
             for (var i=0 ; i<velib.length ; i++) {
                 addMarkers(map,velib[i]);
-                totalBikes = totalBikes + velib[i].available_bikes;
-                totalStands = totalStands + velib[i].available_bike_stands;
             }
-            //console.log(map);
-
         });
-
         setInterval(function(){
             jyql(q, function(err, data){
                 localStorage.data = data.query.results.body.p;
@@ -76,124 +66,8 @@ $(function() {
                 useUTC: false
             }
         });
-        //var chart;
-        $('#graph').highcharts({
-            chart: {
-                type: 'spline',
-                backgroundColor: 'transparent',
-                height:'190',
-                animation: Highcharts.svg, // don't animate in old IE
-                events: {
-                    load: function() {
-                        // set up the updating of the chart each second
-                        var series = this.series[0];
-                        setInterval(function() {
-                            var velib = JSON.parse(localStorage.data);
-                            //console.log(velib);
-                            var totalBikes = 0;
-                            var totalStands = 0;
-                            for (var i=0 ; i<velib.length ; i++) {
-                                totalBikes = totalBikes + velib[i].available_bikes;
-                                totalStands = totalStands + velib[i].available_bike_stands;
-                            }
-                            var y = totalBikes;
-                            //console.log(y);
-                            var x = (new Date()).getTime(); // current time
-                            series.addPoint([x, y], true, true);
-                        }, 10000);
-                    }
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            title: {
-                text: ''
-            },
-            xAxis: {
-                type: 'datetime',
-                lineWidth:0,
-                tickPixelInterval: 100,
-                labels: {
-                    style: {
-                        fontFamily: 'DINPro'
-                    }
-                }
-            },
-            yAxis: {
-                title: {
-                    text: ''
-                },
-                gridLineWidth: 0,
-                labels:{
-                    enabled: false
-                }
-            },
-            tooltip: {
-                formatter: function() {
-                    return '<b>'+ this.series.name +'</b><br/>'+
-                    Highcharts.numberFormat(this.y, 2)+'<br/>le '+
-                    Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x);
-                },
-                style: {
-                    padding: 10,
-                    fontFamily: 'DINPro'
-                },
-                crosshairs: [{
-                        width: 4,
-                        color: '#1b6d93'
-                    }]
-            },
-            plotOptions: {
-                series: {
-                    color: '#64bee7',
-                    marker: {
-                        fillColor: '#edf5fb',
-                        lineColor: '#64bee7',
-                        lineWidth: 4,
-                        states:{
-                            hover:{
-                                lineColor: '#1b6d93'
-                            }
-                        }
-                    }
-                }
-            },
-            legend: {
-                enabled: false
-            },
-            exporting: {
-                enabled: false
-            },
-            series: [{
-                name: 'Nombre de velib\':',
-                lineWidth: 6,
-                marker: {
-                    radius: 9
-                },
-                data: (function() {
-                    // generate an array of random data
-                    var data = [],
-                        time = (new Date()).getTime(),
-                        i;
-                    var velib = JSON.parse(localStorage.data);
-                    var y = 0;
-                    for (i = 0 ; i<velib.length ; i++) {
-                        y = y + velib[i].available_bikes;
-                    }
-                    for (i = -19; i <= 0; i++) {
-                        data.push({
-                            x: time + i * 10000,
-                            y: y
-                        });
-                    }
-                    return data;
-                })()
-            }]
-        });
 
-        /* REAL TIME */
-        $('#timeline nav ul li:nth-child(1)').on('click',function(){
+        function realtime(){
             $('#graph').highcharts({
                 chart: {
                     type: 'spline',
@@ -202,7 +76,6 @@ $(function() {
                     animation: Highcharts.svg, // don't animate in old IE
                     events: {
                         load: function() {
-
                             // set up the updating of the chart each second
                             var series = this.series[0];
                             setInterval(function() {
@@ -249,9 +122,9 @@ $(function() {
                 },
                 tooltip: {
                     formatter: function() {
-                            return '<b>'+ this.series.name +'</b><br/>'+
-                            Highcharts.numberFormat(this.y, 2)+'<br/>le '+
-                            Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x);
+                        return '<b>'+ this.series.name +'</b><br/>'+
+                        Highcharts.numberFormat(this.y, 2)+'<br/>le '+
+                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x);
                     },
                     style: {
                         padding: 10,
@@ -309,6 +182,13 @@ $(function() {
                     })()
                 }]
             });
+        }
+
+        realtime();
+
+        /* REAL TIME */
+        $('#timeline nav ul li:nth-child(1)').on('click',function(){
+            realtime();
         });
 
         /* LAST 24h */
@@ -362,6 +242,7 @@ $(function() {
                 },
                 plotOptions: {
                     series: {
+                        allowPointSelect:true,
                         color: '#64bee7',
                         marker: {
                             fillColor: '#edf5fb',
@@ -370,12 +251,32 @@ $(function() {
                             states:{
                                 hover:{
                                     lineColor: '#1b6d93'
+                                },
+                                select:{
+                                    lineColor: '#1b6d93',
+                                    lineWidth: 4
                                 }
                             }
                         },
                         events:{
                             click: function(e){
-                                //console.log(e.point);
+                                console.log(e.point.x);
+                                url = 'http://kevinlarosa.fr:4000/?dateStart='+(e.point.x-1)+'&dateEnd='+(e.point.x+1);
+                                $.ajax({
+                                    url: url,
+                                    type: 'GET',
+                                    dataType: 'json',
+                                    success: function(data) {
+                                        $(".leaflet-marker-pane img").remove();
+                                        map.markerLayer.clearLayers();
+                                        for (var i=0 ; i<data[0].stations.length ; i++) {
+                                            addMarkers(map,data[0].stations[i]);
+                                        }
+                                    },
+                                    error: function() {
+                                        console.log('ERROR');
+                                    }
+                                });
                             }
                         }
                     }
@@ -393,34 +294,23 @@ $(function() {
                         radius: 9
                     },
                     data: (function() {
-                        // generate an array of random data
                         var data = [];
-                        var velib = JSON.parse(thedata);
-                        //console.log(thedata);
-                        // for(var i=0;i<data.length;i++){
-                        //     var totalBikes = 0;
-                        //     for(var y=0;y<data[i].stations.length;y++){
-                        //         totalBikes += data[i].stations[y].available_bikes;
-                        //     }
-                        //     console.log(totalBikes);
-                        // }
-
-                        for ( var i = 0; i < velib.length; i++) {
-                            // var totalBikes =0;
-                            // for(var y=0;y<velib[i].stations.length;y++){
-                            //     totalBikes += velib[i].stations[y].available_bikes;
-                            // }
-                            //console.log(Date.parse(velib[i].timestamp) + ' AVEC ' + totalBikes);
+                        var velib = JSON.parse(localStorage.data1);
+                        for ( var i = 0; i < 24; i++) {
                             data.push({
                                 x: Date.parse(velib[i].timestamp),
                                 y: velib[i].velib
                             });
                         }
-                        //console.log(data);
                         return data;
                     })()
                 }]
             });
+        });
+
+        /* LAST 48h */
+        $('#timeline nav ul li:nth-child(3)').on('click',function(){
+            
         });
 
         //////////////////////////////////
@@ -436,6 +326,7 @@ $(function() {
                 id: velib[i].number
             };
         }
+
         // affiche les propositions de recherche
         $('#search').typeahead({
             name: 'station',
@@ -466,31 +357,29 @@ $(function() {
         //////////////////////////////////
 
         function formattedTime(timestamp){
-            var date = new Date(timestamp);
-            var hours = date.getHours();
-            var minutes = date.getMinutes();
-            var seconds = date.getSeconds();
-            var time = hours + 'h:' + minutes + 'm:' + seconds+ 's:';
+            var date = new Date(timestamp),
+                hours = date.getHours(),
+                minutes = date.getMinutes(),
+                seconds = date.getSeconds(),
+                time = hours + 'h:' + minutes + 'm:' + seconds+ 's:';
             return time;
         }
 
         function diffTime(timestamp){
             var nowDate = new Date().getTime();
-            nowDate = nowDate - timestamp;
+            nowDate -= timestamp;
             return formattedTime(nowDate);
         }
 
         function addMarkers(map,velib){
             var lat = velib.position.lat,
                 lng = velib.position.lng,
-                name = velib.name.slice(8),
                 broken_stands = velib.bike_stands - (velib.available_bike_stands + velib.available_bikes),
                 text = "<strong>Address : </strong>"+velib.address;
             text+="<br/><strong>Available bike stands : </strong>"+velib.available_bike_stands;
             text+="<br/><strong>Available bikes : </strong>"+velib.available_bikes;
             text+="<br/><strong>Last update : </strong>"+formattedTime(velib.last_update);
             text+="("+diffTime(velib.last_update)+"sec ago)";
-            // CUT
                 var pourcent = 100 * velib.available_bikes / velib.bike_stands;
                 if(pourcent <= 25){
                     pin = "img/pin_rouge.svg";
@@ -500,6 +389,9 @@ $(function() {
                     pin = "img/pin_jaune.svg";
                 } else {
                     pin = "img/pin_vert.svg";
+                }
+                if((lat===null)||(lng===null)){
+                    return false;
                 }
                 L.marker([lat, lng],{
                     icon: L.icon({
@@ -512,6 +404,7 @@ $(function() {
                         broken_stands: broken_stands
                     })
                 }).addTo(map).on('click',function(e){
+                    console.log(e);
                     var feature = e.target.options.icon.options;
                     donutData[0].y = feature.broken_stands;
                     donutData[1].y = feature.available_bike_stands;
@@ -655,5 +548,20 @@ $(function() {
             // re-centre la map à la fin de la timeline
             setTimeout(function(){map.invalidateSize();}, 500);
         }
+
+        function setDonutMapHeight(){
+            var windowHeight = $(this).height(),
+                titleHeight = $('#title').height(),
+                timelineHeight = $('#timeline').height(),
+                theDonutMapHeight = windowHeight - (titleHeight + timelineHeight);
+            $('#informations, #map_container').css('height', theDonutMapHeight+'px');
+            map.invalidateSize();
+        }
+
+        setDonutMapHeight();
+
+        $(window).resize(function(){
+            setDonutMapHeight();
+        });
     }
 });
