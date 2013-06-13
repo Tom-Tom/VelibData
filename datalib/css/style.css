@@ -164,7 +164,7 @@ body {
   border-right: 5px solid rgba(0, 0, 0, 0);
   border-left: 5px solid rgba(0, 0, 0, 0);
   border-radius: 50%;
-  box-shadow: 0 0 35px #fff;
+  box-shadow: 0 0 35px rgba(0, 0, 0, 0.8);
   position: absolute;
   left: 50%;
   top: 50%;
@@ -184,7 +184,7 @@ body {
   border-left: 5px solid rgba(0, 0, 0, 0);
   border-right: 5px solid rgba(0, 0, 0, 0);
   border-radius: 50%;
-  box-shadow: 0 0 15px #fff;
+  box-shadow: 0 0 35px rgba(237, 245, 251, 0.5);
   position: absolute;
   left: 50%;
   top: 50%;
@@ -275,6 +275,7 @@ body {
     #informations #soustitreStation span {
       margin-left: 25px; }
   #informations #donutContainer {
+    z-index: 76;
     margin: 0 auto;
     position: relative;
     left: 0;
