@@ -9,7 +9,7 @@ $(function() {
         var now = moment();
         var start = moment().subtract('days', 1);
         url = 'http://kevinlarosa.fr:4000/timeline?dateStart='+start+'&dateEnd='+now;
-        console.log(url);
+        // console.log(url);
         $.ajax({
             url: url,
             type: 'GET',
@@ -20,7 +20,6 @@ $(function() {
                 $('#loading_page .content').addClass('stop');
                 $('#gate_bottom').addClass('open');
                 $('#gate_top').addClass('open');
-                //console.log('ok');
             },
             error: function() {
                 beforeInit();
@@ -47,7 +46,6 @@ $(function() {
                 addMarkers(map,velib[i]);
             }
         });
-
         setInterval(function(){
             jyql(q, function(err, data){
                 localStorage.data = data.query.results.body.p;
