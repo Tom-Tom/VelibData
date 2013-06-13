@@ -307,7 +307,8 @@ body {
   box-shadow: 0px -5px 10px 0px #edf5fb; }
   #timeline nav {
     margin-left: 50px;
-    margin-top: 10px; }
+    margin-top: 10px;
+    display: inline-block; }
     #timeline nav ul {
       cursor: default; }
       #timeline nav ul li {
@@ -332,6 +333,31 @@ body {
           #timeline nav ul li:first-of-type:hover, #timeline nav ul li:first-of-type.active {
             color: #1b6d93;
             background-color: #edf5fb; }
+  #timeline #titlegraph {
+    display: inline-block;
+    position: fixed;
+    left: 47%;
+    margin-top: 10px;
+    color: #666;
+    font-weight: 400; }
+  #timeline #legend {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    top: -4px;
+    margin-right: 5px; }
+    #timeline #legend img {
+      height: 40px;
+      margin: 0;
+      margin-right: -10px; }
+    #timeline #legend span {
+      font-weight: 300;
+      font-size: 0.8em;
+      display: inline-block;
+      color: #666;
+      text-align: right;
+      position: relative;
+      top: -10px; }
 
 .no_opacity {
   opacity: 0 !important; }

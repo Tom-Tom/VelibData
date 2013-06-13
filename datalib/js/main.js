@@ -30,6 +30,7 @@ $(function() {
 
     beforeInit();
 
+
     function init(){
         //////////////////////////////////
         /* MAP */
@@ -68,6 +69,11 @@ $(function() {
         });
 
         function realtime(){
+            $(".leaflet-marker-pane img").remove();
+            var velib = JSON.parse(localStorage.data);
+            for (var i=0 ; i<velib.length ; i++) {
+                addMarkers(map,velib[i]);
+            }
             $('#graph').highcharts({
                 chart: {
                     type: 'spline',
@@ -268,7 +274,6 @@ $(function() {
                                     dataType: 'json',
                                     success: function(data) {
                                         $(".leaflet-marker-pane img").remove();
-                                        map.markerLayer.clearLayers();
                                         for (var i=0 ; i<data[0].stations.length ; i++) {
                                             addMarkers(map,data[0].stations[i]);
                                         }
@@ -374,6 +379,7 @@ $(function() {
         function addMarkers(map,velib){
             var lat = velib.position.lat,
                 lng = velib.position.lng,
+/*<<<<<<< HEAD
                 broken_stands = velib.bike_stands - (velib.available_bike_stands + velib.available_bikes),
                 text = "<strong>Address : </strong>"+velib.address;
             text+="<br/><strong>Available bike stands : </strong>"+velib.available_bike_stands;
@@ -413,6 +419,47 @@ $(function() {
                     donutInfo.address = velib.address;
                     showDonut(donutData, donutInfo);
                 });
+=======*/
+                name = velib.name.slice(8),
+                broken_stands = velib.bike_stands - (velib.available_bike_stands + velib.available_bikes);
+            var pourcent = 100 * velib.available_bikes / velib.bike_stands;
+            if(pourcent <= 20){
+                pin = "img/bleu_1.svg";
+            } else if(pourcent <= 40){
+                pin = "img/bleu_2.svg";
+            } else if(pourcent <= 60){
+                pin = "img/bleu_3.svg";
+            } else if(pourcent <= 80){
+                pin = "img/bleu_4.svg";
+            } else {
+                pin = "img/bleu_5.svg";
+            }
+            if((lat==null)||(lng==null)){
+                return false;
+            }
+            if((velib.available_bikes==0)&&(velib.available_bike_stands==null)){
+                return false;
+            }
+            L.marker([lat, lng],{
+                icon: L.icon({
+                    iconUrl: pin,
+                    iconSize:     [20, 20],
+                    iconAnchor:   [10, 10],
+                    popupAnchor:  [0, -10],
+                    available_bike_stands: velib.available_bike_stands,
+                    available_bikes: velib.available_bikes,
+                    broken_stands: broken_stands
+                })
+            }).addTo(map).on('click',function(e){
+                var feature = e.target.options.icon.options;
+                donutData[0].y = feature.broken_stands;
+                donutData[1].y = feature.available_bike_stands;
+                donutData[2].y = feature.available_bikes;
+                donutInfo.name = velib.name.slice(8);
+                donutInfo.address = velib.address;
+                showDonut(donutData, donutInfo);
+            });
+//>>>>>>> 1d7732b3576a43f250e8591dda3876979622b18b
         }
 
         //////////////////////////////////
