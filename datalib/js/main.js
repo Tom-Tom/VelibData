@@ -352,6 +352,7 @@ $(function() {
                 },
                 plotOptions: {
                     series: {
+                        allowPointSelect:true,
                         color: '#64bee7',
                         marker: {
                             fillColor: '#edf5fb',
@@ -360,6 +361,10 @@ $(function() {
                             states:{
                                 hover:{
                                     lineColor: '#1b6d93'
+                                },
+                                select:{
+                                    lineColor: '#1b6d93',
+                                    lineWidth: 4
                                 }
                             }
                         },
