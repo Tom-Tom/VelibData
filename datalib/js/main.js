@@ -66,124 +66,8 @@ $(function() {
                 useUTC: false
             }
         });
-        //var chart;
-        $('#graph').highcharts({
-            chart: {
-                type: 'spline',
-                backgroundColor: 'transparent',
-                height:'190',
-                animation: Highcharts.svg, // don't animate in old IE
-                events: {
-                    load: function() {
-                        // set up the updating of the chart each second
-                        var series = this.series[0];
-                        setInterval(function() {
-                            var velib = JSON.parse(localStorage.data);
-                            //console.log(velib);
-                            var totalBikes = 0;
-                            var totalStands = 0;
-                            for (var i=0 ; i<velib.length ; i++) {
-                                totalBikes = totalBikes + velib[i].available_bikes;
-                                totalStands = totalStands + velib[i].available_bike_stands;
-                            }
-                            var y = totalBikes;
-                            //console.log(y);
-                            var x = (new Date()).getTime(); // current time
-                            series.addPoint([x, y], true, true);
-                        }, 10000);
-                    }
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            title: {
-                text: ''
-            },
-            xAxis: {
-                type: 'datetime',
-                lineWidth:0,
-                tickPixelInterval: 100,
-                labels: {
-                    style: {
-                        fontFamily: 'DINPro'
-                    }
-                }
-            },
-            yAxis: {
-                title: {
-                    text: ''
-                },
-                gridLineWidth: 0,
-                labels:{
-                    enabled: false
-                }
-            },
-            tooltip: {
-                formatter: function() {
-                    return '<b>'+ this.series.name +'</b><br/>'+
-                    Highcharts.numberFormat(this.y, 2)+'<br/>le '+
-                    Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x);
-                },
-                style: {
-                    padding: 10,
-                    fontFamily: 'DINPro'
-                },
-                crosshairs: [{
-                        width: 4,
-                        color: '#1b6d93'
-                    }]
-            },
-            plotOptions: {
-                series: {
-                    color: '#64bee7',
-                    marker: {
-                        fillColor: '#edf5fb',
-                        lineColor: '#64bee7',
-                        lineWidth: 4,
-                        states:{
-                            hover:{
-                                lineColor: '#1b6d93'
-                            }
-                        }
-                    }
-                }
-            },
-            legend: {
-                enabled: false
-            },
-            exporting: {
-                enabled: false
-            },
-            series: [{
-                name: 'Nombre de velib\':',
-                lineWidth: 6,
-                marker: {
-                    radius: 9
-                },
-                data: (function() {
-                    // generate an array of random data
-                    var data = [],
-                        time = (new Date()).getTime(),
-                        i;
-                    var velib = JSON.parse(localStorage.data);
-                    var y = 0;
-                    for (i = 0 ; i<velib.length ; i++) {
-                        y = y + velib[i].available_bikes;
-                    }
-                    for (i = -19; i <= 0; i++) {
-                        data.push({
-                            x: time + i * 10000,
-                            y: y
-                        });
-                    }
-                    return data;
-                })()
-            }]
-        });
-
-        /* REAL TIME */
-        $('#timeline nav ul li:nth-child(1)').on('click',function(){
+        realtime();
+        function realtime(){
             $('#graph').highcharts({
                 chart: {
                     type: 'spline',
@@ -192,7 +76,6 @@ $(function() {
                     animation: Highcharts.svg, // don't animate in old IE
                     events: {
                         load: function() {
-
                             // set up the updating of the chart each second
                             var series = this.series[0];
                             setInterval(function() {
@@ -239,9 +122,9 @@ $(function() {
                 },
                 tooltip: {
                     formatter: function() {
-                            return '<b>'+ this.series.name +'</b><br/>'+
-                            Highcharts.numberFormat(this.y, 2)+'<br/>le '+
-                            Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x);
+                        return '<b>'+ this.series.name +'</b><br/>'+
+                        Highcharts.numberFormat(this.y, 2)+'<br/>le '+
+                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x);
                     },
                     style: {
                         padding: 10,
@@ -299,6 +182,10 @@ $(function() {
                     })()
                 }]
             });
+        }
+        /* REAL TIME */
+        $('#timeline nav ul li:nth-child(1)').on('click',function(){
+            realtime();
         });
 
         /* LAST 24h */
