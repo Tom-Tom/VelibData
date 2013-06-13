@@ -40,30 +40,30 @@ table {
 /* FONT FACE */
 @font-face {
   font-family: 'DINPro';
-  src: url("fonts/DINNextLTPro-Medium.otf");
+  src: url("fonts/DINNextRoundedLTPro-Medium.otf");
   font-weight: normal;
   font-style: normal; }
 
 @font-face {
   font-family: 'DINPro';
-  src: url("fonts/DINNextLTPro-Italic.otf");
+  src: url("fonts/DINNextRoundedLTPro-Italic.otf");
   font-weight: normal;
   font-style: italic; }
 
 @font-face {
   font-family: 'DINPro';
-  src: url("fonts/DINNextLTPro-Bold.otf");
+  src: url("fonts/DINNextRoundedLTPro-Bold.otf");
   font-weight: bold;
   font-style: normal; }
 
 @font-face {
   font-family: 'DINPro';
-  src: url("fonts/DINNextLTPro-Black.otf");
+  src: url("fonts/DINNextRoundedLTPro-Black.otf");
   font-weight: 900; }
 
 @font-face {
   font-family: 'DINPro';
-  src: url("fonts/DINNextLTPro-Light.otf");
+  src: url("fonts/DINNextRoundedLTPro-Light.otf");
   font-weight: 300; }
 
 /* COLORS */
