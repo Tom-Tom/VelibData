@@ -16,6 +16,10 @@ $(function() {
             dataType: 'json',
             success: function(data) {
                 localStorage.data1 = JSON.stringify(data);
+                init();
+                $('#loading_page .content').addClass('stop');
+                $('#gate_bottom').addClass('open');
+                $('#gate_top').addClass('open');
             },
             error: function() {
                 beforeInit();
@@ -26,10 +30,6 @@ $(function() {
 
     beforeInit();
 
-    init();
-    $('#loading_page .content').addClass('stop');
-    $('#gate_bottom').addClass('open');
-    $('#gate_top').addClass('open');
 
     function init(){
         //////////////////////////////////
