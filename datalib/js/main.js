@@ -1,7 +1,5 @@
 $(function() {
 
-    var thedata = {};
-
     function beforeInit(){
         //////////////////////////////////
         /* AJAX */
@@ -9,15 +7,15 @@ $(function() {
 
         /* TEST ZONE */
         var now = moment();
-        var start = moment().subtract('hours', 24);
+        var start = moment().subtract('days', 1);
         url = 'http://kevinlarosa.fr:4000/timeline?dateStart='+start+'&dateEnd='+now;
-        // console.log(url);
+        console.log(url);
         $.ajax({
             url: url,
             type: 'GET',
             dataType: 'json',
             success: function(data) {
-                thedata = JSON.stringify(data);
+                localStorage.data1 = JSON.stringify(data);
                 init();
                 $('#loading_page .content').addClass('stop');
                 $('#gate_bottom').addClass('open');
@@ -44,16 +42,10 @@ $(function() {
         var q = "select * from html where url='https://api.jcdecaux.com/vls/v1/stations?apiKey=a529d3371c450b3ab44a9281345bcb27e8f47868&contract=Paris'";
         jyql(q, function (err, data) {
             localStorage.data = data.query.results.body.p;
-            var velib = JSON.parse(localStorage.data),
-                totalBikes = 0,
-                totalStands = 0;
+            var velib = JSON.parse(localStorage.data);
             for (var i=0 ; i<velib.length ; i++) {
                 addMarkers(map,velib[i]);
-                totalBikes = totalBikes + velib[i].available_bikes;
-                totalStands = totalStands + velib[i].available_bike_stands;
             }
-            //console.log(map);
-
         });
 
         setInterval(function(){
@@ -375,7 +367,23 @@ $(function() {
                         },
                         events:{
                             click: function(e){
-                                //console.log(e.point);
+                                console.log(e.point.x);
+                                url = 'http://kevinlarosa.fr:4000/?dateStart='+(e.point.x-1)+'&dateEnd='+(e.point.x+1);
+                                $.ajax({
+                                    url: url,
+                                    type: 'GET',
+                                    dataType: 'json',
+                                    success: function(data) {
+                                        console.log(data);
+                                        map.markerLayer.clearLayers();
+                                        for (var i=0 ; i<data[0].stations.length ; i++) {
+                                            addMarkers(map,data[0].stations[i]);
+                                        }
+                                    },
+                                    error: function() {
+                                        console.log('ERROR');
+                                    }
+                                });
                             }
                         }
                     }
@@ -393,36 +401,24 @@ $(function() {
                         radius: 9
                     },
                     data: (function() {
-                        // generate an array of random data
                         var data = [];
-                        var velib = JSON.parse(thedata);
-                        //console.log(thedata);
-                        // for(var i=0;i<data.length;i++){
-                        //     var totalBikes = 0;
-                        //     for(var y=0;y<data[i].stations.length;y++){
-                        //         totalBikes += data[i].stations[y].available_bikes;
-                        //     }
-                        //     console.log(totalBikes);
-                        // }
-
-                        for ( var i = 0; i < velib.length; i++) {
-                            // var totalBikes =0;
-                            // for(var y=0;y<velib[i].stations.length;y++){
-                            //     totalBikes += velib[i].stations[y].available_bikes;
-                            // }
-                            //console.log(Date.parse(velib[i].timestamp) + ' AVEC ' + totalBikes);
+                        var velib = JSON.parse(localStorage.data1);
+                        for ( var i = 0; i < 24; i++) {
                             data.push({
                                 x: Date.parse(velib[i].timestamp),
                                 y: velib[i].velib
                             });
                         }
-                        //console.log(data);
                         return data;
                     })()
                 }]
             });
         });
 
+        /* LAST 48h */
+        $('#timeline nav ul li:nth-child(3)').on('click',function(){
+            console.log('test');
+        });
         //////////////////////////////////
         /* Recherche Autocompletion */
         //////////////////////////////////
@@ -490,7 +486,6 @@ $(function() {
             text+="<br/><strong>Available bikes : </strong>"+velib.available_bikes;
             text+="<br/><strong>Last update : </strong>"+formattedTime(velib.last_update);
             text+="("+diffTime(velib.last_update)+"sec ago)";
-            // CUT
                 var pourcent = 100 * velib.available_bikes / velib.bike_stands;
                 if(pourcent <= 25){
                     pin = "img/pin_rouge.svg";
@@ -500,6 +495,9 @@ $(function() {
                     pin = "img/pin_jaune.svg";
                 } else {
                     pin = "img/pin_vert.svg";
+                }
+                if((lat==null)||(lng==null)){
+                    return false;
                 }
                 L.marker([lat, lng],{
                     icon: L.icon({
