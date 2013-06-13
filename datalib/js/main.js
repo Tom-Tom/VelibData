@@ -9,9 +9,9 @@ $(function() {
 
         /* TEST ZONE */
         var now = moment();
-        var start = moment().subtract('hours', 5);
-        url = 'http://kevinlarosa.fr:4000/?dateStart='+start+'&dateEnd='+now;
-        //console.log(url);
+        var start = moment().subtract('hours', 24);
+        url = 'http://kevinlarosa.fr:4000/timeline?dateStart='+start+'&dateEnd='+now;
+        // console.log(url);
         $.ajax({
             url: url,
             type: 'GET',
@@ -394,9 +394,7 @@ $(function() {
                     },
                     data: (function() {
                         // generate an array of random data
-                        var data = [],
-                            time = (new Date()).getTime(),
-                            i;
+                        var data = [];
                         var velib = JSON.parse(thedata);
                         //console.log(thedata);
                         // for(var i=0;i<data.length;i++){
@@ -407,15 +405,15 @@ $(function() {
                         //     console.log(totalBikes);
                         // }
 
-                        for (i = 0; i < velib.length; i++) {
-                            var totalBikes =0;
-                            for(var y=0;y<velib[i].stations.length;y++){
-                                totalBikes += velib[i].stations[y].available_bikes;
-                            }
+                        for ( var i = 0; i < velib.length; i++) {
+                            // var totalBikes =0;
+                            // for(var y=0;y<velib[i].stations.length;y++){
+                            //     totalBikes += velib[i].stations[y].available_bikes;
+                            // }
                             //console.log(Date.parse(velib[i].timestamp) + ' AVEC ' + totalBikes);
                             data.push({
                                 x: Date.parse(velib[i].timestamp),
-                                y: totalBikes
+                                y: velib[i].velib
                             });
                         }
                         //console.log(data);
