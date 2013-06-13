@@ -15,16 +15,18 @@ $(function() {
         var now = moment();
         var start = moment().subtract('hours', 3);
         url = 'http://kevinlarosa.fr:4000/?dateStart='+start+'&dateEnd='+now;
-        console.log(url);
+        //console.log(url);
         $.ajax({
             url: url,
             type: 'GET',
             dataType: 'json',
             success: function(data) {
                 thedata = JSON.stringify(data);
-                console.log('ok');
+                //console.log('ok');
             },
-            error: function() { console.log('Fail load data API'); }
+            error: function() {
+                //console.log('Fail load data API');
+            }
         });
     /* TEST ZONE FIN*/
 
@@ -39,7 +41,7 @@ $(function() {
             totalBikes = totalBikes + velib[i].available_bikes;
             totalStands = totalStands + velib[i].available_bike_stands;
         }
-            console.log(map);
+        //console.log(map);
 
     });
     setInterval(function(){
@@ -361,7 +363,7 @@ $(function() {
                     },
                     events:{
                         click: function(e){
-                            console.log(e.point);
+                            //console.log(e.point);
                         }
                     }
                 }
@@ -384,7 +386,7 @@ $(function() {
                         time = (new Date()).getTime(),
                         i;
                     var velib = JSON.parse(thedata);
-                    console.log(thedata);
+                    //console.log(thedata);
                     // for(var i=0;i<data.length;i++){
                     //     var totalBikes = 0;
                     //     for(var y=0;y<data[i].stations.length;y++){
@@ -398,13 +400,13 @@ $(function() {
                         for(var y=0;y<velib[i].stations.length;y++){
                             totalBikes += velib[i].stations[y].available_bikes;
                         }
-                        console.log(Date.parse(velib[i].timestamp) + ' AVEC ' + totalBikes);
+                        //console.log(Date.parse(velib[i].timestamp) + ' AVEC ' + totalBikes);
                         data.push({
                             x: Date.parse(velib[i].timestamp),
                             y: totalBikes
                         });
                     }
-                    console.log(data);
+                    //console.log(data);
                     return data;
                 })()
             }]
@@ -471,7 +473,7 @@ $(function() {
     function addMarkers(map,velib){
         var lat = velib.position.lat,
             lng = velib.position.lng,
-            name = velib.name.slice(7),
+            name = velib.name.slice(8),
             broken_stands = velib.bike_stands - (velib.available_bike_stands + velib.available_bikes),
             text = "<strong>Address : </strong>"+velib.address;
         text=text+"<br/><strong>Available bike stands : </strong>"+velib.available_bike_stands;
@@ -504,7 +506,7 @@ $(function() {
                 donutData[0].y = feature.broken_stands;
                 donutData[1].y = feature.available_bike_stands;
                 donutData[2].y = feature.available_bikes;
-                donutInfo.name = velib.name;
+                donutInfo.name = name;
                 donutInfo.address = velib.address;
                 showDonut(donutData, donutInfo);
             });
@@ -599,7 +601,7 @@ $(function() {
         // calcule le titre du donut avec le nombres de stands total
         var donutTitle = donutData[0].y + donutData[1].y + donutData[2].y + ' stands';
         // affiche les infos du donut Nom de station et Adresse
-        donutInfoName.text(donutInfo.name.slice(8));
+        donutInfoName.text(donutInfo.name);
         donutInfoAddress.text(donutInfo.address);
         // affiche le donut dans son container
         donutContainer.highcharts({
@@ -681,5 +683,6 @@ $(function() {
         tlDonut.restart();
         // re-centre la map à la fin de la timeline
         setTimeout(function(){map.invalidateSize();}, 500);
+
     }
 });
