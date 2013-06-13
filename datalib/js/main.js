@@ -9,7 +9,7 @@ $(function() {
         var now = moment();
         var start = moment().subtract('days', 1);
         url = 'http://kevinlarosa.fr:4000/timeline?dateStart='+start+'&dateEnd='+now;
-        // console.log(url);
+        console.log(url);
         $.ajax({
             url: url,
             type: 'GET',
