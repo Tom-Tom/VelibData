@@ -13,7 +13,6 @@ $(function() {
     //////////////////////////////////
     thedata = {};
     /* TEST ZONE */
-        //http://kevinlarosa.fr:4000/?dateStart=1369573200000&dateEnd=1369591200000
         var now = moment();
         var start = moment().subtract('hours', 3);
         url = 'http://kevinlarosa.fr:4000/?dateStart='+start+'&dateEnd='+now;
@@ -55,7 +54,7 @@ $(function() {
     //////////////////////////////////
 
     $('#timeline nav ul li').on('click', function(){
-        $('#timeline nav ul li.active').removeClass('active')
+        $('#timeline nav ul li.active').removeClass('active');
         $(this).addClass('active');
     });
 
@@ -417,6 +416,7 @@ $(function() {
     /* Recherche Autocompletion */
     //////////////////////////////////
 
+    // crée le tableau de data pour les recherches
     var velib = JSON.parse(localStorage.data);
     var tab = [];
     for(var i=0 ; i<velib.length ; i++) {
@@ -425,11 +425,15 @@ $(function() {
             id: velib[i].number
         };
     }
+    // affiche les propositions de recherche
     $('#search').typeahead({
         name: 'station',
         local: tab
     });
 
+    // au click d'une proposition de recherche, 
+    // cherche dans le localStorage les data de la station et
+    // affiche le donut avec les data
     $('#search').on('typeahead:selected', function(e, elem){
         for(i=0; i<velib.length; i++){
             if(velib[i].number === elem.id){
@@ -552,9 +556,8 @@ $(function() {
 
     /* CACHE LE DONUT AU CLICK SUR MAP */
     map.on('click', function(){
-        donutContainer.addClass('no_opacity');
-        donutInfoName.addClass('no_opacity');
-        donutInfoAddress.addClass('no_opacity');
+        $('body').removeClass('screenSplit');
+        setTimeout(function(){map.invalidateSize();}, 500);
     });
 
     /* CONFIGURE LE DONUT */
@@ -587,17 +590,20 @@ $(function() {
             categories: [2]
         }];
 
-        // var tlDonut = new TimelineLite();
-        // tlDonut.to(mapContainer, 0.5, {left: '40%', width: '60%'})
-        // .from(donutInfoName, 1, {left: -9999})
-        // .from(donutInfoAddress, 0.5, {left: 9999}, '-=0.25')
-        // .from(donutContainer, 1, {scale: 0}, '-=0.25');
+        // timeline - animation du donut
+        var tlDonut = new TimelineLite();
+        tlDonut.from(donutInfoName, 1, {left: '-9999px'})
+        .from(donutInfoAddress, 0.5, {left: '9999px'}, '-=0.25')
+        .from(donutContainer, 1, {scale: 0}, '-=0.25');
 
     /* AFFICHE LE DONUT AVEC LES DONNÉES PASSÉES EN PARAMÈTRE */
     function showDonut(donutData, donutInfo){
-        var totalStands = donutData[0].y + donutData[1].y + donutData[2].y + ' stands';
+        // calcule le titre du donut avec le nombres de stands total
+        var donutTitle = donutData[0].y + donutData[1].y + donutData[2].y + ' stands';
+        // affiche les infos du donut Nom de station et Adresse
         donutInfoName.text(donutInfo.name.slice(8));
         donutInfoAddress.text(donutInfo.address);
+        // affiche le donut dans son container
         donutContainer.highcharts({
             chart: {
                 type: 'pie',
@@ -641,21 +647,24 @@ $(function() {
                             fontFamily: 'DINPro',
                             fontSize: '1.5em'
                         }
-                    }
+                    },
+                    borderColor: '#d0eaf6',
+                    borderWidth: 4,
+                    startAngle: Math.floor(Math.random()*(360-1)+0)
                 }
             },
             series: [{
                 data: donutData,
                 size: '75%',
-                innerSize: '70%',
+                innerSize: '65%',
                 name: 'Total'
             }],
             title: {
-                text: totalStands,
+                text: donutTitle,
                 verticalAlign: 'middle',
                 style: {
                     fontFamily:'DINPro',
-                    fontSize:'2em'
+                    fontSize:'1.5em'
                 }
             },
             tooltip: {
@@ -668,15 +677,11 @@ $(function() {
                 }
             }
         });
-        donutContainer.removeClass('no_opacity');
-        donutInfoName.removeClass('no_opacity');
-        donutInfoAddress.removeClass('no_opacity');
-
-        var tlDonut = new TimelineLite();
-        tlDonut.to(mapContainer, 0.5, {left: '40%', width: '60%'})
-        .to(donutInformations, 0.5, {left: 0, width: '40%'}, 0)
-        .from(donutInfoName, 1, {left: -9999})
-        .from(donutInfoAddress, 0.5, {left: 9999}, '-=0.25')
-        .from(donutContainer, 1, {scale: 0}, '-=0.25');
+        // split de l'écran en deux
+        $('body').addClass('screenSplit');
+        // affiche le donut en relançant la timeline - animation
+        tlDonut.restart();
+        // re-centre la map à la fin de la timeline
+        setTimeout(function(){map.invalidateSize();}, 500);
     }
 });
