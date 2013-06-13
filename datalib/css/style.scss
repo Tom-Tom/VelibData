@@ -319,6 +319,7 @@ body{
 
     nav{
     	margin-left:50px;
+    	display: inline-block;
     	ul{
     		cursor: default;
     		li{
@@ -348,6 +349,35 @@ body{
     				}
     			}
     		}
+    	}
+    }
+    #titlegraph{
+    	display: inline-block;
+    	position: fixed;
+    	left:47%;
+    	margin-top: 10px;
+    	color:#666;
+    		font-weight:400;
+    }
+    #legend{
+    	display: inline-block;
+    	position: absolute;
+    	right:0;
+    	top:-4px;
+    	margin-right: 5px;
+    	img{
+    		height: 40px;
+    		margin: 0;
+    		margin-right: -10px;
+    	}
+    	span{
+    		font-weight:300;
+    		font-size: 0.8em;
+    		display:inline-block;
+    		color:#666;
+    		text-align: right;
+    		position: relative;
+    		top: -10px;
     	}
     }
 }

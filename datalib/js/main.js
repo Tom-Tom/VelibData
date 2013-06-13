@@ -16,10 +16,6 @@ $(function() {
             dataType: 'json',
             success: function(data) {
                 localStorage.data1 = JSON.stringify(data);
-                init();
-                $('#loading_page .content').addClass('stop');
-                $('#gate_bottom').addClass('open');
-                $('#gate_top').addClass('open');
             },
             error: function() {
                 beforeInit();
@@ -29,6 +25,11 @@ $(function() {
     }
 
     beforeInit();
+
+    init();
+    $('#loading_page .content').addClass('stop');
+    $('#gate_bottom').addClass('open');
+    $('#gate_top').addClass('open');
 
     function init(){
         //////////////////////////////////
@@ -68,6 +69,11 @@ $(function() {
         });
         realtime();
         function realtime(){
+            $(".leaflet-marker-pane img").remove();
+            var velib = JSON.parse(localStorage.data);
+            for (var i=0 ; i<velib.length ; i++) {
+                addMarkers(map,velib[i]);
+            }
             $('#graph').highcharts({
                 chart: {
                     type: 'spline',
@@ -265,7 +271,6 @@ $(function() {
                                     dataType: 'json',
                                     success: function(data) {
                                         $(".leaflet-marker-pane img").remove();
-                                        map.markerLayer.clearLayers();
                                         for (var i=0 ; i<data[0].stations.length ; i++) {
                                             addMarkers(map,data[0].stations[i]);
                                         }
@@ -370,45 +375,44 @@ $(function() {
             var lat = velib.position.lat,
                 lng = velib.position.lng,
                 name = velib.name.slice(8),
-                broken_stands = velib.bike_stands - (velib.available_bike_stands + velib.available_bikes),
-                text = "<strong>Address : </strong>"+velib.address;
-            text+="<br/><strong>Available bike stands : </strong>"+velib.available_bike_stands;
-            text+="<br/><strong>Available bikes : </strong>"+velib.available_bikes;
-            text+="<br/><strong>Last update : </strong>"+formattedTime(velib.last_update);
-            text+="("+diffTime(velib.last_update)+"sec ago)";
-                var pourcent = 100 * velib.available_bikes / velib.bike_stands;
-                if(pourcent <= 25){
-                    pin = "img/pin_rouge.svg";
-                } else if(pourcent <= 50){
-                    pin = "img/pin_orange.svg";
-                } else if(pourcent <= 75){
-                    pin = "img/pin_jaune.svg";
-                } else {
-                    pin = "img/pin_vert.svg";
-                }
-                if((lat==null)||(lng==null)){
-                    return false;
-                }
-                L.marker([lat, lng],{
-                    icon: L.icon({
-                        iconUrl: pin,
-                        iconSize:     [20, 20], // size of the icon
-                        iconAnchor:   [10, 10], // point of the icon which will correspond to marker's location
-                        popupAnchor:  [0, -10],  // point from which the popup should open relative to the iconAnchor
-                        available_bike_stands: velib.available_bike_stands,
-                        available_bikes: velib.available_bikes,
-                        broken_stands: broken_stands
-                    })
-                }).addTo(map).on('click',function(e){
-                    console.log(e);
-                    var feature = e.target.options.icon.options;
-                    donutData[0].y = feature.broken_stands;
-                    donutData[1].y = feature.available_bike_stands;
-                    donutData[2].y = feature.available_bikes;
-                    donutInfo.name = velib.name.slice(8);
-                    donutInfo.address = velib.address;
-                    showDonut(donutData, donutInfo);
-                });
+                broken_stands = velib.bike_stands - (velib.available_bike_stands + velib.available_bikes);
+            var pourcent = 100 * velib.available_bikes / velib.bike_stands;
+            if(pourcent <= 20){
+                pin = "img/bleu_1.svg";
+            } else if(pourcent <= 40){
+                pin = "img/bleu_2.svg";
+            } else if(pourcent <= 60){
+                pin = "img/bleu_3.svg";
+            } else if(pourcent <= 80){
+                pin = "img/bleu_4.svg";
+            } else {
+                pin = "img/bleu_5.svg";
+            }
+            if((lat==null)||(lng==null)){
+                return false;
+            }
+            if((velib.available_bikes==0)&&(velib.available_bike_stands==null)){
+                return false;
+            }
+            L.marker([lat, lng],{
+                icon: L.icon({
+                    iconUrl: pin,
+                    iconSize:     [20, 20],
+                    iconAnchor:   [10, 10],
+                    popupAnchor:  [0, -10],
+                    available_bike_stands: velib.available_bike_stands,
+                    available_bikes: velib.available_bikes,
+                    broken_stands: broken_stands
+                })
+            }).addTo(map).on('click',function(e){
+                var feature = e.target.options.icon.options;
+                donutData[0].y = feature.broken_stands;
+                donutData[1].y = feature.available_bike_stands;
+                donutData[2].y = feature.available_bikes;
+                donutInfo.name = velib.name.slice(8);
+                donutInfo.address = velib.address;
+                showDonut(donutData, donutInfo);
+            });
         }
 
         //////////////////////////////////
