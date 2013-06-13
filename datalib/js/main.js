@@ -1,11 +1,12 @@
 $(function() {
 
-    //////////////////////////////////
-    /* AJAX */
-    //////////////////////////////////
     var thedata = {};
 
     function beforeInit(){
+        //////////////////////////////////
+        /* AJAX */
+        //////////////////////////////////
+
         /* TEST ZONE */
         var now = moment();
         var start = moment().subtract('hours', 5);
@@ -29,13 +30,14 @@ $(function() {
         });
         /* TEST ZONE FIN*/
     }
+
     beforeInit();
 
     function init(){
         //////////////////////////////////
         /* MAP */
         //////////////////////////////////
-
+        
         var map = L.mapbox.map('map', 'etiwiti.panam');
         map.attributionControl.removeFrom(map);
 
@@ -53,6 +55,7 @@ $(function() {
             //console.log(map);
 
         });
+
         setInterval(function(){
             jyql(q, function(err, data){
                 localStorage.data = data.query.results.body.p;
@@ -461,7 +464,7 @@ $(function() {
         });
 
         //////////////////////////////////
-        /* FUNCTION */
+        /* FUNCTIONS */
         //////////////////////////////////
 
         function formattedTime(timestamp){
@@ -485,11 +488,11 @@ $(function() {
                 name = velib.name.slice(8),
                 broken_stands = velib.bike_stands - (velib.available_bike_stands + velib.available_bikes),
                 text = "<strong>Address : </strong>"+velib.address;
-            text=text+"<br/><strong>Available bike stands : </strong>"+velib.available_bike_stands;
-            text=text+"<br/><strong>Available bikes : </strong>"+velib.available_bikes;
-            text=text+"<br/><strong>Last update : </strong>"+formattedTime(velib.last_update);
-            text=text+"("+diffTime(velib.last_update)+"sec ago)";
-            //// CUT
+            text+="<br/><strong>Available bike stands : </strong>"+velib.available_bike_stands;
+            text+="<br/><strong>Available bikes : </strong>"+velib.available_bikes;
+            text+="<br/><strong>Last update : </strong>"+formattedTime(velib.last_update);
+            text+="("+diffTime(velib.last_update)+"sec ago)";
+            // CUT
                 var pourcent = 100 * velib.available_bikes / velib.bike_stands;
                 if(pourcent <= 25){
                     pin = "img/pin_rouge.svg";
