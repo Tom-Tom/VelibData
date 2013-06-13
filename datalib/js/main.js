@@ -4,8 +4,7 @@ $(function() {
     /* MAP */
     //////////////////////////////////
 
-    var map = L.mapbox.map('map', 'etiwiti.panam'),
-        mapContainer = $('#map_container');
+    var map = L.mapbox.map('map', 'etiwiti.panam');
     map.attributionControl.removeFrom(map);
 
     //////////////////////////////////
@@ -558,8 +557,7 @@ $(function() {
     });
 
     /* CONFIGURE LE DONUT */
-    var donutInformations = $('#informations'),
-        donutContainer = $('#donutContainer'),
+    var donutContainer = $('#donutContainer'),
         donutInfoName = $('#titreStation'),
         donutInfoAddress = $('#soustitreStation'),
         donutColors = ['#1b6d93','#64bee7','#8fceea','#d0eaf6'],
