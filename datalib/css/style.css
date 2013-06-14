@@ -135,7 +135,7 @@ body {
   -o-transition-duration: 1s;
   transition-duration: 1s; }
   #loading_page #loading_header.open {
-    top: -200px; }
+    top: -900px; }
   #loading_page #loading_header h1 {
     display: inline-block;
     background-color: #65bee7;
@@ -146,11 +146,18 @@ body {
     box-shadow: 0 2px 12px rgba(27, 109, 147, 0.3); }
   #loading_page #loading_header p {
     display: block;
-    width: 50%;
+    width: 80%;
     margin: 0 auto;
     color: #FFF;
     font-size: 1.2em;
     line-height: 1.4em; }
+    #loading_page #loading_header p a {
+      font-size: 0.9em;
+      color: #fff;
+      z-index: 99999; }
+    #loading_page #loading_header p strong {
+      color: #1b6d93;
+      font-weight: bold; }
 #loading_page #gate_top, #loading_page #gate_bottom {
   background: #65bee7;
   z-index: 9990;
@@ -174,11 +181,15 @@ body {
 #loading_page #loader {
   position: fixed;
   z-index: 9999;
-  height: 100%;
-  width: 100%; }
+  width: 350px;
+  height: 350px;
+  left: 50%;
+  top: 50%;
+  margin-left: -175px;
+  margin-top: -175px; }
   #loading_page #loader.stop {
     display: none; }
-    #loading_page #loader.stop .circle, #loading_page #loader.stop .circle1 {
+    #loading_page #loader.stop .circle, #loading_page #loader.stop .wheel {
       -webkit-animation-play-state: paused;
       -moz-animation-play-state: paused;
       -o-animation-play-state: paused;
@@ -227,7 +238,14 @@ body {
   -moz-animation: spinoffPulse 1s infinite ease-in-out;
   -o-animation: spinoffPulse 1s infinite linear;
   -ms-animation: spinoffPulse 1s infinite ease-in-out;
-  animation: spinoffPulse 1s infinite linear; }
+  animation: spinoffPulse 1s infinite linear;
+  cursor: pointer; }
+  #loading_page .wheel:hover {
+    -webkit-animation-play-state: paused;
+    -moz-animation-play-state: paused;
+    -o-animation-play-state: paused;
+    -ms-animation-play-state: paused;
+    animation-play-state: paused; }
 
 #title {
   position: fixed;

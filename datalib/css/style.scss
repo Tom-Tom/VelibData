@@ -109,7 +109,7 @@ body{
 		-o-transition-duration:1s;
 		transition-duration:1s;
 		&.open{
-			top:-200px;
+			top:-900px;
 		}
 
 		h1{
@@ -123,11 +123,20 @@ body{
 		}
 		p{
 			display:block;
-			width:50%;
+			width:80%;
 			margin:0 auto;
 			color:#FFF;
 			font-size:1.2em;
 			line-height:1.4em;
+			a{
+				font-size:0.9em;
+				color:#fff;
+				z-index:99999;
+			}
+			strong{
+				color:rgb(27,109,147);
+				font-weight:bold;
+			}
 		}
 	}
 	#gate_top, #gate_bottom{
@@ -158,10 +167,15 @@ body{
 	#loader{
 		position:fixed;
 		z-index:9999;
-		height:100%;
-		width:100%;
+		width: 350px;
+		height:350px;
+		left:50%;
+		top:50%;
+		margin-left:-175px;
+		margin-top:-175px;
+
 		&.stop {
-			.circle, .circle1{
+			.circle, .wheel{
 				-webkit-animation-play-state:paused;
 				-moz-animation-play-state:paused;
 				-o-animation-play-state:paused;
@@ -219,6 +233,14 @@ body{
 		-o-animation:spinoffPulse 1s infinite linear;
 		-ms-animation:spinoffPulse 1s infinite ease-in-out;
 		animation:spinoffPulse 1s infinite linear;
+		cursor:pointer;
+		&:hover{
+			-webkit-animation-play-state:paused;
+			-moz-animation-play-state:paused;
+			-o-animation-play-state:paused;
+			-ms-animation-play-state:paused;
+			animation-play-state:paused;
+		}
 	}
 }
 #title{
