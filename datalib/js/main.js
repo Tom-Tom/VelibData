@@ -14,7 +14,7 @@ $(function() {
             url: url,
             type: 'GET',
             dataType: 'json',
-            success: function(data) {
+            success: function(data){
                 localStorage.data1 = JSON.stringify(data);
                 //console.log('API Datalib ok');
                 init();
@@ -819,10 +819,10 @@ $(function() {
             map.invalidateSize();
         }
 
-        setDonutMapHeight();
+        // setDonutMapHeight();
 
-        $(window).resize(function(){
-            setDonutMapHeight();
-        });
+        // $(window).resize(function(){
+        //     setDonutMapHeight();
+        // });
     }
 });
