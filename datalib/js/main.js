@@ -717,7 +717,7 @@ $(function() {
 
             // timeline - animation du donut
             var tlDonut = new TimelineLite();
-            tlDonut.from(donutInfoName, 1, {left: '-9999px'})
+            tlDonut.from(donutInfoName, 0.5, {left: '-9999px'})
             .from(donutInfoAddress, 0.5, {left: '9999px'}, '-=0.25')
             .from(donutContainer, 1, {scale: 0}, '-=0.25');
 
