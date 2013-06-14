@@ -7,7 +7,7 @@ $(function() {
 
         /* TEST ZONE */
         var now = moment();
-        var start = moment().subtract('hours', 26);
+        var start = moment().subtract('hours', 38);
         url = 'http://kevinlarosa.fr:4000/timeline?dateStart='+start+'&dateEnd='+now;
         // console.log(url);
         $.ajax({
@@ -32,7 +32,7 @@ $(function() {
     var now = moment();
     var start = moment().subtract('days', 7);
     url = 'http://kevinlarosa.fr:4000/timeline7?dateStart='+start+'&dateEnd='+now;
-    console.log(url);
+    // console.log(url);
     $.ajax({
         url: url,
         type: 'GET',
@@ -44,20 +44,20 @@ $(function() {
             beforeInit();
         }
     });
-    // var start = moment().subtract('days', 14);
-    // url = 'http://kevinlarosa.fr:4000/timeline30?dateStart='+start+'&dateEnd='+now;
+    var start = moment().subtract('days', 14);
+    url = 'http://kevinlarosa.fr:4000/timeline30?dateStart='+start+'&dateEnd='+now;
     // console.log(url);
-    // $.ajax({
-    //     url: url,
-    //     type: 'GET',
-    //     dataType: 'json',
-    //     success: function(data) {
-    //         localStorage.data30 = JSON.stringify(data);
-    //     },
-    //     error: function() {
-    //         beforeInit();
-    //     }
-    // });
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            localStorage.data30 = JSON.stringify(data);
+        },
+        error: function() {
+            beforeInit();
+        }
+    });
     function init(){
         //////////////////////////////////
         /* MAP */
@@ -262,7 +262,7 @@ $(function() {
                     formatter: function() {
                             return '<b>'+ this.series.name +'</b><br/>'+
                             Highcharts.numberFormat(this.y, 2)+'<br/>le '+
-                            Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x);
+                            Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x+86400000);
                     },
                     style: {
                         padding: 10,
@@ -378,8 +378,8 @@ $(function() {
                     formatter: function() {
                             return '<b>'+ this.series.name +'</b><br/>'+
                             Highcharts.numberFormat(this.y, 2)+'<br/>le '+
-                            Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x);
-                    },
+                            Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x+86400000);
+                        },
                     style: {
                         padding: 10,
                         fontFamily: 'DINPro'
@@ -457,8 +457,7 @@ $(function() {
             });
         });
 
-        /* LAST 30 jours */
-        /*
+        /* LAST 14 jours */
         $('#timeline nav ul li:nth-child(4)').on('click',function(){
             $('#graph').highcharts({
                 chart: {
@@ -494,9 +493,11 @@ $(function() {
                 },
                 tooltip: {
                     formatter: function() {
+                            // console.log(this.x);
+                            // console.log(this.x+86400);
                             return '<b>'+ this.series.name +'</b><br/>'+
                             Highcharts.numberFormat(this.y, 2)+'<br/>le '+
-                            Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x);
+                            Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x+86400000);
                     },
                     style: {
                         padding: 10,
@@ -527,8 +528,7 @@ $(function() {
                         },
                         events:{
                             click: function(e){
-                                //console.log(e.point.x);
-                                url = 'http://kevinlarosa.fr:4000/?dateStart='+(e.point.x-1)+'&dateEnd='+(e.point.x+1);
+                                url = 'http://kevinlarosa.fr:4000/?dateStart='+(e.point.x-2000)+'&dateEnd='+(e.point.x+2000);
                                 $.ajax({
                                     url: url,
                                     type: 'GET',
@@ -574,7 +574,7 @@ $(function() {
                 }]
             });
         });
-        */
+        
         //////////////////////////////////
         /* Recherche Autocompletion */
         //////////////////////////////////
