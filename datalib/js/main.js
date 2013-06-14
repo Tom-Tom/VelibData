@@ -7,7 +7,7 @@ $(function() {
 
         /* TEST ZONE */
         var now = moment();
-        var start = moment().subtract('hours', 25);
+        var start = moment().subtract('hours', 26);
         url = 'http://kevinlarosa.fr:4000/timeline?dateStart='+start+'&dateEnd='+now;
         // console.log(url);
         $.ajax({
@@ -32,6 +32,7 @@ $(function() {
     var now = moment();
     var start = moment().subtract('days', 7);
     url = 'http://kevinlarosa.fr:4000/timeline7?dateStart='+start+'&dateEnd='+now;
+    console.log(url);
     $.ajax({
         url: url,
         type: 'GET',
