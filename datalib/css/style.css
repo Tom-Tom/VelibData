@@ -123,9 +123,25 @@ body {
     width: 60%;
     left: 40%; }
 
+#loading_page #logo {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 100px;
+  top: 50px;
+  text-align: center;
+  z-index: 9999; }
+  #loading_page #logo h1 {
+    display: inline-block;
+    background-color: #65bee7;
+    color: #edf5fb;
+    margin: 30px 50px;
+    padding: 3px 15px;
+    font-size: 2em;
+    box-shadow: 0 2px 12px rgba(255, 255, 255, 0.3); }
 #loading_page #gate_top, #loading_page #gate_bottom {
   background: #65bee7;
-  z-index: 999990;
+  z-index: 9990;
   position: fixed;
   left: 0;
   right: 0;
@@ -145,7 +161,7 @@ body {
     top: 100%; }
 #loading_page #loader {
   position: fixed;
-  z-index: 999999;
+  z-index: 9999;
   height: 100%;
   width: 100%; }
   #loading_page #loader.stop {

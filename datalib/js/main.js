@@ -16,7 +16,7 @@ $(function() {
             dataType: 'json',
             success: function(data) {
                 localStorage.data1 = JSON.stringify(data);
-                console.log('API Datalib');
+                //console.log('API Datalib ok');
                 init();
                 $('#loader').remove();
                 setTimeout(function(){ $('#gate_top , #gate_bottom').addClass('open'); }, 500);
