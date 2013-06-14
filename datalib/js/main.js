@@ -43,19 +43,20 @@ $(function() {
             beforeInit();
         }
     });
-    var start = moment().subtract('days', 30);
-    url = 'http://kevinlarosa.fr:4000/timeline30?dateStart='+start+'&dateEnd='+now;
-    $.ajax({
-        url: url,
-        type: 'GET',
-        dataType: 'json',
-        success: function(data) {
-            localStorage.data30 = JSON.stringify(data);
-        },
-        error: function() {
-            beforeInit();
-        }
-    });
+    // var start = moment().subtract('days', 14);
+    // url = 'http://kevinlarosa.fr:4000/timeline30?dateStart='+start+'&dateEnd='+now;
+    // console.log(url);
+    // $.ajax({
+    //     url: url,
+    //     type: 'GET',
+    //     dataType: 'json',
+    //     success: function(data) {
+    //         localStorage.data30 = JSON.stringify(data);
+    //     },
+    //     error: function() {
+    //         beforeInit();
+    //     }
+    // });
     function init(){
         //////////////////////////////////
         /* MAP */
