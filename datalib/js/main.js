@@ -810,14 +810,14 @@ $(function() {
             setTimeout(function(){map.invalidateSize();}, 500);
         }
 
-        function setDonutMapHeight(){
-            var windowHeight = $(this).height(),
-                titleHeight = $('#title').height(),
-                timelineHeight = $('#timeline').height(),
-                theDonutMapHeight = windowHeight - (titleHeight + timelineHeight);
-            $('#informations, #map_container').css('height', theDonutMapHeight+'px');
-            map.invalidateSize();
-        }
+        // function setDonutMapHeight(){
+        //     var windowHeight = $(this).height(),
+        //         titleHeight = $('#title').height(),
+        //         timelineHeight = $('#timeline').height(),
+        //         theDonutMapHeight = windowHeight - (titleHeight + timelineHeight);
+        //     $('#informations, #map_container').css('height', theDonutMapHeight+'px');
+        //     map.invalidateSize();
+        // }
 
         // setDonutMapHeight();
 
