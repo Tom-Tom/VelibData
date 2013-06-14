@@ -1,34 +1,55 @@
 $(function() {
 
-    function beforeInit(){
-        //////////////////////////////////
-        /* AJAX */
-        //////////////////////////////////
+    // function beforeInit(){
+    //     //////////////////////////////////
+    //     /* AJAX */
+    //     //////////////////////////////////
 
-        /* TEST ZONE */
-        var now = moment();
-        var start = moment().subtract('hours', 38);
-        url = 'http://kevinlarosa.fr:4000/timeline?dateStart='+start+'&dateEnd='+now;
-        // console.log(url);
-        $.ajax({
-            url: url,
-            type: 'GET',
-            dataType: 'json',
-            success: function(data){
-                localStorage.data1 = JSON.stringify(data);
-                //console.log('API Datalib ok');
-                init();
-                $('#loader').remove();
-                setTimeout(function(){ $('#gate_top , #gate_bottom, #loading_header').addClass('open'); }, 500);
-            },
-            error: function() {
-                // beforeInit();
-            }
-        });
-        /* TEST ZONE FIN*/
-    }
+    //     var now = moment();
+    //     var start = moment().subtract('hours', 38);
+    //     url = 'http://kevinlarosa.fr:4000/timeline?dateStart='+start+'&dateEnd='+now;
+    //     // console.log(url);
+    //     $.ajax({
+    //         url: url,
+    //         type: 'GET',
+    //         dataType: 'json',
+    //         success: function(data){
+    //             localStorage.data1 = JSON.stringify(data);
+    //             console.log('API Datalib ok');
+    //             init();
+    //             $('#loader').remove();
+    //             setTimeout(function(){ $('#gate_top , #gate_bottom, #loading_header').addClass('open'); }, 500);
+    //         },
+    //         error: function(e) {
+    //             // beforeInit();
+    //             console.log('erreur : ' + e.statusText + ' ' + e.status);
+    //         }
+    //     });
+    // }
 
-    beforeInit();
+    //beforeInit();
+
+    var now = moment();
+    var start = moment().subtract('hours', 38);
+    url = 'http://kevinlarosa.fr:4000/timeline?dateStart='+start+'&dateEnd='+now;
+    // console.log(url);
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'json',
+        success: function(data){
+            localStorage.data1 = JSON.stringify(data);
+            //console.log('API Datalib ok');
+            //init();
+            // $('#loader').remove();
+            // setTimeout(function(){ $('#gate_top , #gate_bottom, #loading_header').addClass('open'); }, 500);
+        },
+        error: function(e) {
+            // beforeInit();
+            console.log('erreur : ' + e.statusText + ' ' + e.status);
+        }
+    });
+
     var now = moment();
     var start = moment().subtract('days', 7);
     url = 'http://kevinlarosa.fr:4000/timeline7?dateStart='+start+'&dateEnd='+now;
@@ -41,7 +62,7 @@ $(function() {
             localStorage.data7 = JSON.stringify(data);
         },
         error: function() {
-            beforeInit();
+            //beforeInit();
         }
     });
     var start = moment().subtract('days', 14);
@@ -55,9 +76,10 @@ $(function() {
             localStorage.data30 = JSON.stringify(data);
         },
         error: function() {
-            beforeInit();
+            //beforeInit();
         }
     });
+
     function init(){
         //////////////////////////////////
         /* MAP */
@@ -825,4 +847,9 @@ $(function() {
         //     setDonutMapHeight();
         // });
     }
+
+    init();
+    $('#loader').remove();
+    setTimeout(function(){ $('#gate_top , #gate_bottom, #loading_header').addClass('open'); }, 500);
+    
 });
