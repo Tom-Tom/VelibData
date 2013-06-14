@@ -7,9 +7,9 @@ $(function() {
 
         /* TEST ZONE */
         var now = moment();
-        var start = moment().subtract('days', 1);
+        var start = moment().subtract('hours', 25);
         url = 'http://kevinlarosa.fr:4000/timeline?dateStart='+start+'&dateEnd='+now;
-        console.log(url);
+        // console.log(url);
         $.ajax({
             url: url,
             type: 'GET',
@@ -22,14 +22,40 @@ $(function() {
                 $('#gate_top').addClass('open');
             },
             error: function() {
-                beforeInit();
+                // beforeInit();
             }
         });
         /* TEST ZONE FIN*/
     }
 
     beforeInit();
-
+    var now = moment();
+    var start = moment().subtract('days', 7);
+    url = 'http://kevinlarosa.fr:4000/timeline7?dateStart='+start+'&dateEnd='+now;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            localStorage.data7 = JSON.stringify(data);
+        },
+        error: function() {
+            beforeInit();
+        }
+    });
+    var start = moment().subtract('days', 30);
+    url = 'http://kevinlarosa.fr:4000/timeline30?dateStart='+start+'&dateEnd='+now;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            localStorage.data30 = JSON.stringify(data);
+        },
+        error: function() {
+            beforeInit();
+        }
+    });
     function init(){
         //////////////////////////////////
         /* MAP */
@@ -265,7 +291,7 @@ $(function() {
                         },
                         events:{
                             click: function(e){
-                                console.log(e.point.x);
+                                // console.log(e.point.x);
                                 url = 'http://kevinlarosa.fr:4000/?dateStart='+(e.point.x-1)+'&dateEnd='+(e.point.x+1);
                                 $.ajax({
                                     url: url,
@@ -312,11 +338,241 @@ $(function() {
             });
         });
 
-        /* LAST 48h */
+        /* LAST 7 jours */
         $('#timeline nav ul li:nth-child(3)').on('click',function(){
-            
+            $('#graph').highcharts({
+                chart: {
+                    type: 'spline',
+                    backgroundColor: 'transparent',
+                    height:'190',
+                    animation: Highcharts.svg
+                },
+                credits: {
+                    enabled: false
+                },
+                title: {
+                    text: ''
+                },
+                xAxis: {
+                    type: 'datetime',
+                    lineWidth:0,
+                    tickPixelInterval: 100,
+                    labels: {
+                        style: {
+                            fontFamily: 'DINPro'
+                        }
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: ''
+                    },
+                    gridLineWidth: 0,
+                    labels:{
+                        enabled: false
+                    }
+                },
+                tooltip: {
+                    formatter: function() {
+                            return '<b>'+ this.series.name +'</b><br/>'+
+                            Highcharts.numberFormat(this.y, 2)+'<br/>le '+
+                            Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x);
+                    },
+                    style: {
+                        padding: 10,
+                        fontFamily: 'DINPro'
+                    },
+                    crosshairs: [{
+                            width: 4,
+                            color: '#1b6d93'
+                        }]
+                },
+                plotOptions: {
+                    series: {
+                        allowPointSelect:true,
+                        color: '#64bee7',
+                        marker: {
+                            fillColor: '#edf5fb',
+                            lineColor: '#64bee7',
+                            lineWidth: 4,
+                            states:{
+                                hover:{
+                                    lineColor: '#1b6d93'
+                                },
+                                select:{
+                                    lineColor: '#1b6d93',
+                                    lineWidth: 4
+                                }
+                            }
+                        },
+                        events:{
+                            click: function(e){
+                                // console.log(e.point.x);
+                                url = 'http://kevinlarosa.fr:4000/?dateStart='+(e.point.x-1)+'&dateEnd='+(e.point.x+1);
+                                $.ajax({
+                                    url: url,
+                                    type: 'GET',
+                                    dataType: 'json',
+                                    success: function(data) {
+                                        $(".leaflet-marker-pane img").remove();
+                                        for (var i=0 ; i<data[0].stations.length ; i++) {
+                                            addMarkers(map,data[0].stations[i]);
+                                        }
+                                    },
+                                    error: function() {
+                                        console.log('ERROR');
+                                    }
+                                });
+                            }
+                        }
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Nombre de velib\':',
+                    lineWidth: 6,
+                    marker: {
+                        radius: 9
+                    },
+                    data: (function() {
+                        var data = [];
+                        var velib = JSON.parse(localStorage.data7);
+                        // console.log(velib);
+                        for ( var i = 0; i < 21; i++) {
+                            data.push({
+                                x: Date.parse(velib[i].timestamp),
+                                y: velib[i].velib
+                            });
+                        }
+                        return data;
+                    })()
+                }]
+            });
         });
 
+        /* LAST 30 jours */
+        /*
+        $('#timeline nav ul li:nth-child(4)').on('click',function(){
+            $('#graph').highcharts({
+                chart: {
+                    type: 'spline',
+                    backgroundColor: 'transparent',
+                    height:'190',
+                    animation: Highcharts.svg
+                },
+                credits: {
+                    enabled: false
+                },
+                title: {
+                    text: ''
+                },
+                xAxis: {
+                    type: 'datetime',
+                    lineWidth:0,
+                    tickPixelInterval: 100,
+                    labels: {
+                        style: {
+                            fontFamily: 'DINPro'
+                        }
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: ''
+                    },
+                    gridLineWidth: 0,
+                    labels:{
+                        enabled: false
+                    }
+                },
+                tooltip: {
+                    formatter: function() {
+                            return '<b>'+ this.series.name +'</b><br/>'+
+                            Highcharts.numberFormat(this.y, 2)+'<br/>le '+
+                            Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x);
+                    },
+                    style: {
+                        padding: 10,
+                        fontFamily: 'DINPro'
+                    },
+                    crosshairs: [{
+                            width: 4,
+                            color: '#1b6d93'
+                        }]
+                },
+                plotOptions: {
+                    series: {
+                        allowPointSelect:true,
+                        color: '#64bee7',
+                        marker: {
+                            fillColor: '#edf5fb',
+                            lineColor: '#64bee7',
+                            lineWidth: 4,
+                            states:{
+                                hover:{
+                                    lineColor: '#1b6d93'
+                                },
+                                select:{
+                                    lineColor: '#1b6d93',
+                                    lineWidth: 4
+                                }
+                            }
+                        },
+                        events:{
+                            click: function(e){
+                                //console.log(e.point.x);
+                                url = 'http://kevinlarosa.fr:4000/?dateStart='+(e.point.x-1)+'&dateEnd='+(e.point.x+1);
+                                $.ajax({
+                                    url: url,
+                                    type: 'GET',
+                                    dataType: 'json',
+                                    success: function(data) {
+                                        $(".leaflet-marker-pane img").remove();
+                                        for (var i=0 ; i<data[0].stations.length ; i++) {
+                                            addMarkers(map,data[0].stations[i]);
+                                        }
+                                    },
+                                    error: function() {
+                                        console.log('ERROR');
+                                    }
+                                });
+                            }
+                        }
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Nombre de velib\':',
+                    lineWidth: 6,
+                    marker: {
+                        radius: 9
+                    },
+                    data: (function() {
+                        var data = [];
+                        var velib = JSON.parse(localStorage.data30);
+                        //console.log(velib);
+                        for ( var i = 0; i < 30; i++) {
+                            data.push({
+                                x: Date.parse(velib[i].timestamp),
+                                y: velib[i].velib
+                            });
+                        }
+                        return data;
+                    })()
+                }]
+            });
+        });
+        */
         //////////////////////////////////
         /* Recherche Autocompletion */
         //////////////////////////////////
