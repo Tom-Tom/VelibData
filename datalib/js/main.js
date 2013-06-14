@@ -16,10 +16,10 @@ $(function() {
             dataType: 'json',
             success: function(data) {
                 localStorage.data1 = JSON.stringify(data);
+                console.log('API Datalib');
                 init();
-                $('#loading_page .content').addClass('stop');
-                $('#gate_bottom').addClass('open');
-                $('#gate_top').addClass('open');
+                $('#loader').remove();
+                setTimeout(function(){ $('#gate_top , #gate_bottom').addClass('open'); }, 500);
             },
             error: function() {
                 beforeInit();

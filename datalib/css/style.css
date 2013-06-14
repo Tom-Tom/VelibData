@@ -129,10 +129,10 @@ body {
   position: fixed;
   left: 0;
   right: 0;
-  -webkit-transition-duration: 0.5s;
-  -moz-transition-duration: 0.5s;
-  -o-transition-duration: 0.5s;
-  transition-duration: 0.5s; }
+  -webkit-transition-duration: 1s;
+  -moz-transition-duration: 1s;
+  -o-transition-duration: 1s;
+  transition-duration: 1s; }
 #loading_page #gate_top {
   top: 0;
   bottom: 50%; }
@@ -143,14 +143,14 @@ body {
   bottom: 0; }
   #loading_page #gate_bottom.open {
     top: 100%; }
-#loading_page .content {
+#loading_page #loader {
   position: fixed;
   z-index: 999999;
   height: 100%;
   width: 100%; }
-  #loading_page .content.stop {
+  #loading_page #loader.stop {
     display: none; }
-    #loading_page .content.stop .circle, #loading_page .content.stop .circle1 {
+    #loading_page #loader.stop .circle, #loading_page #loader.stop .circle1 {
       -webkit-animation-play-state: paused;
       -moz-animation-play-state: paused;
       -o-animation-play-state: paused;
