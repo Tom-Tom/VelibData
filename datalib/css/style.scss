@@ -127,6 +127,7 @@ body{
 			margin:0 auto;
 			color:#FFF;
 			font-size:1.2em;
+			line-height:1.4em;
 		}
 	}
 	#gate_top, #gate_bottom{
@@ -220,9 +221,6 @@ body{
 		animation:spinoffPulse 1s infinite linear;
 	}
 }
-#logo{
-
-}
 #title{
 	position:fixed;
 	top:0;
@@ -230,7 +228,18 @@ body{
 	height:100px;
 	width: 100%;
     box-shadow: 0px 10px 5px 0px $bg;
-	z-index: 25;
+	z-index:25;
+	#logo{
+		position:absolute;
+		top:6px;
+		left:26px;
+		width:50px;
+		height:50px;
+		background-image:url('../img/wheel.svg');
+		background-repeat:no-repeat;
+		background-position:center;
+		background-size:100%;
+	}
 	h1{
 		display:inline-block;
 		background-color:$blue1;
